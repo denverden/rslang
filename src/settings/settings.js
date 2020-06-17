@@ -1,4 +1,4 @@
-import settingsObj from './settingsObj';
+import settingsObj from './settingsData';
 import SettingsForm from './SettingsForm';
 
 import './settings.scss';
