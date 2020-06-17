@@ -1,4 +1,5 @@
 import settingsObj from './settingsObj';
+import SettingsForm from './SettingsForm';
 
 import './settings.scss';
 
@@ -7,37 +8,49 @@ const settingsState = {
   deleteWordBtn: false,
   indicateDifficultyBtn: false,
   moveDifficultBtn: false,
-  newRepeatedWords: 'both',
+  newOrRepetitionWords: 'newOnly',
   showAnswerBtn: false,
   showExample: false,
   showExampleTranslation: false,
   showImage: false,
   showMeaning: false,
   showTranscription: false,
-  showTranslation: false,
+  showTranslation: true,
 };
 
 function createMainWrapper() {
   const mainWrapper = document.createElement('main');
+
   mainWrapper.classList.add('main-wrapper');
   return mainWrapper;
 }
 
 function createSettingsContainer() {
   const container = document.createElement('div');
+
   container.classList.add('settings-container');
   return container;
 }
 
+function createSettingsTitle() {
+  const title = document.createElement('div');
+
+  title.className = 'settings-container__title';
+  title.innerHTML = '<h1>Settings</h1>';
+  return title;
+}
+
 function renderSettingsTemplate() {
   const { body } = document;
+  const sectionWrapper = createMainWrapper();
   const container = createSettingsContainer();
-  const wrapper = createMainWrapper();
+  const formElement = new SettingsForm(settingsObj, settingsState).generateForm();
+  const title = createSettingsTitle();
 
-  wrapper.appendChild(container);
-  body.appendChild(wrapper);
+  container.appendChild(title);
+  container.appendChild(formElement);
+  sectionWrapper.appendChild(container);
+  body.appendChild(sectionWrapper);
 }
 
 renderSettingsTemplate();
-// const settingGroups = Object.keys(settingsObj);
-// console.log(settingGroups);
