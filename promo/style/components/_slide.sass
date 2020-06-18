@@ -1,24 +1,34 @@
 .slider
   overflow: hidden
   box-sizing: border-box
-  width: 900px
-  height: 600px
-  margin: auto
+  width: 100%
+  height: 650px
   display: flex
+  margin: auto
+  position: relative
+  align-items: center
   flex-direction: row
   justify-content: center
-  border-bottom: 6px solid grey
+  background-color: #ffcc5e
 
-.slider__slide1
+
+.slide-container
+  overflow: hidden
+  position: relative
+  border-radius: 10px
+
+.slide-container__slide1
   height: 600px
   width: 900px
   overflow: hidden
+  position: relative
   display: none;
-  animation: .4s ease-in-out;
+  animation: .5s ease-in-out;
   background-image: url('../assets/images/Slide1.png')
 
 
-.slider__slide2
+.slide-container__slide2
+  position: relative
   height: 600px
   width: 900px
   overflow: hidden
@@ -26,22 +36,23 @@
   animation: .5s ease-in-out;
   background-image: url('../assets/images/Slide2.png')
 
-.slider__slide3
+.slide-container__slide3
+  position: relative
   height: 600px
   width: 900px
   overflow: hidden
   display: none;
-  animation: .4s ease-in-out;
+  animation: .5s ease-in-out;
   background-image: url('../assets/images/Slide3.png')
 
 slider__move-slide
-  position: absolute;
-  top: 0;
+  position: absolute
 
 .slider_next
-  display: block;
-  position: absolute;
-  top: 0;
+  display: block
+  position: absolute
+  top: 0
 
 .slider_show
   display: block
+  top: 0

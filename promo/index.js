@@ -2,7 +2,7 @@ import './style/style.sass';
 
 // change slide
 
-const slides = document.querySelectorAll('.slider__slide1, .slider__slide2, .slider__slide3');
+const slides = document.querySelectorAll('.slide-container__slide1, .slide-container__slide2, .slide-container__slide3');
 let currentSlide = 0;
 let isEnabled = true;
 
