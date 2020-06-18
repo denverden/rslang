@@ -1,4 +1,4 @@
-const settingsObj = {
+export const settingsObj = {
   'Main:': [
     {
       type: 'number',
@@ -81,4 +81,17 @@ const settingsObj = {
   ],
 };
 
-export default settingsObj;
+export const settingsState = {
+  cardAmount: '50',
+  deleteWordBtn: false,
+  indicateDifficultyBtn: false,
+  moveDifficultBtn: false,
+  newOrRepetitionWords: 'newOnly',
+  showAnswerBtn: false,
+  showExample: false,
+  showExampleTranslation: false,
+  showImage: false,
+  showMeaning: false,
+  showTranscription: false,
+  showTranslation: true,
+};

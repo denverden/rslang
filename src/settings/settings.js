@@ -1,22 +1,7 @@
-import settingsObj from './settingsData';
+import { settingsObj, settingsState } from './settingsData';
 import SettingsForm from './SettingsForm';
 
 import './settings.scss';
-
-const settingsState = {
-  cardAmount: '50',
-  deleteWordBtn: false,
-  indicateDifficultyBtn: false,
-  moveDifficultBtn: false,
-  newOrRepetitionWords: 'newOnly',
-  showAnswerBtn: false,
-  showExample: false,
-  showExampleTranslation: false,
-  showImage: false,
-  showMeaning: false,
-  showTranscription: false,
-  showTranslation: true,
-};
 
 function createMainWrapper() {
   const mainWrapper = document.createElement('main');
@@ -44,8 +29,8 @@ function renderSettingsTemplate() {
   const { body } = document;
   const sectionWrapper = createMainWrapper();
   const container = createSettingsContainer();
-  const formElement = new SettingsForm(settingsObj, settingsState).generateForm();
   const title = createSettingsTitle();
+  const formElement = new SettingsForm(settingsObj, settingsState).generateForm();
 
   container.appendChild(title);
   container.appendChild(formElement);
@@ -53,4 +38,8 @@ function renderSettingsTemplate() {
   body.appendChild(sectionWrapper);
 }
 
-renderSettingsTemplate();
+function pageInitialization() {
+  renderSettingsTemplate();
+}
+
+pageInitialization();
