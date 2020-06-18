@@ -9,11 +9,23 @@ class SettingsItem {
   }
 
   generateItem() {
-    let template = '';
+    const label = this.createInputLabel();
+
+    label.innerHTML += this.createInput();
+    return label;
+  }
+
+  createInputLabel() {
     const label = document.createElement('label');
 
     label.className = 'settings-item';
-    template += `<span class="settings-item__title">${this.text}</span>`;
+    label.innerHTML = `<span class="settings-item__title">${this.text}</span>`;
+    return label;
+  }
+
+  createInput() {
+    let template = '';
+
     template += `<input class="settings-item__input" type="${this.type}" name="${this.name}"`;
 
     if (this.type === 'radio') {
@@ -28,9 +40,7 @@ class SettingsItem {
       template += ` min="1" max="100" value="${this.value}">`;
     }
 
-    label.innerHTML = template;
-
-    return label;
+    return template;
   }
 }
 
