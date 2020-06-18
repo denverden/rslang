@@ -1,5 +1,13 @@
 import SettingsItem from './SettingsItem';
 
+function createFieldsetElement(section) {
+  const fieldsetElement = document.createElement('fieldset');
+
+  fieldsetElement.className = 'settings-group';
+  fieldsetElement.innerHTML = `<legend class="settings-group__title">${section}</legend>`;
+  return fieldsetElement;
+}
+
 class SettingsForm {
   constructor(dataObj, stateObj) {
     this.dataObj = dataObj;
@@ -7,7 +15,6 @@ class SettingsForm {
   }
 
   generateForm() {
-    const sections = Object.keys(this.dataObj);
     const formElement = document.createElement('form');
     const buttonContainer = document.createElement('div');
 
@@ -15,28 +22,29 @@ class SettingsForm {
     formElement.setAttribute('id', 'settingsForm');
     buttonContainer.className = 'button-container';
     buttonContainer.innerHTML = '<button id="saveBtn" class="btn btn--save">Save</button>';
-
-    sections.forEach((section) => {
-      let template = '';
-      const fieldsetElement = document.createElement('fieldset');
-
-      fieldsetElement.className = 'settings-group';
-      template += `<legend class="settings-group__title">${section}</legend>`;
-      fieldsetElement.innerHTML = template;
-
-      this.dataObj[section].forEach((inputObj) => {
-        const inputElement = new SettingsItem(inputObj, this.stateObj).generateItem();
-
-        fieldsetElement.appendChild(inputElement);
-      });
-
-      formElement.appendChild(fieldsetElement);
-    });
-
+    this.generateAddFieldsets(formElement);
     formElement.appendChild(buttonContainer);
     this.addSaveBtnClickHandler(formElement);
 
     return formElement;
+  }
+
+  generateAddFieldsets(formElement) {
+    const sections = Object.keys(this.dataObj);
+
+    sections.forEach((section) => {
+      const fieldsetElement = createFieldsetElement(section);
+      this.fillFieldsetWithInputs(section, fieldsetElement);
+      formElement.appendChild(fieldsetElement);
+    });
+  }
+
+  fillFieldsetWithInputs(section, fieldsetElement) {
+    this.dataObj[section].forEach((inputObj) => {
+      const inputElement = new SettingsItem(inputObj, this.stateObj).generateItem();
+
+      fieldsetElement.appendChild(inputElement);
+    });
   }
 
   addSaveBtnClickHandler(element) {
