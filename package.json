@@ -15,6 +15,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",
+    "@babel/plugin-transform-runtime": "^7.10.1",
     "@babel/preset-env": "^7.9.5",
     "autoprefixer": "^9.7.6",
     "babel-eslint": "^10.1.0",
@@ -23,6 +24,7 @@
     "copy-webpack-plugin": "^5.1.1",
     "cross-env": "^7.0.2",
     "css-loader": "^3.5.2",
+    "editorconfig": "^0.15.3",
     "eslint": "^6.8.0",
     "eslint-config-airbnb-base": "^14.1.0",
     "eslint-loader": "^4.0.0",
@@ -35,10 +37,10 @@
     "sass-loader": "^8.0.2",
     "webpack": "^4.42.1",
     "webpack-cli": "^3.3.11",
-    "webpack-dev-server": "^3.10.3",
-    "editorconfig": "^0.15.3"
+    "webpack-dev-server": "^3.10.3"
   },
   "dependencies": {
+    "@babel/runtime": "^7.10.2",
     "normalize.css": "^8.0.1"
   }
 }
