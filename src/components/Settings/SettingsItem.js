@@ -1,6 +1,11 @@
 class SettingsItem {
-  // eslint-disable-next-line object-curly-newline
-  constructor({ type, name, text, value }, status) {
+  constructor(data, status) {
+    const {
+      type,
+      name,
+      text,
+      value,
+    } = data;
     this.type = type;
     this.name = name;
     this.text = text;

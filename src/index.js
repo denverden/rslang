@@ -1,1 +1,1 @@
-import './settings/settings';
+import './components/Settings/settings';
