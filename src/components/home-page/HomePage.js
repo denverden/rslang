@@ -1,10 +1,10 @@
 import Component from '../Component';
 
-class Page extends Component {}
+class HomePage extends Component {}
 
-const page = new Page({
+const homePage = new HomePage({
   selector: 'main',
   template: '<h1>Home Page</h1><div>This is first page!</div>',
 });
 
-export default page;
+export default homePage;

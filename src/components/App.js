@@ -1,4 +1,4 @@
-import page from './page/Page';
+import homePage from './home-page/HomePage';
 
 class App {
   constructor(data) {
@@ -16,7 +16,7 @@ class App {
 
 const app = new App({
   components: [
-    page,
+    homePage,
   ],
 });
 
