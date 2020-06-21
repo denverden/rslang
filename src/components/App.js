@@ -1,4 +1,5 @@
-import homePage from './home-page/HomePage';
+import header from './header/Header';
+import footer from './footer/Footer';
 import Routing from './routing/Routing';
 import routes from './routing/routesData';
 
@@ -21,7 +22,8 @@ class App {
 
 const app = new App({
   components: [
-    homePage,
+    header,
+    footer,
   ],
   routes,
 });
