@@ -3,6 +3,8 @@ import footer from './footer/Footer';
 import Routing from './routing/Routing';
 import routes from './routing/routesData';
 
+import './app.scss';
+
 class App {
   constructor(data) {
     this.components = data.components;
