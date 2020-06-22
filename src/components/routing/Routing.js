@@ -1,3 +1,5 @@
+import renderComponent from '../renderComponent';
+
 class Routing {
   constructor(data) {
     this.routes = data;
@@ -14,12 +16,7 @@ class Routing {
       route = this.routes.find((el) => el.path === '***');
     }
     document.querySelector('main').innerHTML = `<${route.component.selector}></${route.component.selector}>`;
-    this.renderComponent(route.component);
-  }
-
-  // eslint-disable-next-line class-methods-use-this
-  renderComponent(component) {
-    component.render();
+    renderComponent(route.component);
   }
 }
 

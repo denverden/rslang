@@ -1,5 +1,6 @@
 import header from './header/Header';
 import footer from './footer/Footer';
+import renderComponent from './renderComponent';
 import Routing from './routing/Routing';
 import routes from './routing/routesData';
 
@@ -18,7 +19,7 @@ class App {
   }
 
   initComponents() {
-    this.components.forEach((component) => component.render());
+    this.components.forEach(renderComponent);
   }
 }
 
