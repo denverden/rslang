@@ -15,8 +15,10 @@ class Routing {
     if (typeof route === 'undefined') {
       route = this.routes.find((el) => el.path === '***');
     }
-    document.querySelector('main').innerHTML = `<${route.component.selector}></${route.component.selector}>`;
-    renderComponent(route.component);
+    route.components.forEach((component) => {
+      document.querySelector(component.selector).innerHTML = `<${component.selector}></${component.selector}>`;
+      renderComponent(component);
+    });
   }
 }
 
