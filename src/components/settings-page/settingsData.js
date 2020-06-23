@@ -7,6 +7,11 @@ export const settingsObj = {
       value: '50',
     },
     {
+      type: 'checkbox',
+      name: 'sound',
+      text: 'Is sound on:',
+    },
+    {
       type: 'radio',
       name: 'newOrRepetitionWords',
       text: 'Learn new words only',
@@ -82,6 +87,7 @@ export const settingsObj = {
 };
 
 export const settingsState = {
+  sound: true,
   cardAmount: '50',
   deleteWordBtn: false,
   indicateDifficultyBtn: false,

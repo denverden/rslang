@@ -23,7 +23,7 @@ class SettingsItem {
   createInputLabel() {
     const label = document.createElement('label');
 
-    label.className = 'settings-item';
+    label.className = 'settings-item d-flex align-items-center justify-content-between';
     label.innerHTML = `<span class="settings-item__title">${this.text}</span>`;
     return label;
   }

@@ -3,7 +3,7 @@ import SettingsItem from './SettingsItem';
 function createFieldsetElement(section) {
   const fieldsetElement = document.createElement('fieldset');
 
-  fieldsetElement.className = 'settings-group';
+  fieldsetElement.className = 'settings-group d-flex flex-column';
   fieldsetElement.innerHTML = `<legend class="settings-group__title">${section}</legend>`;
   return fieldsetElement;
 }
@@ -61,7 +61,7 @@ class SettingsForm {
           this.stateObj[value] = !!formData.get(value);
         }
       });
-      console.log(this.stateObj);
+      // console.log(this.stateObj);
     });
   }
 }
