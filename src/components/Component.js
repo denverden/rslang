@@ -5,7 +5,13 @@ class Component {
   }
 
   render() {
-    document.querySelector(this.selector).innerHTML = this.template;
+    const SELECTOR = document.querySelector(this.selector);
+    if (typeof this.template === 'string') {
+      SELECTOR.innerHTML = this.template;
+    } else {
+      SELECTOR.innerHTML = '';
+      SELECTOR.appendChild(this.template);
+    }
   }
 }
 
