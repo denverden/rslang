@@ -4,13 +4,13 @@ class Error404 extends Component {
   // eslint-disable-next-line class-methods-use-this
   beforeRender() {
     // тут можно делать что-то до отрисовки компонента
-    console.log('before render');
+    // console.log('before render');
   }
 
   // eslint-disable-next-line class-methods-use-this
   afterRender() {
     // тут можно делать что-то после отрисовки компонента
-    console.log('after render');
+    // console.log('after render');
     document.querySelector('.js-click').addEventListener('click', (event) => {
       event.preventDefault();
       window.location.hash = '#';

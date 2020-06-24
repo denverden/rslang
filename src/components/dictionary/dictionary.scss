@@ -1,3 +1,69 @@
-main {
-  background-color: aliceblue;
+$font-main: Arial, Helvetica, sans-serif;
+$font-size-title: 1.5rem;
+$font-size-medium: 1.3rem;
+$font-size-regular: 1rem;
+$font-size-small: 0.9rem;
+$bg-color: #e9ecef;
+$bg-dark-color: #9fa8b2;
+$highlight-blue-color: #4582EC;
+$highlight-green-color: #02B875;
+
+.dictionary-container {
+  max-width: 1350px;
+  margin: 0 auto;
+  padding: 40px;
+  font-family: $font-main;
+  font-size: $font-size-medium;
+
+  .dictionary-header {
+    display: flex;
+    font-size: $font-size-title;
+
+    &__title {
+      flex-grow: 1;
+      padding: 10px;
+      border-bottom: 1px solid $bg-dark-color;
+
+      @media (max-width: 767px) {
+        border-bottom: none;
+      }
+    }
+
+    &__tab-item {
+      width: 150px;
+      padding: 10px 10px 10px 25px;
+      border: 1px solid $bg-dark-color;
+      border-top-left-radius: 8px;
+      border-top-right-radius: 8px;
+      background-color: $bg-color;
+
+      &.active {
+        border-bottom: none;
+        background-color: rgba(0, 0 ,0 ,0);
+      }
+
+      @media (max-width: 767px) {
+        flex-grow: 1;
+        width: 100px;
+        padding: 10px 10px 10px 15px;
+      }
+
+      @media (max-width: 576px) {
+        width: 80px;
+        padding: 5px 5px 5px 10px;
+      }
+    }
+
+    @media (max-width: 767px) { font-size: $font-size-regular;}
+  }
+
+  // .wordlist { }
+
+  @media (max-width: 767px) {
+    padding: 20px;
+  }
+
+  @media (max-width: 576px) {
+    padding: 10px;
+  }
 }

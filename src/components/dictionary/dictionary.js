@@ -1,6 +1,7 @@
 import './dictionary.scss';
 
 import Component from '../Component';
+import renderPageTemplate from './DictionaryPageTemplate';
 
 class Dictionary extends Component {
   // beforeRender() {
@@ -18,7 +19,7 @@ class Dictionary extends Component {
 
 const dictionary = new Dictionary({
   selector: 'main',
-  template: '<h1>dictionary</h1>',
+  template: renderPageTemplate(),
 });
 
 export default dictionary;
