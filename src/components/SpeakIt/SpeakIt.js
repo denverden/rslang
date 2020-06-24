@@ -1,15 +1,28 @@
 import './speakit.scss';
 import templatesURL from './templatesURL';
 import templatesHTML from './templatesHTML';
-import GameWords from './GameWords';
+import Game from './Game';
 
 class Speakit {
   constructor() {
+    this.currentGameObj = '';
+
     this.group = 0;
     this.startpage = 0;
     this.container = '';
     this.microphoneOn = false;
     this.recognition = '';
+  }
+
+  createNewGame(group) {
+    if (this.currentGameObj instanceof Game) {
+      this.currentGameObj = new Game(group);
+      this.currentGameObj.renderCardBlock();
+
+    } else {
+      this.currentGameObj = new Game(group);
+      this.currentGameObj.renderCardBlock();
+    }
   }
 
   removeActiveCSSClass(elementClass, removeClass) {
@@ -24,12 +37,17 @@ class Speakit {
     this.recognition = new SpeechRecognition();
     this.recognition.lang = 'en-US';
 
-    this.recognition.addEventListener('result', this.registerRecognitionEvent.bind(this));
+    this.recognition.addEventListener('result', this.registerSpeechRecognitionEvent.bind(this));
     this.recognition.addEventListener('end', this.recognition.start);
     this.recognition.start();
   }
 
-  registerRecognitionEvent(event) {
+  addStar() {
+    const score = document.querySelector('.info__score ');
+    score.insertAdjacentHTML('beforeend', templatesHTML.getStarHTML())
+  }
+
+  registerSpeechRecognitionEvent(event) {
     let wordObj = {};
 
     if (this.microphoneOn) {
@@ -42,13 +60,13 @@ class Speakit {
         const input = document.querySelector('.current__input');
         input.value = transcript;
 
-        wordObj = this.getWordByWord(input.value);
+        wordObj = this.currentGameObj.getWordByWord(input.value);
 
         if (Object.keys(wordObj).length > 0) {
-          this.setActiveCard(wordObj.id);
-          this.setWordSuccessById(wordObj.id);
-          this.setImageAndTranslate(wordObj);
-          this.setStar();
+          this.currentGameObj.setActiveCard(wordObj.id);
+          this.currentGameObj.setWordSuccessById(wordObj.id);
+          this.currentGameObj.setImageAndTranslate(wordObj);
+          this.addStar();
         }
       }
     }
@@ -58,8 +76,7 @@ class Speakit {
     const startpage = document.querySelector('.startpage');
     startpage.classList.add('hidden');
 
-    const newGame = new GameWords(0);
-    newGame.renderCardBlock();
+    this.createNewGame(0);
 
     this.container.classList.remove('hidden');
   }
@@ -69,18 +86,14 @@ class Speakit {
       this.removeActiveCSSClass('.info__pages--page', 'activePage');
 
       event.target.classList.add('activePage');
-      const newGame = new GameWords(event.target.dataset.groupno);
-      newGame.renderCardBlock();
-
-      //      this.renderPageCard(this.startpage, event.target.dataset.groupno);
-//      this.restart();
+      this.createNewGame(event.target.dataset.groupno);
     }
   }
 
   registerDownButtonEvent(event) {
     event.preventDefault();
     if (event.target.classList.contains('btns__restart')) {
-      this.restart();
+      this.currentGameObj.restartGame();
 
     } else if (event.target.classList.contains('btns__speak')) {
       const input = document.querySelector('.current__input');

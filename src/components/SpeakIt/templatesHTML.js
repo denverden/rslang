@@ -19,9 +19,10 @@ const templatesHTML = {
                     <li class="info__pages--page" data-groupno="4"></li>
                     <li class="info__pages--page" data-groupno="5"></li>
                   </ul> 
+
+                  <div class="info__score"></div>
                 </div>
 
-                <div class="info__score"></div>
                 
                 <div class="current">
                   <img class="current__image" src="./components/SpeakIt/blank.jpg" alt="">

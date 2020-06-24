@@ -1,14 +1,13 @@
 import Speakit from './SpeakIt';
 import templatesURL from './templatesURL';
 import templatesHTML from './templatesHTML';
+import Words from './Words';
 
-class GameWords {
+class Game extends Words {
   constructor(group) {
-    this.isGame = false;
-    this.group = group;
+    super(group);
 
     this.startpage = 0;
-    this.currentWordArray = [];
     this.container = '';
     this.resultPage = '';
     this.microphoneOn = false;
@@ -16,8 +15,8 @@ class GameWords {
 
   }
 
-  getRandomInt(max) {
-    return Math.floor(Math.random() * Math.floor(max));
+  saveGame() {
+
   }
 
   removeActiveCSSClass(elementClass, removeClass) {
@@ -26,23 +25,19 @@ class GameWords {
     });
   }
 
-
-  async getWordList() {
-    try {
-      const page = this.getRandomInt(20);
-
-      const res = await fetch(templatesURL.getWordListURL(page, this.group));
-      const data = await res.json();
-
-      return data;
-    } catch (err) {
-      console.log('Error getWordList', err);
-    }
+  playAudio(query) {
+    const audio = document.querySelector('.audio');
+    audio.autoplay = true;
+    audio.setAttribute('src', templatesURL.getAudioURL(query));
   }
 
-  async createWordArray() {
-    // todo: add random set word
-    this.currentWordArray = await this.getWordList();
+  restartGame() {
+    const input = document.querySelector('.current__input');
+    const score = document.querySelector('.info__score');
+
+    score.innerText = '';
+    input.value = '';
+    this.removeActiveCSSClass('.cards__item', 'activeCard');
 
     this.currentWordArray.forEach((item) => {
       item.success = false;
@@ -59,10 +54,10 @@ class GameWords {
         event.target.closest('.cards__item').classList.add('activeCard');
       }
 
-      // const obj = this.getWordById(event.target.dataset.wordid);
-      //
-      // this.setImageAndTranslate(obj);
-      // this.playAudio(obj.audio);
+      const wordObj = this.getWordById(event.target.dataset.wordid);
+
+      this.setImageAndTranslate(wordObj);
+      this.playAudio(wordObj.audio);
     }
   }
 
@@ -79,7 +74,22 @@ class GameWords {
     cards.addEventListener('click', this.registerCardsEvent.bind(this));
   }
 
+  setImageAndTranslate(wordObj) {
+    const currentImage = document.querySelector('.current__image');
+    const currentTranslate = document.querySelector('.current__translation');
+
+    currentImage.src = templatesURL.getImageURL(wordObj.image);
+    currentTranslate.innerText = wordObj.wordTranslate;
+  }
+
+  setActiveCard(id) {
+    const cards = document.querySelectorAll('.cards__item');
+    cards.forEach((item) => {
+      if (item.dataset.wordid === id) {
+        item.classList.add('activeCard');
+      }
+    });
+  }
 }
 
-
-export default GameWords;
+export default Game;
