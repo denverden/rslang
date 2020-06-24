@@ -1,7 +1,24 @@
 import './dictionary.scss';
 
-const { body } = document;
-const text = document.createElement('p');
+import Component from '../Component';
 
-text.innerHTML = '<p class="wordlist__word">dictionary</p>';
-body.appendChild(text);
+class Dictionary extends Component {
+  // beforeRender() {
+  //   console.log('before render');
+  // }
+
+  // afterRender() {
+  //   console.log('after render');
+  //   document.querySelector('.js-click').addEventListener('click', (event) => {
+  //     event.preventDefault();
+  //     window.location.hash = '#';
+  //   });
+  // }
+}
+
+const dictionary = new Dictionary({
+  selector: 'main',
+  template: '<h1>dictionary</h1>',
+});
+
+export default dictionary;
