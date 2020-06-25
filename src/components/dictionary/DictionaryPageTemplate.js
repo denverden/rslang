@@ -1,13 +1,10 @@
+import { createContainer, DictionaryItem } from './DictionaryItem';
+
 const tabName = ['All', 'Difficult', 'Deleted'];
 
-function createContainer(element, ...classes) {
-  const container = document.createElement(element);
 
-  container.classList.add(...classes);
-  return container;
-}
 
-function renderPageTemplate() {
+function renderPageTemplate(words, state) {
   const template = createContainer('div', 'dictionary-container');
   const header = createContainer('div', 'dictionary-header', 'd-flex', 'flex-column', 'flex-md-row');
   const headerTitle = createContainer('div', 'dictionary-header__title');
@@ -20,6 +17,13 @@ function renderPageTemplate() {
 
     tab.innerText = tabName[idx];
     tabsContainer.appendChild(tab);
+  });
+
+  // TODO: implement algorithm of getting user words from server or app state
+  words.forEach((word) => {
+    const wordItem = new DictionaryItem(word, state).generateItem();
+
+    wordlist.appendChild(wordItem);
   });
 
   header.appendChild(headerTitle);
