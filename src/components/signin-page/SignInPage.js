@@ -47,9 +47,11 @@ class SignInPage extends Component {
         AppStore.userToken = result.token;
         localStorage.setItem('userId', result.userId);
         localStorage.setItem('userToken', result.token);
+        AppStore.viewMessage();
         window.location.hash = '#dashboard';
       }
     } catch (err) {
+      AppStore.viewMessage('alert-danger', 'Wrong login or password.');
       BTN.innerHTML = 'Sing in';
       BTN.disabled = false;
     }

@@ -1,4 +1,5 @@
 import header from './header/Header';
+import message from './message/Message';
 import footer from './footer/Footer';
 import renderComponent from './renderComponent';
 import Routing from './routing/Routing';
@@ -26,6 +27,7 @@ class App {
 const app = new App({
   components: [
     header,
+    message,
     footer,
   ],
   routes,
