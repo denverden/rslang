@@ -64,6 +64,12 @@
   color: #777;
 }
 
+.sing-in {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+}
+
 @supports (-ms-ime-align: auto) {
   .form-label-group > label {
     display: none;
