@@ -2,6 +2,7 @@ import Speakit from './SpeakIt';
 import templatesURL from './templatesURL';
 import templatesHTML from './templatesHTML';
 import Words from './Words';
+import Statistics from './Statistics';
 
 class Game extends Words {
   constructor(group) {
@@ -17,6 +18,11 @@ class Game extends Words {
 
   saveGame() {
 
+  }
+
+  renderStatisticsGame() {
+    const currentStatistics = new Statistics(this.currentWordArray);
+    currentStatistics.init();
   }
 
   removeActiveCSSClass(elementClass, removeClass) {

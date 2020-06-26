@@ -112,7 +112,7 @@ class Speakit {
       }
 
     } else if (event.target.classList.contains('btns__result')) {
-      this.openResult();
+      this.currentGameObj.renderStatisticsGame();
     }
   }
 
