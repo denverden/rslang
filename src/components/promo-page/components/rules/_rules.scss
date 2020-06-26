@@ -1,0 +1,24 @@
+.rules{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  padding: 50px 200px 50px;
+  text-align: center;
+  background-color: #fff8e3;
+}
+
+.rules img{
+  display: block;
+  width: 100%;
+  align-self: center;
+}
+
+@media screen and (max-width:  650px){
+  .rules{
+    padding: 10px 20px;
+  }
+  .rules__rule{
+    width: 100px;
+    justify-content: start;
+  }
+}

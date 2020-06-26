@@ -1,0 +1,46 @@
+.info{
+  padding: 50px 200px 50px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  background-color: #ffe494;
+}
+
+.info h2{
+  text-align: center;
+}
+
+.info p{
+  text-align: center;
+  width: 256px;
+}
+
+.info img{
+  display: block;
+  width: 100%;
+  align-self: center;
+}
+
+@media screen and (max-width: 1200px){
+  .info{
+    padding: 25px 100px;
+  }
+}
+
+@media screen and (max-width:  650px){
+  .info{
+    padding: 10px 20px;
+  }
+  .info__item{
+    width: 100px;
+    justify-content: start;
+  }
+  .info h2{
+    font-size: 20px;
+  }
+  .info p{
+    width: 100px;
+    font-size: 15px;
+  }
+}
