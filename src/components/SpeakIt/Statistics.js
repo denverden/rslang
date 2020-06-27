@@ -1,5 +1,5 @@
 import templatesHTML from './templatesHTML';
-import Words from './Words';
+import templatesURL from './templatesURL';
 
 class Statistics {
   constructor(currentGameObject) {
@@ -8,6 +8,18 @@ class Statistics {
     this.resultPage = document.querySelector('.resultpage');
   }
 
+  playAudio(query) {
+    const audio = document.querySelector('.audio');
+    audio.autoplay = true;
+    audio.setAttribute('src', templatesURL.getAudioURL(query));
+  }
+
+  registerResultClickEvent(event) {
+    if (event.target.dataset.wordid) {
+      const obj = this.currentGameObject.getWordById(event.target.dataset.wordid);
+      this.playAudio(obj.audio);
+    }
+  }
 
   init() {
     const successDiv = document.querySelector('.resultpage__succes-num');
@@ -33,9 +45,8 @@ class Statistics {
     this.container.classList.add('hidden');
     this.resultPage.classList.remove('hidden');
 
-    // successItemDiv.addEventListener('click', this.registerResultItemEvent.bind(this));
-    // errorItemDiv.addEventListener('click', this.registerResultItemEvent.bind(this));
-    // newGameBtn.addEventListener('click', this.restart.bind(this));
+    successItemDiv.addEventListener('click', this.registerResultClickEvent.bind(this));
+    errorItemDiv.addEventListener('click', this.registerResultClickEvent.bind(this));
   }
 
 }

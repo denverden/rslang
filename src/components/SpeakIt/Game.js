@@ -10,12 +10,33 @@ class Game extends Words {
   }
 
   saveGame() {
+    let statListArray = localStorage.getItem('statListArray') || [];
+
+    if (statListArray.length > 0) {
+      statListArray = JSON.parse(statListArray);
+      console.log(statListArray);
+    }
+
+    const statObj = {};
+    statObj.date = new Date();
+    statObj.statistics = this.currentWordArray;
+
+    if (statListArray.length === 10) {
+      statListArray.shift();
+      statListArray.push(statObj);
+    } else {
+      statListArray.push(statObj);
+    }
+
+    localStorage.setItem('statListArray', JSON.stringify(statListArray));
 
   }
 
   renderStatisticsGame() {
     const currentStatistics = new Statistics(this);
     currentStatistics.init();
+
+    this.saveGame();
   }
 
   removeActiveCSSClass(elementClass, removeClass) {

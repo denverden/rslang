@@ -4,7 +4,7 @@ import Game from './Game';
 
 class Speakit {
   constructor() {
-    this.currentGameObj = '';
+    this.currentGameObject = '';
     this.container = '';
     this.resultPage = '';
     this.currentGroup = 0;
@@ -14,13 +14,13 @@ class Speakit {
   }
 
   createNewGame(group) {
-    if (this.currentGameObj instanceof Game) {
-      this.currentGameObj = new Game(group);
-      this.currentGameObj.renderCardBlock();
+    if (this.currentGameObject instanceof Game) {
+      this.currentGameObject = new Game(group);
+      this.currentGameObject.renderCardBlock();
 
     } else {
-      this.currentGameObj = new Game(group);
-      this.currentGameObj.renderCardBlock();
+      this.currentGameObject = new Game(group);
+      this.currentGameObject.renderCardBlock();
     }
   }
 
@@ -59,12 +59,12 @@ class Speakit {
         const input = document.querySelector('.current__input');
         input.value = transcript;
 
-        wordObj = this.currentGameObj.getWordByWord(input.value);
+        wordObj = this.currentGameObject.getWordByWord(input.value);
 
         if (Object.keys(wordObj).length > 0) {
-          this.currentGameObj.setActiveCard(wordObj.id);
-          this.currentGameObj.setWordSuccessById(wordObj.id);
-          this.currentGameObj.setImageAndTranslate(wordObj);
+          this.currentGameObject.setActiveCard(wordObj.id);
+          this.currentGameObject.setWordSuccessById(wordObj.id);
+          this.currentGameObject.setImageAndTranslate(wordObj);
           this.addStar();
         }
       }
@@ -93,26 +93,28 @@ class Speakit {
   registerDownButtonEvent(event) {
     event.preventDefault();
     if (event.target.classList.contains('btns__restart')) {
-      this.currentGameObj.restartGame();
+      this.currentGameObject.restartGame();
 
     } else if (event.target.classList.contains('btns__speak')) {
       const input = document.querySelector('.current__input');
 
       if (this.microphoneOn) {
         this.microphoneOn = false;
+        this.currentGameObject.microphoneOn = false;
         input.classList.add('none');
 
         this.removeActiveCSSClass('.cards__item', 'activeCard');
 
       } else {
         this.microphoneOn = true;
+        this.currentGameObject.microphoneOn = true;
         input.classList.remove('none');
 
         this.removeActiveCSSClass('.cards__item', 'activeCard');
       }
 
     } else if (event.target.classList.contains('btns__result')) {
-      this.currentGameObj.renderStatisticsGame();
+      this.currentGameObject.renderStatisticsGame();
     }
   }
 

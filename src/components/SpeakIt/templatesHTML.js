@@ -57,6 +57,7 @@ const templatesHTML = {
                   <div class="resultpage__btns-res">
                       <a href="#" class="resultpage__return">Return</a>
                       <a href="#" class="resultpage__new-game">New game</a>
+                      <a href="#" class="resultpage__statistics">Statistics</a>
                   </div>
               </div>
             </div>
