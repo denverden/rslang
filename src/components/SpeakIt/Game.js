@@ -9,6 +9,17 @@ class Game extends Words {
     this.microphoneOn = false;
   }
 
+  clock(date){
+    const year = date.getFullYear();
+    const monthNum = (date.getMonth() < 10) ? '0' + (date.getMonth() + 1) : (date.getMonth() + 1);
+    const day = date.getDate();
+    const hours = (date.getHours() < 10) ? '0' + date.getHours() : date.getHours();
+    const minutes = (date.getMinutes() < 10) ? '0' + date.getMinutes() : date.getMinutes();
+    const seconds = (date.getSeconds() < 10) ? '0' + date.getSeconds() : date.getSeconds();
+
+    return year + '-' + monthNum + '-' + day + ' ' + hours + ':' + minutes + ':' + seconds;
+  }
+
   saveGame() {
     let statListArray = localStorage.getItem('statListArray') || [];
 
@@ -18,7 +29,7 @@ class Game extends Words {
     }
 
     const statObj = {};
-    statObj.date = new Date();
+    statObj.date = this.clock(new Date());
     statObj.statistics = this.currentWordArray;
 
     if (statListArray.length === 10) {
@@ -32,7 +43,7 @@ class Game extends Words {
 
   }
 
-  renderStatisticsGame() {
+  renderResultGame() {
     const currentStatistics = new Result(this);
     currentStatistics.init();
 

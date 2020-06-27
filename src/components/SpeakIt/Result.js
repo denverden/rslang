@@ -14,7 +14,7 @@ class Result {
     audio.setAttribute('src', templatesURL.getAudioURL(query));
   }
 
-  registerResultClickEvent(event) {
+  registerWordClickEvent(event) {
     if (event.target.dataset.wordid) {
       const obj = this.currentGameObject.getWordById(event.target.dataset.wordid);
       this.playAudio(obj.audio);
@@ -22,8 +22,8 @@ class Result {
   }
 
   init() {
-    const successDiv = document.querySelector('.resultpage__succes-num');
-    const successItemDiv = document.querySelector('.resultpage__succes-item');
+    const successDiv = document.querySelector('.resultpage__success-num');
+    const successItemDiv = document.querySelector('.resultpage__success-item');
 
     const errorDiv = document.querySelector('.resultpage__errors-num');
     const errorItemDiv = document.querySelector('.resultpage__errors-item');
@@ -45,8 +45,8 @@ class Result {
     this.container.classList.add('hidden');
     this.resultPage.classList.remove('hidden');
 
-    successItemDiv.addEventListener('click', this.registerResultClickEvent.bind(this));
-    errorItemDiv.addEventListener('click', this.registerResultClickEvent.bind(this));
+    successItemDiv.addEventListener('click', this.registerWordClickEvent.bind(this));
+    errorItemDiv.addEventListener('click', this.registerWordClickEvent.bind(this));
   }
 
 }

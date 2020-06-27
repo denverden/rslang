@@ -45,14 +45,14 @@ const templatesHTML = {
             
             <div class="resultpage hidden">
               <div class="resultpage__container">
-                  <p class="results__container--errors">Ошибок
+                  <p class="results__container--errors">Errors
                       <span class="resultpage__errors-num">10</span>
                   </p>
                   <div class="resultpage__errors-item"></div>
-                  <p class="results__container--succes">Знаю
-                      <span class="resultpage__succes-num">0</span>
+                  <p class="results__container--success">Success
+                      <span class="resultpage__success-num">0</span>
                   </p>
-                  <div class="resultpage__succes-item"></div>
+                  <div class="resultpage__success-item"></div>
                   
                   <div class="resultpage__btns-res">
                       <a href="#" class="resultpage__return">Return</a>
@@ -64,30 +64,14 @@ const templatesHTML = {
 
             <div class="statistics hidden">
               <div class="statistics__container">
-                <table class="table-statistics">
-                  <tr class="table-title">
-                      <th colspan="5">Statistics - SpeakIt</th>
-                  </tr>
-                  <tr class="table-header">
-                      <td data-title=0 data-table-sort="none"><span data-title=0>+</span></td>
-                      <td data-title=1 data-table-sort="none"><span data-title=1>Date</span></td>
-                      <td data-title=2 data-table-sort="none"><span data-title=2>Group</span></td>
-                      <td data-title=3 data-table-sort="none"><span data-title=3>Success</span></td>
-                      <td data-title=4 data-table-sort="none"><span data-title=4>Errors</span></td>
-                  </tr>
-                 </table>              
+              </div>
+
+              <div class="statistics__btns">
+                  <a href="#" class="statistics__return">Close</a>
               </div>
             </div>
 
             <audio class="audio"></audio>`;
-  },
-
-  getImageCenterHTML() {
-    return `<div class="current">
-                <img class="current__image" src="${blank}" alt="">
-                <p class="current__translation"></p>
-                <input type="text" class="current__input none" readonly="">
-            </div>`;
   },
 
   getCardItemHTML(wordObj) {
@@ -105,6 +89,28 @@ const templatesHTML = {
               <p class="resultpage__item--transcription" data-wordid="${wordObj.id}">${wordObj.wordTranslate}</p>
               <p class="resultpage__item--translation" data-wordid="${wordObj.id}">${wordObj.transcription}</p>
             </div>`;
+  },
+
+  getStatisticsHeaderHTML(id, date, group, errors, success) {
+    return `<div class="statistics__header" data-id="${id}">
+              <p class="statistics__header--date"  data-id="${id}">Date: ${date}</p>
+              <p class="statistics__header--group"  data-id="${id}">Group: ${group}</p>
+              <p class="statistics__header--errors" data-id="${id}">Errors: <span class="statistics__errors-num">${errors}</span></p>
+              <p class="statistics__header--success" data-id="${id}">Success: <span class="statistics__success-num">${success}</span></p>
+            </div>
+    `;
+  },
+
+  getStatisticsContainerHTML(id) {
+    return `
+              <div class="statistics-items headerid-${id} none">
+                <p class="statistics__container--errors">Errors</p>
+                <dic class="statistics__errors-item"></dic>
+
+                <p class="statistics__container--success">Success</p>
+                <dic class="statistics__success-item"></dic>
+              </div>
+            `;
   },
 
   getStarHTML() {

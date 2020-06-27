@@ -15,7 +15,9 @@ class Words {
       const page = this.getRandomInt(20);
 
       const res = await fetch(templatesURL.getWordListURL(page, this.group));
-      const data = await res.json();
+      let data = await res.json();
+
+      data = data.slice(0,10);
 
       return data;
     } catch (err) {

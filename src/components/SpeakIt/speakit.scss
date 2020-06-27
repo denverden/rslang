@@ -4,7 +4,7 @@
     pointer-events: none;
 }
 
-.startpage, .resultpage {
+.startpage, .resultpage, .statistics {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -174,7 +174,7 @@
         margin-left: 5px;
     }
 
-    .resultpage__succes-num {
+    .resultpage__success-num {
         background-color: #01AF61;
         color: #fff;
         padding: 0 14px;
@@ -230,6 +230,79 @@
         font-size: 22px;
         padding: 0 5px;
         margin: 0;
+    }
+
+.statistics__container {
+  width: 100%;
+  max-width: 780px;
+  min-height: 600px;
+  padding: 40px 100px;
+  text-align: left;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 0 1px rgba(255,255,255,.1), 0 2px 4px 0 rgba(14,30,37,.12);
+}
+
+    .statistics__header {
+      flex-direction: row;
+      min-height: 50px;
+      border: 0;
+      margin: 0;
+      padding: 0 0 0 50px;
+      box-shadow: none;
+      position: relative;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      padding-left: 40px;
+      font-size: 24px;
+      line-height: 1.4;
+      min-width: 200px;
+      border-radius: 5px;
+      background-color: #fff;
+      transition: .3s;
+    }
+
+    .statistics__header--date, .statistics__header--group {
+      color: #0e1e25;
+      font-size: 22px;
+      padding: 0px 5px;
+      margin: 0;
+    }
+
+    .statistics__header--errors {
+      color: rgba(14, 30, 37, .7);
+      font-size: 22px;
+      padding: 0 5px;
+      margin: 0;
+    }
+
+    .statistics__header--success {
+      color: rgba(14, 30, 37, .7);
+      text-align: center;
+      font-size: 22px;
+      padding: 0 5px;
+      margin: 0;
+    }
+
+    .statistics__errors-num {
+      background-color: #da5b4c;
+      color: #fff;
+      padding: 0 14px;
+      border-radius: 21px;
+      margin-left: 5px;
+    }
+
+    .statistics__success-num {
+      background-color: #01AF61;
+      color: #fff;
+      padding: 0 14px;
+      border-radius: 21px;
+      margin-left: 5px;
+    }
+
+    .statistics-items {
+      margin-left: 100px;
     }
 
 .none {

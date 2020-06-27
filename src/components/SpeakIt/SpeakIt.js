@@ -1,6 +1,7 @@
 import './speakit.scss';
 import templatesHTML from './templatesHTML';
 import Game from './Game';
+import Statistics from './Statistics';
 
 class Speakit {
   constructor() {
@@ -112,11 +113,11 @@ class Speakit {
       }
 
     } else if (event.target.classList.contains('btns__result')) {
-      this.currentGameObject.renderStatisticsGame();
+      this.currentGameObject.renderResultGame();
     }
   }
 
-  registerCloseStatisticsEvent() {
+  registerCloseResultEvent() {
     this.container.classList.remove('hidden');
     this.resultPage.classList.add('hidden');
   }
@@ -124,6 +125,11 @@ class Speakit {
   registerNewGameEvent() {
     this.registerCloseStatisticsEvent();
     this.createNewGame(this.currentGameObject.group);
+  }
+
+  registerStatisticsEvent() {
+    const statistics = new Statistics();
+    statistics.init();
   }
 
   init(elementId) {
@@ -142,10 +148,13 @@ class Speakit {
     headerControl.addEventListener('click', this.registerHeaderControlEvent.bind(this));
 
     const returnBtn = document.querySelector('.resultpage__return');
-    returnBtn.addEventListener('click', this.registerCloseStatisticsEvent.bind(this));
+    returnBtn.addEventListener('click', this.registerCloseResultEvent.bind(this));
 
     const newGameBtn = document.querySelector('.resultpage__new-game');
     newGameBtn.addEventListener('click', this.registerNewGameEvent.bind(this));
+
+    const statisticsBtn = document.querySelector('.resultpage__statistics');
+    statisticsBtn.addEventListener('click', this.registerStatisticsEvent.bind(this));
 
     this.container = document.querySelector('.container');
     this.resultPage = document.querySelector('.resultpage');
