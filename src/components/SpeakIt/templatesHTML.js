@@ -1,3 +1,6 @@
+import blank from './blank.jpg';
+import audio from './audio.svg';
+
 const templatesHTML = {
   getStartPageHTML() {
     return `<div class="startpage">
@@ -25,7 +28,7 @@ const templatesHTML = {
 
                 
                 <div class="current">
-                  <img class="current__image" src="./components/SpeakIt/blank.jpg" alt="">
+                  <img class="current__image" src="${blank}" alt="">
                   <p class="current__translation"></p>
                   <input type="text" class="current__input none" readonly="">
                 </div> 
@@ -62,23 +65,23 @@ const templatesHTML = {
 
   getImageCenterHTML() {
     return `<div class="current">
-                <img class="current__image" src="./components/SpeakIt/blank.jpg" alt="">
+                <img class="current__image" src="${blank}" alt="">
                 <p class="current__translation"></p>
                 <input type="text" class="current__input none" readonly="">
             </div>`;
   },
 
-  getCardItemHTML(id, word, transript) {
-    return `<div class="cards__item" data-wordid="${id}">
-              <span class="cards__item--audio-icon" data-wordid="${id}"><img data-wordid="${id}" src="audio.svg" alt="audio icon"> </span>
-              <p class="cards__item--word" data-wordid="${id}">${word}</p>
-              <p class="cards__item--transcription" data-wordid="${id}">${transript}</p>
+  getCardItemHTML(wordObj) {
+    return `<div class="cards__item" data-wordid="${wordObj.id}">
+              <span class="cards__item--audio-icon" data-wordid="${wordObj.id}"><img data-wordid="${wordObj.id}" src="${audio}" alt="audio icon"> </span>
+              <p class="cards__item--word" data-wordid="${wordObj.id}">${wordObj.word}</p>
+              <p class="cards__item--transcription" data-wordid="${wordObj.id}">${wordObj.transcription}</p>
             </div>`;
   },
 
   getResultItemHTML(wordObj) {
     return `<div class="resultpage__item" data-wordid="${wordObj.id}">
-              <span class="resultpage__item--audio-icon"><img data-wordid="${wordObj.id}" src="audio.svg" alt="audio icon"></span>
+              <span class="resultpage__item--audio-icon"><img data-wordid="${wordObj.id}" src="${audio}" alt="audio icon"></span>
               <p class="resultpage__item--word"  data-wordid="${wordObj.id}">${wordObj.word}</p>
               <p class="resultpage__item--transcription" data-wordid="${wordObj.id}">${wordObj.wordTranslate}</p>
               <p class="resultpage__item--translation" data-wordid="${wordObj.id}">${wordObj.transcription}</p>

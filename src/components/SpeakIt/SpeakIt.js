@@ -1,15 +1,14 @@
 import './speakit.scss';
-import templatesURL from './templatesURL';
 import templatesHTML from './templatesHTML';
 import Game from './Game';
 
 class Speakit {
   constructor() {
     this.currentGameObj = '';
-
-    this.group = 0;
-    this.startpage = 0;
     this.container = '';
+    this.resultPage = '';
+    this.currentGroup = 0;
+
     this.microphoneOn = false;
     this.recognition = '';
   }
@@ -86,6 +85,7 @@ class Speakit {
       this.removeActiveCSSClass('.info__pages--page', 'activePage');
 
       event.target.classList.add('activePage');
+      this.currentGroup = event.target.dataset.groupno;
       this.createNewGame(event.target.dataset.groupno);
     }
   }
@@ -116,6 +116,16 @@ class Speakit {
     }
   }
 
+  registerCloseStatisticsEvent() {
+    this.container.classList.remove('hidden');
+    this.resultPage.classList.add('hidden');
+  }
+
+  registerNewGameEvent() {
+    this.registerCloseStatisticsEvent();
+    this.createNewGame(this.currentGroup);
+  }
+
   init(elementId) {
     this.addSpeechRecognition();
 
@@ -131,7 +141,14 @@ class Speakit {
     const headerControl = document.querySelector('.info');
     headerControl.addEventListener('click', this.registerHeaderControlEvent.bind(this));
 
+    const returnBtn = document.querySelector('.resultpage__return');
+    returnBtn.addEventListener('click', this.registerCloseStatisticsEvent.bind(this));
+
+    const newGameBtn = document.querySelector('.resultpage__new-game');
+    newGameBtn.addEventListener('click', this.registerNewGameEvent.bind(this));
+
     this.container = document.querySelector('.container');
+    this.resultPage = document.querySelector('.resultpage');
   }
 
 }

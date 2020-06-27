@@ -32,20 +32,12 @@ class Statistics {
     return cnt;
   }
 
-  closeStatistics() {
-    this.container.classList.remove('hidden');
-    this.resultPage.classList.add('hidden');
-  }
-
   init() {
     const successDiv = document.querySelector('.resultpage__succes-num');
     const successItemDiv = document.querySelector('.resultpage__succes-item');
 
     const errorDiv = document.querySelector('.resultpage__errors-num');
     const errorItemDiv = document.querySelector('.resultpage__errors-item');
-
-    const returnBtn = document.querySelector('.resultpage__return');
-    const newGameBtn = document.querySelector('.resultpage__new-game');
 
     successDiv.innerText = this.countSuccess();
     errorDiv.innerText = this.countError();
@@ -66,7 +58,6 @@ class Statistics {
 
     // successItemDiv.addEventListener('click', this.registerResultItemEvent.bind(this));
     // errorItemDiv.addEventListener('click', this.registerResultItemEvent.bind(this));
-    returnBtn.addEventListener('click', this.closeStatistics.bind(this));
     // newGameBtn.addEventListener('click', this.restart.bind(this));
   }
 

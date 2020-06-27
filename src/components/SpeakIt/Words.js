@@ -20,6 +20,7 @@ class Words {
       return data;
     } catch (err) {
       console.log('Error getWordList', err);
+      return err;
     }
   }
 

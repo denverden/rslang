@@ -74,7 +74,7 @@ class Game extends Words {
     await this.createWordArray();
 
     for (let i = 0; i < 10; i++) {
-      cards.insertAdjacentHTML('beforeEnd', templatesHTML.getCardItemHTML(this.currentWordArray[i].id, this.currentWordArray[i].word, this.currentWordArray[i].transcription))
+      cards.insertAdjacentHTML('beforeEnd', templatesHTML.getCardItemHTML(this.currentWordArray[i]));
     }
 
     cards.addEventListener('click', this.registerCardsEvent.bind(this));
