@@ -1,4 +1,3 @@
-import Speakit from './SpeakIt';
 import templatesURL from './templatesURL';
 import templatesHTML from './templatesHTML';
 import Words from './Words';
@@ -7,13 +6,7 @@ import Statistics from './Statistics';
 class Game extends Words {
   constructor(group) {
     super(group);
-
-    this.startpage = 0;
-    this.container = '';
-    this.resultPage = '';
     this.microphoneOn = false;
-    this.recognition = '';
-
   }
 
   saveGame() {
@@ -21,7 +14,7 @@ class Game extends Words {
   }
 
   renderStatisticsGame() {
-    const currentStatistics = new Statistics(this.currentWordArray);
+    const currentStatistics = new Statistics(this);
     currentStatistics.init();
   }
 

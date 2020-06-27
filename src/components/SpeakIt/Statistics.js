@@ -2,35 +2,12 @@ import templatesHTML from './templatesHTML';
 import Words from './Words';
 
 class Statistics {
-  constructor(currentWordArray) {
-    this.currentWordArray = currentWordArray;
+  constructor(currentGameObject) {
+    this.currentGameObject = currentGameObject;
     this.container = document.querySelector('.container');
     this.resultPage = document.querySelector('.resultpage');
   }
 
-  countError() {
-    let cnt = 0;
-
-    this.currentWordArray.forEach((item) => {
-      if (!item.success) {
-        cnt += 1;
-      }
-    });
-
-    return cnt;
-  }
-
-  countSuccess() {
-    let cnt = 0;
-
-    this.currentWordArray.forEach((item) => {
-      if (item.success) {
-        cnt += 1;
-      }
-    });
-
-    return cnt;
-  }
 
   init() {
     const successDiv = document.querySelector('.resultpage__succes-num');
@@ -39,17 +16,17 @@ class Statistics {
     const errorDiv = document.querySelector('.resultpage__errors-num');
     const errorItemDiv = document.querySelector('.resultpage__errors-item');
 
-    successDiv.innerText = this.countSuccess();
-    errorDiv.innerText = this.countError();
+    successDiv.innerText = this.currentGameObject.getCountSuccess();
+    errorDiv.innerText = this.currentGameObject.getCountError();
 
     successItemDiv.innerText = '';
     errorItemDiv.innerText = '';
 
     for (let i = 0; i < 10; i++) {
-      if (this.currentWordArray[i].success) {
-        successItemDiv.insertAdjacentHTML('beforeEnd', templatesHTML.getResultItemHTML(this.currentWordArray[i]));
+      if (this.currentGameObject.currentWordArray[i].success) {
+        successItemDiv.insertAdjacentHTML('beforeEnd', templatesHTML.getResultItemHTML(this.currentGameObject.currentWordArray[i]));
       } else {
-        errorItemDiv.insertAdjacentHTML('beforeEnd', templatesHTML.getResultItemHTML(this.currentWordArray[i]));
+        errorItemDiv.insertAdjacentHTML('beforeEnd', templatesHTML.getResultItemHTML(this.currentGameObject.currentWordArray[i]));
       }
     }
 

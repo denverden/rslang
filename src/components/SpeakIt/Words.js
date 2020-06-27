@@ -62,6 +62,31 @@ class Words {
       }
     });
   }
+
+  getCountError() {
+    let cnt = 0;
+
+    this.currentWordArray.forEach((item) => {
+      if (!item.success) {
+        cnt += 1;
+      }
+    });
+
+    return cnt;
+  }
+
+  getCountSuccess() {
+    let cnt = 0;
+
+    this.currentWordArray.forEach((item) => {
+      if (item.success) {
+        cnt += 1;
+      }
+    });
+
+    return cnt;
+  }
+
 }
 
 export default Words;
