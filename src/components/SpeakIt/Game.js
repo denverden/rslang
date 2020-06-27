@@ -1,7 +1,7 @@
 import templatesURL from './templatesURL';
 import templatesHTML from './templatesHTML';
 import Words from './Words';
-import Statistics from './Statistics';
+import Result from './Result';
 
 class Game extends Words {
   constructor(group) {
@@ -33,7 +33,7 @@ class Game extends Words {
   }
 
   renderStatisticsGame() {
-    const currentStatistics = new Statistics(this);
+    const currentStatistics = new Result(this);
     currentStatistics.init();
 
     this.saveGame();

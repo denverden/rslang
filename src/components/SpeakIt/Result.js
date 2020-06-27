@@ -1,7 +1,7 @@
 import templatesHTML from './templatesHTML';
 import templatesURL from './templatesURL';
 
-class Statistics {
+class Result {
   constructor(currentGameObject) {
     this.currentGameObject = currentGameObject;
     this.container = document.querySelector('.container');
@@ -51,4 +51,4 @@ class Statistics {
 
 }
 
-export default Statistics;
+export default Result;

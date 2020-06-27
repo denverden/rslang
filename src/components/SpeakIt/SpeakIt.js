@@ -7,7 +7,6 @@ class Speakit {
     this.currentGameObject = '';
     this.container = '';
     this.resultPage = '';
-    this.currentGroup = 0;
 
     this.microphoneOn = false;
     this.recognition = '';
@@ -85,7 +84,6 @@ class Speakit {
       this.removeActiveCSSClass('.info__pages--page', 'activePage');
 
       event.target.classList.add('activePage');
-      this.currentGroup = event.target.dataset.groupno;
       this.createNewGame(event.target.dataset.groupno);
     }
   }
@@ -125,7 +123,7 @@ class Speakit {
 
   registerNewGameEvent() {
     this.registerCloseStatisticsEvent();
-    this.createNewGame(this.currentGroup);
+    this.createNewGame(this.currentGameObject.group);
   }
 
   init(elementId) {

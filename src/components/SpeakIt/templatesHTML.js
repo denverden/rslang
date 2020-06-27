@@ -61,6 +61,24 @@ const templatesHTML = {
                   </div>
               </div>
             </div>
+
+            <div class="statistics hidden">
+              <div class="statistics__container">
+                <table class="table-statistics">
+                  <tr class="table-title">
+                      <th colspan="5">Statistics - SpeakIt</th>
+                  </tr>
+                  <tr class="table-header">
+                      <td data-title=0 data-table-sort="none"><span data-title=0>+</span></td>
+                      <td data-title=1 data-table-sort="none"><span data-title=1>Date</span></td>
+                      <td data-title=2 data-table-sort="none"><span data-title=2>Group</span></td>
+                      <td data-title=3 data-table-sort="none"><span data-title=3>Success</span></td>
+                      <td data-title=4 data-table-sort="none"><span data-title=4>Errors</span></td>
+                  </tr>
+                 </table>              
+              </div>
+            </div>
+
             <audio class="audio"></audio>`;
   },
 
