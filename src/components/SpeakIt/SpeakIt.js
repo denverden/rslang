@@ -123,8 +123,9 @@ class Speakit {
   }
 
   registerNewGameEvent() {
-    this.registerCloseStatisticsEvent();
+    this.registerCloseResultEvent();
     this.createNewGame(this.currentGameObject.group);
+    this.currentGameObject.restartGame();
   }
 
   registerStatisticsEvent() {
