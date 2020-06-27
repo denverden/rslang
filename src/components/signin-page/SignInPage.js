@@ -4,6 +4,12 @@ import AppStore from '../AppStore';
 import './signin-page.scss';
 
 class SignInPage extends Component {
+  beforeRender() {
+    if (AppStore.isLoggedIn) {
+      window.location.href = '#dashboard';
+    }
+  }
+
   afterRender() {
     document.querySelector('.js-click').addEventListener('click', (event) => {
       event.preventDefault();
@@ -11,15 +17,6 @@ class SignInPage extends Component {
       const PASSWORD = document.querySelector('#inputPassword').value;
       this.doLogin(EMAIL, PASSWORD);
     });
-  }
-
-  beforeRender() {
-    const id = localStorage.getItem('userId') ? localStorage.getItem('userId') : '';
-    const token = localStorage.getItem('userToken') ? localStorage.getItem('userToken') : '';
-
-    if (AppStore.isLoggedIn === true && id !== '' && token !== '') {
-      window.location.hash = '#dashboard';
-    }
   }
 
   async doLogin(email, password) {
