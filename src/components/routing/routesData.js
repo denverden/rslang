@@ -9,7 +9,7 @@ import signupPage from '../signup-page/SignUpPage';
 const routes = [
   { path: '', components: [header, homePage] },
   { path: 'about', components: [header, aboutPage] },
-  { path: 'games', components: [gamesPage] },
+  { path: 'games', components: [header, gamesPage] },
   { path: 'sign-in', components: [header, signinPage] },
   { path: 'sign-up', components: [header, signupPage] },
   { path: '***', components: [header, error404] },

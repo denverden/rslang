@@ -1,8 +1,15 @@
 import Component from '../Component';
+import AppStore from '../AppStore';
 
 import './games-page.scss';
 
-class GamesPage extends Component { }
+class GamesPage extends Component {
+  beforeRender() {
+    if (!AppStore.isLoggedIn) {
+      window.location.href = '#sign-in';
+    }
+  }
+}
 
 const gamesPage = new GamesPage({
   selector: 'main',
