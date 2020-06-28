@@ -1,21 +1,28 @@
 import './dictionary.scss';
 
 import Component from '../Component';
-import renderPageTemplate from './dictionaryPageTemplate';
-import { words, settingsState } from './data';
+import { renderWordlist, renderPageTemplate } from './dictionaryPageTemplate';
+import { messages, words, settingsState } from './data';
 
 class Dictionary extends Component {
-  // beforeRender() {
-  //   console.log('before render');
-  // }
+  beforeRender() {
+    // console.log('before render');
+  }
 
-  // afterRender() {
-  //   console.log('after render');
-  //   document.querySelector('.js-click').addEventListener('click', (event) => {
-  //     event.preventDefault();
-  //     window.location.hash = '#';
-  //   });
-  // }
+  afterRender() {
+    document.getElementById('dictionaryTabs').addEventListener('click', (event) => {
+      const containerElement = document.querySelector('.wordlist');
+      const tabName = event.target.dataset.tab;
+      const msgText = messages[tabName];
+
+      containerElement.innerHTML = '';
+      document.querySelectorAll('.dictionary-header__tab-item').forEach((tab) => {
+        tab.classList.remove('active');
+      });
+      event.target.classList.add('active');
+      renderWordlist(words, settingsState, msgText, containerElement);
+    });
+  }
 }
 
 const dictionary = new Dictionary({

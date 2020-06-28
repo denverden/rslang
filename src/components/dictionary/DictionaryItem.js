@@ -2,6 +2,7 @@ export function createContainer(element, ...classes) {
   const container = document.createElement(element);
 
   container.classList.add(...classes);
+
   return container;
 }
 
@@ -136,9 +137,9 @@ export class DictionaryItem {
     const statAgain = createContainer('div', 'wordlist__statistic-item');
 
     // TODO: implement how to show statistic with different numbers (time/times, minute(s)/hour(s))
-    statAll.innerHTML = `Repeated all: <span class="wordlist__statistic-all">${this.state.statAll}</span> times`;
-    statLast.innerHTML = `Last repeated: <span class="wordlist__statistic-last">${this.state.statLast}</span>min ago`;
-    statAgain.innerHTML = `Repeat again: in <span class="wordlist__statistic-again">${this.state.statAgain}</span> hour`;
+    statAll.innerHTML = `Repeated: <span class="wordlist__statistic-all">${this.state.statAll} </span>times`;
+    statLast.innerHTML = `Last repeated: <span class="wordlist__statistic-last">${this.state.statLast} </span>min ago`;
+    statAgain.innerHTML = `Repeat again: in <span class="wordlist__statistic-again">${this.state.statAgain} </span>hour`;
     columnStat.appendChild(statAll);
     columnStat.appendChild(statLast);
     columnStat.appendChild(statAgain);

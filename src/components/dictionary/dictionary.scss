@@ -36,6 +36,7 @@ $highlight-green-color: #02B875;
       border-top-left-radius: 8px;
       border-top-right-radius: 8px;
       background-color: $bg-color;
+      cursor: pointer;
 
       &.active {
         border-bottom: none;
@@ -58,6 +59,10 @@ $highlight-green-color: #02B875;
   }
 
   .wordlist {
+
+    .notification-wrapper {
+      height: 50vh;
+    }
 
     &__item {
       align-items: center;
