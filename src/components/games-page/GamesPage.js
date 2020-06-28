@@ -13,7 +13,7 @@ const gamesPage = new GamesPage({
                   <div class="card-body text-center">
                     <h5 class="card-title">SpeakIt</h5>
                     <p class="card-text">Train your pronunciation. Listen carefully and learn how to pronounce.</p>
-                    <a href="#" class="btn btn-primary" target="_blank">Start Game</a>
+                    <a href="#speakit" class="btn btn-primary" target="_blank">Start Game</a>
                   </div>
                 </div>
                 <div class="games-page__card card" style="width: 18rem;">
