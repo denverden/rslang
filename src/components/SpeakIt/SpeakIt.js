@@ -2,6 +2,7 @@ import './speakit.scss';
 import templatesHTML from './templatesHTML';
 import Game from './Game';
 import Statistics from './Statistics';
+import { removeSomeCSSClass } from './helpers'
 
 class Speakit {
   constructor() {
@@ -22,12 +23,6 @@ class Speakit {
       this.currentGameObject = new Game(group);
       this.currentGameObject.renderCardBlock();
     }
-  }
-
-  removeActiveCSSClass(elementClass, removeClass) {
-    document.querySelectorAll(elementClass).forEach((item) => {
-      item.classList.remove(removeClass);
-    });
   }
 
   addSpeechRecognition() {
@@ -82,7 +77,7 @@ class Speakit {
 
   registerHeaderControlEvent(event) {
     if (event.target.classList.contains('info__pages--page')) {
-      this.removeActiveCSSClass('.info__pages--page', 'activePage');
+      removeSomeCSSClass('.info__pages--page', 'activePage');
 
       event.target.classList.add('activePage');
       this.createNewGame(event.target.dataset.groupno);
@@ -102,14 +97,14 @@ class Speakit {
         this.currentGameObject.microphoneOn = false;
         input.classList.add('none');
 
-        this.removeActiveCSSClass('.cards__item', 'activeCard');
+        removeSomeCSSClass('.cards__item', 'activeCard');
 
       } else {
         this.microphoneOn = true;
         this.currentGameObject.microphoneOn = true;
         input.classList.remove('none');
 
-        this.removeActiveCSSClass('.cards__item', 'activeCard');
+        removeSomeCSSClass('.cards__item', 'activeCard');
       }
 
     } else if (event.target.classList.contains('btns__result')) {
@@ -126,6 +121,8 @@ class Speakit {
     this.registerCloseResultEvent();
     this.createNewGame(this.currentGameObject.group);
     this.currentGameObject.restartGame();
+
+    this.currentGameObject.microphoneOn = this.microphoneOn;
   }
 
   registerStatisticsEvent() {

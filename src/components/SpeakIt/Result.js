@@ -1,5 +1,6 @@
 import templatesHTML from './templatesHTML';
 import templatesURL from './templatesURL';
+import { playAudio } from './helpers';
 
 class Result {
   constructor(currentGameObject) {
@@ -8,16 +9,10 @@ class Result {
     this.resultPage = document.querySelector('.resultpage');
   }
 
-  playAudio(query) {
-    const audio = document.querySelector('.audio');
-    audio.autoplay = true;
-    audio.setAttribute('src', templatesURL.getAudioURL(query));
-  }
-
   registerWordClickEvent(event) {
     if (event.target.dataset.wordid) {
-      const obj = this.currentGameObject.getWordById(event.target.dataset.wordid);
-      this.playAudio(obj.audio);
+      const wordObj = this.currentGameObject.getWordById(event.target.dataset.wordid);
+      playAudio('audio', templatesURL.getAudioURL(wordObj.audio));
     }
   }
 

@@ -2,22 +2,12 @@ import templatesURL from './templatesURL';
 import templatesHTML from './templatesHTML';
 import Words from './Words';
 import Result from './Result';
+import { clockToString, removeSomeCSSClass, playAudio } from './helpers';
 
 class Game extends Words {
   constructor(group) {
     super(group);
     this.microphoneOn = false;
-  }
-
-  clock(date){
-    const year = date.getFullYear();
-    const monthNum = (date.getMonth() < 10) ? '0' + (date.getMonth() + 1) : (date.getMonth() + 1);
-    const day = date.getDate();
-    const hours = (date.getHours() < 10) ? '0' + date.getHours() : date.getHours();
-    const minutes = (date.getMinutes() < 10) ? '0' + date.getMinutes() : date.getMinutes();
-    const seconds = (date.getSeconds() < 10) ? '0' + date.getSeconds() : date.getSeconds();
-
-    return year + '-' + monthNum + '-' + day + ' ' + hours + ':' + minutes + ':' + seconds;
   }
 
   saveGame() {
@@ -29,7 +19,7 @@ class Game extends Words {
     }
 
     const statObj = {};
-    statObj.date = this.clock(new Date());
+    statObj.date = clockToString(new Date());
     statObj.statistics = this.currentWordArray;
 
     if (statListArray.length === 10) {
@@ -50,25 +40,13 @@ class Game extends Words {
     this.saveGame();
   }
 
-  removeActiveCSSClass(elementClass, removeClass) {
-    document.querySelectorAll(elementClass).forEach((item) => {
-      item.classList.remove(removeClass);
-    });
-  }
-
-  playAudio(query) {
-    const audio = document.querySelector('.audio');
-    audio.autoplay = true;
-    audio.setAttribute('src', templatesURL.getAudioURL(query));
-  }
-
   restartGame() {
     const input = document.querySelector('.current__input');
     const score = document.querySelector('.info__score');
 
     score.innerText = '';
     input.value = '';
-    this.removeActiveCSSClass('.cards__item', 'activeCard');
+    removeSomeCSSClass('.cards__item', 'activeCard');
 
     this.currentWordArray.forEach((item) => {
       item.success = false;
@@ -77,7 +55,7 @@ class Game extends Words {
 
   registerCardsEvent(event) {
     if (event.target.dataset.wordid && !this.microphoneOn) {
-      this.removeActiveCSSClass('.cards__item', 'activeCard');
+      removeSomeCSSClass('.cards__item', 'activeCard');
 
       if (event.target.classList.contains('.cards__item')) {
         event.target.classList.add('activeCard');
@@ -88,7 +66,7 @@ class Game extends Words {
       const wordObj = this.getWordById(event.target.dataset.wordid);
 
       this.setImageAndTranslate(wordObj);
-      this.playAudio(wordObj.audio);
+      playAudio('audio', templatesURL.getAudioURL(wordObj.audio));
     }
   }
 
@@ -109,8 +87,12 @@ class Game extends Words {
     const currentImage = document.querySelector('.current__image');
     const currentTranslate = document.querySelector('.current__translation');
 
-    currentImage.src = templatesURL.getImageURL(wordObj.image);
-    currentTranslate.innerText = wordObj.wordTranslate;
+    try {
+      currentImage.src = templatesURL.getImageURL(wordObj.image);
+      currentTranslate.innerText = wordObj.wordTranslate;
+    } catch (err) {
+      console.log('Error in setImageAndTranslate', err);
+    }
   }
 
   setActiveCard(id) {

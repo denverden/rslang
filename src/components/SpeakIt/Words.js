@@ -1,4 +1,5 @@
 import templatesURL from './templatesURL';
+import { getRandomInt } from './helpers';
 
 class Words {
   constructor(group) {
@@ -6,18 +7,14 @@ class Words {
     this.currentWordArray = [];
   }
 
-  getRandomInt(max) {
-    return Math.floor(Math.random() * Math.floor(max));
-  }
-
   async getWordList() {
     try {
-      const page = this.getRandomInt(20);
+      const page = getRandomInt(20);
 
       const res = await fetch(templatesURL.getWordListURL(page, this.group));
       let data = await res.json();
 
-      data = data.slice(0,10);
+      data = data.slice(0, 10);
 
       return data;
     } catch (err) {
@@ -88,7 +85,6 @@ class Words {
 
     return cnt;
   }
-
 }
 
 export default Words;

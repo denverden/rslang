@@ -1,16 +1,11 @@
 import templatesHTML from './templatesHTML';
 import templatesURL from './templatesURL';
+import { playAudio, addSomeCSSClass } from './helpers';
 
 class Statistics {
   constructor() {
     this.currentStatistics = '';
     this.currentId = -1;
-  }
-
-  playAudio(query) {
-    const audio = document.querySelector('.audio');
-    audio.autoplay = true;
-    audio.setAttribute('src', templatesURL.getAudioURL(query));
   }
 
   getWordById(wordArr, id) {
@@ -92,13 +87,11 @@ class Statistics {
   registerStatisticsClickEvent(event) {
     if (event.target.dataset.wordid) {
       const obj = this.getWordById(this.currentStatistics[this.currentId].statistics, event.target.dataset.wordid);
-      this.playAudio(obj.audio);
+      playAudio('audio', templatesURL.getAudioURL(obj.audio));
     } else if (event.target.dataset.id) {
       const currentItem = document.querySelector(`.headerid-${event.target.dataset.id}`);
 
-      document.querySelectorAll('.statistics-items').forEach((item) => {
-        item.classList.add('none');
-      });
+      addSomeCSSClass('.statistics-items', 'none')
 
       if (this.currentId === event.target.dataset.id) {
         currentItem.classList.add('none');
