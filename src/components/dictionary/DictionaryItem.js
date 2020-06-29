@@ -26,7 +26,8 @@ export class DictionaryItem {
     this.transcription = transcription;
     this.textMeaning = textMeaning;
     this.textExample = textExample;
-    this.state = state;
+    this.wordState = state.settings;
+    this.tabName = state.dictionaryTab;
   }
 
   generateItem() {
@@ -34,7 +35,7 @@ export class DictionaryItem {
     const itemGroup = createContainer('div', 'wordlist__item-group', 'd-flex', 'flex-row-reverse', 'flex-md-column', 'flex-lg-row', 'align-items-center', 'ml-0', 'ml-md-auto');
     const itemColumnBtn = this.createColumnBtn();
     const itemColumnWord = this.createColumnWord();
-    const itemColumnExmp = this.createColumnExample();
+    const itemColumnExample = this.createColumnExample();
     const itemColumnImage = this.createColumnImage();
     const itemColumnStat = this.createColumnStat();
 
@@ -43,7 +44,7 @@ export class DictionaryItem {
     wordItem.setAttribute('id', `${this.id}`);
     wordItem.appendChild(itemColumnBtn);
     wordItem.appendChild(itemColumnWord);
-    wordItem.appendChild(itemColumnExmp);
+    wordItem.appendChild(itemColumnExample);
     wordItem.appendChild(itemGroup);
 
     return wordItem;
@@ -51,16 +52,18 @@ export class DictionaryItem {
 
   createColumnBtn() {
     const columnBtn = createContainer('div', 'wordlist__item-col', 'd-flex', 'flex-row', 'flex-md-column');
-    const btnSound = createContainer('div', 'wordlist__btn');
-    const btnDelete = createContainer('div', 'wordlist__btn');
+    const btnSound = createContainer('button', 'wordlist__btn', 'btn');
+    const btnMove = createContainer('button', 'wordlist__btn', 'btn');
 
-    btnSound.setAttribute('data-audio-src', this.audio);
+    if (!this.wordState.sound) btnSound.setAttribute('disabled', '');
+    btnSound.setAttribute('type', 'button');
+    btnMove.setAttribute('type', 'button');
     btnSound.innerHTML = '<i class="fas fa-volume-up"></i>';
-    btnDelete.innerHTML = '<i class="far fa-trash-alt"></i>';
+    btnMove.innerHTML = (this.tabName === 'all') ? '<i class="far fa-trash-alt"></i>' : '<i class="fas fa-undo-alt"></i>';
     columnBtn.appendChild(btnSound);
-    columnBtn.appendChild(btnDelete);
+    columnBtn.appendChild(btnMove);
     this.addSoundBtnClickHandler(btnSound);
-    this.addDeleteBtnClickHandler(btnDelete);
+    this.addMoveBtnClickHandler(btnMove, this.tab);
 
     return columnBtn;
   }
@@ -73,13 +76,17 @@ export class DictionaryItem {
     });
   }
 
-  addDeleteBtnClickHandler(element) {
+  addMoveBtnClickHandler(element, tabName) {
     element.addEventListener('click', () => {
       const wordItemToDelete = document.getElementById(`${this.id}`);
 
       wordItemToDelete.classList.add('hidden');
       wordItemToDelete.classList.remove('d-flex');
-      // TODO: mark wordItemToDelete as deleted on server
+      if (tabName === 'all') {
+        // TODO: mark wordItemToDelete as deleted on server
+      } else {
+        // TODO: mark wordItemToDifficult as difficult on server
+      }
     });
   }
 
@@ -91,7 +98,7 @@ export class DictionaryItem {
 
     word.innerHTML = this.word;
     translation.innerHTML = this.translation;
-    transcription.innerHTML = this.state.showTranscription ? this.transcription : '';
+    transcription.innerHTML = this.wordState.showTranscription ? this.transcription : '';
     columnWord.appendChild(word);
     columnWord.appendChild(transcription);
     columnWord.appendChild(translation);
@@ -102,13 +109,13 @@ export class DictionaryItem {
   createColumnExample() {
     const columnExample = createContainer('div', 'wordlist__item-col');
 
-    if (this.state.showMeaning) {
+    if (this.wordState.showMeaning) {
       const meaning = createContainer('div', 'wordlist__meaning');
 
       meaning.innerHTML = `<span class="wordlist__meaning-title">Meaning: </span>${this.textMeaning}`;
       columnExample.appendChild(meaning);
     }
-    if (this.state.showExample) {
+    if (this.wordState.showExample) {
       const example = createContainer('div', 'wordlist__example');
 
       example.innerHTML = `<span class="wordlist__example-title">Example: </span>${this.textExample}`;
@@ -122,7 +129,7 @@ export class DictionaryItem {
     const columnImage = createContainer('div', 'wordlist__item-col');
     const image = createContainer('div', 'wordlist__image');
 
-    if (this.state.showImage) {
+    if (this.wordState.showImage) {
       image.style.backgroundImage = `url(https://raw.githubusercontent.com/lenazamnius/rslang-data/master/${this.image})`;
       columnImage.appendChild(image);
     }
@@ -137,9 +144,9 @@ export class DictionaryItem {
     const statAgain = createContainer('div', 'wordlist__statistic-item');
 
     // TODO: implement how to show statistic with different numbers (time/times, minute(s)/hour(s))
-    statAll.innerHTML = `Repeated: <span class="wordlist__statistic-all">${this.state.statAll} </span>times`;
-    statLast.innerHTML = `Last repeated: <span class="wordlist__statistic-last">${this.state.statLast} </span>min ago`;
-    statAgain.innerHTML = `Repeat again: in <span class="wordlist__statistic-again">${this.state.statAgain} </span>hour`;
+    statAll.innerHTML = `Repeated: <span class="wordlist__statistic-all">${this.wordState.statAll} </span>times`;
+    statLast.innerHTML = `Last repeated: <span class="wordlist__statistic-last">${this.wordState.statLast} </span>min ago`;
+    statAgain.innerHTML = `Repeat again: in <span class="wordlist__statistic-again">${this.wordState.statAgain} </span>hour`;
     columnStat.appendChild(statAll);
     columnStat.appendChild(statLast);
     columnStat.appendChild(statAgain);

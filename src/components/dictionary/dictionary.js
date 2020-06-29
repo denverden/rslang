@@ -1,8 +1,9 @@
 import './dictionary.scss';
 
 import Component from '../Component';
+import AppStore from '../AppStore';
 import { renderWordlist, renderPageTemplate } from './dictionaryPageTemplate';
-import { messages, words, settingsState } from './data';
+import { messages, words } from './data';
 
 class Dictionary extends Component {
   beforeRender() {
@@ -20,14 +21,15 @@ class Dictionary extends Component {
         tab.classList.remove('active');
       });
       event.target.classList.add('active');
-      renderWordlist(words, settingsState, msgText, containerElement);
+      AppStore.dictionaryTab = tabName;
+      renderWordlist(words, AppStore, msgText, containerElement);
     });
   }
 }
 
 const dictionary = new Dictionary({
   selector: 'main',
-  template: renderPageTemplate(words, settingsState),
+  template: renderPageTemplate(words, AppStore),
 });
 
 export default dictionary;
