@@ -4,7 +4,11 @@ class Footer extends Component { }
 
 const footer = new Footer({
   selector: 'footer',
-  template: '<h1>Footer</h1>',
+  template: `
+            <div class="container">
+             Copyright 2020&copy;
+            </div>
+  `,
 });
 
 export default footer;
