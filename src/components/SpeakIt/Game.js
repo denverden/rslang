@@ -30,27 +30,29 @@ class Game extends Words {
     }
 
     localStorage.setItem('statListArray', JSON.stringify(statListArray));
-
   }
 
   renderResultGame() {
     const currentStatistics = new Result(this);
     currentStatistics.init();
-
-    this.saveGame();
   }
 
   restartGame() {
+    this.saveGame();
+
     const input = document.querySelector('.current__input');
     const score = document.querySelector('.info__score');
+    const currentImage = document.querySelector('.current__image');
+    const currentTranslate = document.querySelector('.current__translation');
 
     score.innerText = '';
     input.value = '';
+    currentImage.src = 'components/SpeakIt/blank.jpg';
+    currentTranslate.innerText = '';
+
     removeSomeCSSClass('.cards__item', 'activeCard');
 
-    this.currentWordArray.forEach((item) => {
-      item.success = false;
-    });
+    this.setFalseToSuccessField();
   }
 
   registerCardsEvent(event) {
@@ -76,7 +78,7 @@ class Game extends Words {
 
     await this.createWordArray();
 
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < 10; i += 1) {
       cards.insertAdjacentHTML('beforeEnd', templatesHTML.getCardItemHTML(this.currentWordArray[i]));
     }
 

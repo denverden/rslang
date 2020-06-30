@@ -23,13 +23,17 @@ class Words {
     }
   }
 
+  setFalseToSuccessField() {
+    this.currentWordArray.forEach((item) => {
+      // eslint-disable-next-line no-param-reassign
+      item.success = false;
+    });
+  }
+
   async createWordArray() {
     // todo: add random set word
     this.currentWordArray = await this.getWordList();
-
-    this.currentWordArray.forEach((item) => {
-      item.success = false;
-    });
+    this.setFalseToSuccessField();
   }
 
   getWordById(id) {
@@ -57,6 +61,7 @@ class Words {
   setWordSuccessById(id) {
     this.currentWordArray.forEach((item) => {
       if (item.id === id) {
+        // eslint-disable-next-line no-param-reassign
         item.success = true;
       }
     });

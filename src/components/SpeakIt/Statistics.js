@@ -72,7 +72,7 @@ class Statistics {
   renderWordList(id) {
     const wordsArr = this.currentStatistics[id].statistics;
 
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < 10; i += 1) {
       const successItemDiv = document.querySelector(`.headerid-${id} .statistics__success-item`);
       const errorItemDiv = document.querySelector(`.headerid-${id} .statistics__errors-item`);
 
@@ -86,12 +86,14 @@ class Statistics {
 
   registerStatisticsClickEvent(event) {
     if (event.target.dataset.wordid) {
+      // eslint-disable-next-line max-len
       const obj = this.getWordById(this.currentStatistics[this.currentId].statistics, event.target.dataset.wordid);
+
       playAudio('audio', templatesURL.getAudioURL(obj.audio));
     } else if (event.target.dataset.id) {
       const currentItem = document.querySelector(`.headerid-${event.target.dataset.id}`);
 
-      addSomeCSSClass('.statistics-items', 'none')
+      addSomeCSSClass('.statistics-items', 'none');
 
       if (this.currentId === event.target.dataset.id) {
         currentItem.classList.add('none');
@@ -130,12 +132,10 @@ class Statistics {
       statisticsPage.classList.remove('hidden');
 
       closeBtn.addEventListener('click', this.registerCloseEvent.bind(this));
-
     } else {
       console.log('No statistics!');
     }
   }
-
 }
 
 export default Statistics;

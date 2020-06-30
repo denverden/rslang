@@ -8,7 +8,8 @@ const templatesURL = {
   },
 
   getWordListURL(page, group) {
-    return `https://afternoon-falls-25894.herokuapp.com/words?page=${page}&group=${group}`;
+    return `http://pacific-castle-12388.herokuapp.com/words?page=${page}&group=${group}`;
+    //    return `https://afternoon-falls-25894.herokuapp.com/words?page=${page}&group=${group}`;
   },
 };
 

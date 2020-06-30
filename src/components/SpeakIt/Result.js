@@ -29,7 +29,7 @@ class Result {
     successItemDiv.innerText = '';
     errorItemDiv.innerText = '';
 
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < 10; i += 1) {
       if (this.currentGameObject.currentWordArray[i].success) {
         successItemDiv.insertAdjacentHTML('beforeEnd', templatesHTML.getResultItemHTML(this.currentGameObject.currentWordArray[i]));
       } else {
@@ -43,7 +43,6 @@ class Result {
     successItemDiv.addEventListener('click', this.registerWordClickEvent.bind(this));
     errorItemDiv.addEventListener('click', this.registerWordClickEvent.bind(this));
   }
-
 }
 
 export default Result;

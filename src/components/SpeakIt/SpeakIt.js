@@ -2,7 +2,7 @@ import './speakit.scss';
 import templatesHTML from './templatesHTML';
 import Game from './Game';
 import Statistics from './Statistics';
-import { removeSomeCSSClass } from './helpers'
+import { removeSomeCSSClass } from './helpers';
 
 class Speakit {
   constructor() {
@@ -15,19 +15,14 @@ class Speakit {
   }
 
   createNewGame(group) {
-    if (this.currentGameObject instanceof Game) {
-      this.currentGameObject = new Game(group);
-      this.currentGameObject.renderCardBlock();
-
-    } else {
-      this.currentGameObject = new Game(group);
-      this.currentGameObject.renderCardBlock();
-    }
+    this.currentGameObject = new Game(group);
+    this.currentGameObject.renderCardBlock();
   }
 
   addSpeechRecognition() {
     window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 
+    // eslint-disable-next-line no-undef
     this.recognition = new SpeechRecognition();
     this.recognition.lang = 'en-US';
 
@@ -38,7 +33,7 @@ class Speakit {
 
   addStar() {
     const score = document.querySelector('.info__score ');
-    score.insertAdjacentHTML('beforeend', templatesHTML.getStarHTML())
+    score.insertAdjacentHTML('beforeend', templatesHTML.getStarHTML());
   }
 
   registerSpeechRecognitionEvent(event) {
@@ -46,8 +41,8 @@ class Speakit {
 
     if (this.microphoneOn) {
       const transcript = Array.from(event.results)
-        .map(result => result[0])
-        .map(result => result.transcript)
+        .map((result) => result[0])
+        .map((result) => result.transcript)
         .join();
 
       if (event.results[0].isFinal) {
@@ -61,6 +56,10 @@ class Speakit {
           this.currentGameObject.setWordSuccessById(wordObj.id);
           this.currentGameObject.setImageAndTranslate(wordObj);
           this.addStar();
+
+          if (this.currentGameObject.getCountSuccess() === 10) {
+            this.currentGameObject.renderResultGame();
+          }
         }
       }
     }
@@ -88,7 +87,6 @@ class Speakit {
     event.preventDefault();
     if (event.target.classList.contains('btns__restart')) {
       this.currentGameObject.restartGame();
-
     } else if (event.target.classList.contains('btns__speak')) {
       const input = document.querySelector('.current__input');
 
@@ -98,7 +96,6 @@ class Speakit {
         input.classList.add('none');
 
         removeSomeCSSClass('.cards__item', 'activeCard');
-
       } else {
         this.microphoneOn = true;
         this.currentGameObject.microphoneOn = true;
@@ -106,7 +103,6 @@ class Speakit {
 
         removeSomeCSSClass('.cards__item', 'activeCard');
       }
-
     } else if (event.target.classList.contains('btns__result')) {
       this.currentGameObject.renderResultGame();
     }
@@ -118,6 +114,8 @@ class Speakit {
   }
 
   registerNewGameEvent() {
+    this.currentGameObject.saveGame();
+
     this.registerCloseResultEvent();
     this.createNewGame(this.currentGameObject.group);
     this.currentGameObject.restartGame();
@@ -157,7 +155,6 @@ class Speakit {
     this.container = document.querySelector('.container');
     this.resultPage = document.querySelector('.resultpage');
   }
-
 }
 
 export default Speakit;
