@@ -7,7 +7,6 @@ import Speakit from './components/SpeakIt/SpeakIt';
 // app.start();
 
 function speakItInitialization() {
-  console.log('run speakit');
   const mySpeakIt = new Speakit();
   mySpeakIt.init('main');
 }

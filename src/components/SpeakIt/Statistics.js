@@ -44,6 +44,7 @@ class Statistics {
   }
 
   getCurrentGroup(currentWordArray) {
+    console.log(currentWordArray[0]);
     return currentWordArray[0].group;
   }
 
@@ -55,15 +56,17 @@ class Statistics {
     const statisticsContainerDiv = document.querySelector('.statistics__container');
 
     reversArr.forEach((item, index) => {
-      const { date } = item;
-      const errors = this.getCountError(item.statistics);
-      const success = this.getCountSuccess(item.statistics);
-      const group = this.getCurrentGroup(item.statistics);
+      if (item.statistics.length > 0) {
+        const { date } = item;
+        const errors = this.getCountError(item.statistics);
+        const success = this.getCountSuccess(item.statistics);
+        const group = this.getCurrentGroup(item.statistics);
 
-      statisticsContainerDiv.insertAdjacentHTML('beforeEnd', templatesHTML.getStatisticsHeaderHTML(index, date, group, errors, success));
-      statisticsContainerDiv.insertAdjacentHTML('beforeEnd', templatesHTML.getStatisticsContainerHTML(index));
+        statisticsContainerDiv.insertAdjacentHTML('beforeEnd', templatesHTML.getStatisticsHeaderHTML(index, date, group, errors, success));
+        statisticsContainerDiv.insertAdjacentHTML('beforeEnd', templatesHTML.getStatisticsContainerHTML(index));
 
-      this.renderWordList(index);
+        this.renderWordList(index);
+      }
     });
 
     statisticsContainerDiv.addEventListener('click', this.registerStatisticsClickEvent.bind(this));

@@ -7,14 +7,14 @@ class Words {
     this.currentWordArray = [];
   }
 
-  async getWordList() {
+  async getWordList(begin, end) {
     try {
       const page = getRandomInt(20);
 
       const res = await fetch(templatesURL.getWordListURL(page, this.group));
       let data = await res.json();
 
-      data = data.slice(0, 10);
+      data = data.slice(begin, end);
 
       return data;
     } catch (err) {
@@ -30,9 +30,9 @@ class Words {
     });
   }
 
-  async createWordArray() {
+  async createWordArray(begin, end) {
     // todo: add random set word
-    this.currentWordArray = await this.getWordList();
+    this.currentWordArray = await this.getWordList(begin, end);
     this.setFalseToSuccessField();
   }
 

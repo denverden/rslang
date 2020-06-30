@@ -76,7 +76,7 @@ class Game extends Words {
     const cards = document.querySelector('.cards');
     cards.innerText = '';
 
-    await this.createWordArray();
+    await this.createWordArray(0, 10);
 
     for (let i = 0; i < 10; i += 1) {
       cards.insertAdjacentHTML('beforeEnd', templatesHTML.getCardItemHTML(this.currentWordArray[i]));
