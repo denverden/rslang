@@ -47,7 +47,7 @@ class Game extends Words {
 
     score.innerText = '';
     input.value = '';
-    currentImage.src = 'components/SpeakIt/blank.jpg';
+    currentImage.src = templatesURL.getDefaultImageURL();
     currentTranslate.innerText = '';
 
     removeSomeCSSClass('.cards__item', 'activeCard');
@@ -92,6 +92,11 @@ class Game extends Words {
     try {
       currentImage.src = templatesURL.getImageURL(wordObj.image);
       currentTranslate.innerText = wordObj.wordTranslate;
+
+      currentImage.onerror = () => {
+        alert(`Error loading ${this.src}`);
+        currentImage.src = templatesURL.getDefaultImageURL();
+      };
     } catch (err) {
       console.log('Error in setImageAndTranslate', err);
     }
