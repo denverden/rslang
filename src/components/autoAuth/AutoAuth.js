@@ -8,7 +8,7 @@ class AutoAuth extends Component {
 
     if (id !== '' && token !== '') {
       try {
-        const res = await fetch(`https://afternoon-falls-25894.herokuapp.com/users/${id}`, {
+        const res = await fetch(`https://afternoon-falls-25894.herokuapp.com/users/${id}/settings`, {
           method: 'GET',
           headers: {
             Authorization: `Bearer ${token}`,
@@ -20,6 +20,7 @@ class AutoAuth extends Component {
         const result = await res.json();
 
         if (result) {
+          AppStore.settings = result;
           AppStore.isLoggedIn = true;
           AppStore.userId = id;
           AppStore.userToken = token;

@@ -1,31 +1,10 @@
-import { extendObservable } from 'mobx';
-
 class AppStore {
   constructor() {
-    extendObservable(this, {
-      isLoggedIn: false,
-      userId: '',
-      userToken: '',
-      dictionaryTab: 'all',
-      settings: {
-        sound: true,
-        cardAmount: '50',
-        deleteWordBtn: false,
-        indicateDifficultyBtn: false,
-        moveDifficultBtn: false,
-        newOrRepetitionWords: 'newOnly',
-        showAnswerBtn: false,
-        showExample: true,
-        showExampleTranslation: false,
-        showImage: true,
-        showMeaning: true,
-        showTranscription: true,
-        showTranslation: true,
-        statAll: 0,
-        statLast: 0,
-        statAgain: 1,
-      },
-    });
+    this.isLoggedIn = false;
+    this.userId = '';
+    this.userToken = '';
+    this.settings = {};
+    this.dictionaryTab = 'all';
   }
 
   viewMessage(type = '', text = '') {
