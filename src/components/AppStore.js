@@ -1,13 +1,9 @@
-import { extendObservable } from 'mobx';
-
 class AppStore {
   constructor() {
-    extendObservable(this, {
-      isLoggedIn: false,
-      userId: '',
-      userToken: '',
-      settings: {},
-    });
+    this.isLoggedIn = false;
+    this.userId = '';
+    this.userToken = '';
+    this.settings = {};
   }
 
   viewMessage(type = '', text = '') {
