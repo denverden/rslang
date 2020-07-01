@@ -4,7 +4,6 @@ class AppStore {
     this.userId = '';
     this.userToken = '';
     this.settings = {};
-    this.words = {};
   }
 
   viewMessage(type = '', text = '') {

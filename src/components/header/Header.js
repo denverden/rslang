@@ -1,9 +1,10 @@
+/* eslint-disable no-restricted-globals */
 import Component from '../Component';
 import AppStore from '../AppStore';
 
 class Header extends Component {
   logout() {
-    // eslint-disable-next-line no-restricted-globals
+    // eslint-disable-next-line no-alert
     const isLogout = confirm('Do you really want to log out?');
     if (isLogout) {
       localStorage.clear();
@@ -18,18 +19,18 @@ class Header extends Component {
   afterRender() {
     const BTN_LOGOUT = document.querySelector('.logout');
     const BTN_SINGIN = document.querySelector('.singin');
-    const BTN_GAMES = document.querySelector('.games');
-    const BTN_SETTINGS = document.querySelector('.settings');
     if (AppStore.isLoggedIn) {
       BTN_LOGOUT.classList.remove('d-none');
       BTN_SINGIN.classList.add('d-none');
-      BTN_GAMES.classList.remove('d-none');
-      BTN_SETTINGS.classList.remove('d-none');
+      document.querySelectorAll('.nav-item.d-none').forEach(
+        (e) => e.classList.remove('d-none'),
+      );
     } else {
       BTN_LOGOUT.classList.add('d-none');
       BTN_SINGIN.classList.remove('d-none');
-      BTN_GAMES.classList.add('d-none');
-      BTN_SETTINGS.classList.add('d-none');
+      document.querySelectorAll('.nav-item.d-none').forEach(
+        (e) => e.classList.add('d-none'),
+      );
     }
     BTN_LOGOUT.addEventListener('click', () => { this.logout(); });
   }
@@ -52,13 +53,19 @@ const header = new Header({
                     <li class="nav-item">
                       <a class="nav-link" href="#about">About</a>
                     </li>
+                    <li class="nav-item learn d-none">
+                      <a class="nav-link" href="#learn">Learn</a>
+                    </li>
                     <li class="nav-item games d-none">
                       <a class="nav-link" href="#games">Games</a>
+                    </li>
+                    <li class="nav-item dictionary d-none">
+                      <a class="nav-link" href="#dictionary">Dictionary</a>
                     </li>
                     <li class="nav-item settings d-none">
                       <a class="nav-link" href="#settings">Settings</a>
                     </li>
-                    <li class="nav-item active">
+                    <li class="nav-item">
                       <a class="btn btn-secondary singin" href="#sign-in">Sign In</a>
                       <button class="btn btn-secondary logout d-none">Logout</button>
                     </li>
