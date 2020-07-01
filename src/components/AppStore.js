@@ -39,6 +39,7 @@ class AppStore {
         const result = await res.json();
 
         if (result) {
+          this.settings = result;
           this.isLoggedIn = true;
           this.userId = id;
           this.userToken = token;

@@ -5,6 +5,7 @@ import gamesPage from '../games-page/GamesPage';
 import error404 from '../error404/Error404';
 import signinPage from '../signin-page/SignInPage';
 import signupPage from '../signup-page/SignUpPage';
+import settingsPage from '../settings-page/SettingsPage';
 
 const routes = [
   { path: '', components: [header, homePage] },
@@ -12,6 +13,7 @@ const routes = [
   { path: 'games', components: [header, gamesPage] },
   { path: 'sign-in', components: [header, signinPage] },
   { path: 'sign-up', components: [header, signupPage] },
+  { path: 'settings', components: [header, settingsPage] },
   { path: '***', components: [header, error404] },
 ];
 
