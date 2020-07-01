@@ -6,7 +6,7 @@ import './games-page.scss';
 class GamesPage extends Component {
   beforeRender() {
     if (!AppStore.isLoggedIn) {
-      window.location.href = '#sign-in';
+      window.location.hash = '#sign-in';
     }
   }
 }

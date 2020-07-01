@@ -1,13 +1,10 @@
-import { extendObservable } from 'mobx';
-
 class AppStore {
   constructor() {
-    extendObservable(this, {
-      isLoggedIn: false,
-      userId: '',
-      userToken: '',
-      settings: {},
-    });
+    this.isLoggedIn = false;
+    this.userId = '';
+    this.userToken = '';
+    this.settings = {};
+    this.words = {};
   }
 
   viewMessage(type = '', text = '') {
@@ -21,6 +18,38 @@ class AppStore {
       document.querySelector('.message .container').innerHTML = msgHtml;
       document.querySelector('.message').classList.remove('d-none');
       document.querySelector('.message__text').innerHTML = text;
+    }
+  }
+
+  async loadSettings() {
+    const id = localStorage.getItem('userId') ? localStorage.getItem('userId') : '';
+    const token = localStorage.getItem('userToken') ? localStorage.getItem('userToken') : '';
+
+    if (id !== '' && token !== '') {
+      try {
+        const res = await fetch(`https://afternoon-falls-25894.herokuapp.com/users/${id}/settings`, {
+          method: 'GET',
+          headers: {
+            Authorization: `Bearer ${token}`,
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+        });
+
+        const result = await res.json();
+
+        if (result) {
+          this.isLoggedIn = true;
+          this.userId = id;
+          this.userToken = token;
+        } else {
+          this.isLoggedIn = false;
+        }
+      } catch (err) {
+        this.isLoggedIn = false;
+      }
+    } else {
+      this.isLoggedIn = false;
     }
   }
 }

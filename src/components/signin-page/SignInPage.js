@@ -6,7 +6,7 @@ import './signin-page.scss';
 class SignInPage extends Component {
   beforeRender() {
     if (AppStore.isLoggedIn) {
-      window.location.href = '#dashboard';
+      window.location.hash = '#dashboard';
     }
   }
 
@@ -45,7 +45,7 @@ class SignInPage extends Component {
         localStorage.setItem('userId', result.userId);
         localStorage.setItem('userToken', result.token);
         AppStore.viewMessage();
-        window.location.hash = '#dashboard';
+        AppStore.loadSettings().then(() => { window.location.hash = '#dashboard'; });
       }
     } catch (err) {
       AppStore.viewMessage('alert-danger', 'Wrong login or password.');
