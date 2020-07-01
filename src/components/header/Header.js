@@ -12,7 +12,7 @@ class Header extends Component {
       AppStore.userId = '';
       AppStore.userToken = '';
       AppStore.settings = {};
-      window.location.hash = '#';
+      window.location.href = '';
     }
   }
 
