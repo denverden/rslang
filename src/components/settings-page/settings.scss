@@ -4,8 +4,10 @@
     padding: 20px;
     font-size: 1.2rem;
 
-    &__title {
+    &__title h1 {
       text-align: center;
+
+      @media (max-width: 767px) { font-size: 2rem; }
     }
 
     &__form {
@@ -18,14 +20,19 @@
 
         &__title {
           color: rgb(1, 83, 177);
+
+          @media (max-width: 767px) { font-size: 1.3rem; }
         }
 
         .settings-item {
-          margin-bottom: 0;
+          margin-bottom: 3px;
 
           &__input {
             margin-left: 35px;
+            font-size: 1rem;
           }
+
+          @media (max-width: 375px) { margin-bottom: 0; }
         }
       }
 
@@ -38,7 +45,6 @@
           margin: auto;
           padding: 5px 0;
           font-size: 1.5rem;
-          border: 1px solid grey;
 
           @media (max-width: 575.98px) {
             width: 100%;
@@ -48,5 +54,5 @@
       }
     }
 
-    @media (max-width: 575.98px) { font-size: 1.1rem; }
+    @media (max-width: 767px) { font-size: 1rem; }
   }

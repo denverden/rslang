@@ -15,6 +15,7 @@ const routes = [
   { path: 'sign-up', components: [header, signupPage] },
   { path: '***', components: [header, error404] },
   { path: 'settings', components: [header, settingsPage] },
+
 ];
 
 export default routes;

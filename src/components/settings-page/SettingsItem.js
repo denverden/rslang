@@ -10,6 +10,7 @@ class SettingsItem {
     this.name = name;
     this.text = text;
     this.value = value;
+    // this.statusItem = this.name && status[this.name];
     this.statusItem = status[this.name];
   }
 
@@ -30,7 +31,6 @@ class SettingsItem {
 
   createInput() {
     let template = '';
-
     template += `<input class="settings-item__input" type="${this.type}" name="${this.name}"`;
 
     if (this.type === 'radio') {
@@ -42,7 +42,7 @@ class SettingsItem {
 
       template += ` ${status}>`;
     } else if (this.type === 'number') {
-      template += ` min="1" max="100" value="${this.value}">`;
+      template += ` min="1" max="100" value="${this.statusItem}">`;
     }
 
     return template;

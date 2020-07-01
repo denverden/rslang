@@ -1,5 +1,6 @@
-import { settingsObj, settingsState } from './settingsData';
+import AppStore from '../AppStore';
 import SettingsForm from './SettingsForm';
+import { settingsData } from './settingsData';
 
 function createContainer(element, ...classes) {
   const container = document.createElement(element);
@@ -9,9 +10,10 @@ function createContainer(element, ...classes) {
 }
 
 function renderSettingsTemplate() {
+  const settings = AppStore.settings.optional;
+  const formElement = new SettingsForm(settingsData, settings).generateForm();
   const template = createContainer('div', 'settings-container', 'd-flex', 'flex-column', 'align-items-center');
-  const title = createContainer('div', 'settings-container__title');
-  const formElement = new SettingsForm(settingsObj, settingsState).generateForm();
+  const title = createContainer('div', 'settings-container__title', 'text-dark');
 
   title.innerHTML = '<h1>Settings</h1>';
   template.appendChild(title);

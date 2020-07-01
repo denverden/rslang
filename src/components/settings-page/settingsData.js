@@ -1,10 +1,16 @@
-export const settingsObj = {
+export const settingsData = {
   'Main:': [
     {
       type: 'number',
-      name: 'cardAmount',
-      text: 'Amount of cards per day: ',
+      name: 'wordsPerDay',
+      text: 'Amount of words per day: ',
       value: '50',
+    },
+    {
+      type: 'number',
+      name: 'newWordsPerDay',
+      text: 'Amount of new words per day: ',
+      value: '20',
     },
     {
       type: 'checkbox',
@@ -33,7 +39,7 @@ export const settingsObj = {
   'Card Settings:': [
     {
       type: 'checkbox',
-      name: 'showTranslation',
+      name: 'showWordTranslation',
       text: 'Show word translation',
     },
     {
@@ -58,8 +64,13 @@ export const settingsObj = {
     },
     {
       type: 'checkbox',
+      name: 'showMeaningTranslation',
+      text: 'Show word meaning translation',
+    },
+    {
+      type: 'checkbox',
       name: 'showExampleTranslation',
-      text: 'Show word meaning and usage example translation',
+      text: 'Show word usage example translation',
     },
     {
       type: 'checkbox',
@@ -86,18 +97,4 @@ export const settingsObj = {
   ],
 };
 
-export const settingsState = {
-  sound: true,
-  cardAmount: '50',
-  deleteWordBtn: false,
-  indicateDifficultyBtn: false,
-  moveDifficultBtn: false,
-  newOrRepetitionWords: 'newOnly',
-  showAnswerBtn: false,
-  showExample: false,
-  showExampleTranslation: false,
-  showImage: false,
-  showMeaning: false,
-  showTranscription: false,
-  showTranslation: true,
-};
+export default settingsData;
