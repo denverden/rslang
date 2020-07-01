@@ -57,6 +57,18 @@ class SettingsForm {
     return formElement;
   }
 
+  addSaveBtnClickHandler(element) {
+    element.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const formData = new FormData(e.target);
+      const stateKeys = Object.keys(this.stateObj);
+
+      this.updateState(formData, stateKeys);
+      this.saveSettingsUpdate();
+    });
+  }
+
   generateAddFieldsets(formElement) {
     const sections = Object.keys(this.dataObj);
 
@@ -76,25 +88,29 @@ class SettingsForm {
     });
   }
 
-  addSaveBtnClickHandler(element) {
-    element.addEventListener('submit', (e) => {
-      e.preventDefault();
+  updateState(formData, stateKeys) {
+    stateKeys.forEach((value) => {
+      if (value === 'wordsPerDay' || value === 'newOrRepetitionWords' || value === 'newWordsPerDay') {
+        this.stateObj[value] = formData.get(value);
+      } else {
+        this.stateObj[value] = !!formData.get(value);
+      }
+    });
+  }
 
-      const formData = new FormData(e.target);
-      const stateKeys = Object.keys(this.stateObj);
+  saveSettingsUpdate() {
+    const optionsToCheck = [this.stateObj.showExample,
+      this.stateObj.showMeaning,
+      this.stateObj.showWordTranslation];
+    const check = (val) => val === true;
 
-      stateKeys.forEach((value) => {
-        if (value === 'wordsPerDay' || value === 'newOrRepetitionWords' || value === 'newWordsPerDay') {
-          this.stateObj[value] = formData.get(value);
-        } else {
-          this.stateObj[value] = !!formData.get(value);
-        }
-      });
-
+    if (optionsToCheck.some(check)) {
       AppStore.settings.optional = this.stateObj;
       delete AppStore.settings.id;
       putSettings(AppStore.settings);
-    });
+    } else {
+      AppStore.viewMessage('alert-warning', 'Be sure to choose one of the options:</br>show word translation, show word meaning, show word usage example');
+    }
   }
 }
 

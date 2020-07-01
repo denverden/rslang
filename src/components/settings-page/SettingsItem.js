@@ -10,7 +10,6 @@ class SettingsItem {
     this.name = name;
     this.text = text;
     this.value = value;
-    // this.statusItem = this.name && status[this.name];
     this.statusItem = status[this.name];
   }
 

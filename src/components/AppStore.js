@@ -1,5 +1,3 @@
-// import { extendObservable } from 'mobx';
-
 class AppStore {
   constructor() {
     this.isLoggedIn = false;

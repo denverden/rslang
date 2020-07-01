@@ -12,10 +12,6 @@ class SettingsPage extends Component {
       this.template = renderSettingsTemplate();
     }
   }
-
-  afterRender() {
-    // console.log('in after');
-  }
 }
 
 const settingsPage = new SettingsPage({
