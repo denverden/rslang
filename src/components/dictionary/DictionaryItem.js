@@ -26,7 +26,7 @@ export class DictionaryItem {
     this.transcription = transcription;
     this.textMeaning = textMeaning;
     this.textExample = textExample;
-    this.wordState = state;
+    this.wordState = state.settings.optional;
     this.tabName = state.dictionaryTab;
   }
 
@@ -36,10 +36,10 @@ export class DictionaryItem {
     const itemColumnBtn = this.createColumnBtn();
     const itemColumnWord = this.createColumnWord();
     const itemColumnExample = this.createColumnExample();
-    const itemColumnImage = this.createColumnImage();
+    // const itemColumnImage = this.createColumnImage();
     const itemColumnStat = this.createColumnStat();
 
-    itemGroup.appendChild(itemColumnImage);
+    // itemGroup.appendChild(itemColumnImage);
     itemGroup.appendChild(itemColumnStat);
     wordItem.setAttribute('id', `${this.id}`);
     wordItem.appendChild(itemColumnBtn);
@@ -62,7 +62,7 @@ export class DictionaryItem {
     btnMove.innerHTML = (this.tabName === 'all') ? '<i class="far fa-trash-alt"></i>' : '<i class="fas fa-undo-alt"></i>';
     columnBtn.appendChild(btnSound);
     columnBtn.appendChild(btnMove);
-    this.addSoundBtnClickHandler(btnSound);
+    // this.addSoundBtnClickHandler(btnSound);
     this.addMoveBtnClickHandler(btnMove, this.tab);
 
     return columnBtn;

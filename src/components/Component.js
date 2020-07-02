@@ -5,7 +5,6 @@ class Component {
   }
 
   render() {
-    console.log('in render');
     const SELECTOR = document.querySelector(this.selector);
     if (typeof this.template === 'string') {
       SELECTOR.innerHTML = this.template;
@@ -13,6 +12,7 @@ class Component {
       SELECTOR.innerHTML = '';
       SELECTOR.appendChild(this.template);
     }
+    console.log('in render');
   }
 }
 
