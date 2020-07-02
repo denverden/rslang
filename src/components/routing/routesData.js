@@ -13,9 +13,8 @@ const routes = [
   { path: 'games', components: [header, gamesPage] },
   { path: 'sign-in', components: [header, signinPage] },
   { path: 'sign-up', components: [header, signupPage] },
-  { path: '***', components: [header, error404] },
   { path: 'settings', components: [header, settingsPage] },
-
+  { path: '***', components: [header, error404] },
 ];
 
 export default routes;

@@ -1,5 +1,4 @@
 import message from './message/Message';
-import autoAuth from './autoAuth/AutoAuth';
 import footer from './footer/Footer';
 import renderComponent from './renderComponent';
 import Routing from './routing/Routing';
@@ -26,7 +25,6 @@ class App {
 
 const app = new App({
   components: [
-    autoAuth,
     message,
     footer,
   ],
