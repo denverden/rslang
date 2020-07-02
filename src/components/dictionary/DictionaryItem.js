@@ -26,7 +26,7 @@ export class DictionaryItem {
     this.transcription = transcription;
     this.textMeaning = textMeaning;
     this.textExample = textExample;
-    this.wordState = state.settings;
+    this.wordState = state;
     this.tabName = state.dictionaryTab;
   }
 
@@ -144,9 +144,14 @@ export class DictionaryItem {
     const statAgain = createContainer('div', 'wordlist__statistic-item');
 
     // TODO: implement how to show statistic with different numbers (time/times, minute(s)/hour(s))
-    statAll.innerHTML = `Repeated: <span class="wordlist__statistic-all">${this.wordState.statAll} </span>times`;
-    statLast.innerHTML = `Last repeated: <span class="wordlist__statistic-last">${this.wordState.statLast} </span>min ago`;
-    statAgain.innerHTML = `Repeat again: in <span class="wordlist__statistic-again">${this.wordState.statAgain} </span>hour`;
+    // should come from word statistic data
+    const statAllVal = 0;
+    const statLastVal = 0;
+    const statAgainVal = 0;
+
+    statAll.innerHTML = `Repeated: <span class="wordlist__statistic-all">${statAllVal} </span>times`;
+    statLast.innerHTML = `Last repeated: <span class="wordlist__statistic-last">${statLastVal} </span>min ago`;
+    statAgain.innerHTML = `Repeat again: in <span class="wordlist__statistic-again">${statAgainVal} </span>hour`;
     columnStat.appendChild(statAll);
     columnStat.appendChild(statLast);
     columnStat.appendChild(statAgain);

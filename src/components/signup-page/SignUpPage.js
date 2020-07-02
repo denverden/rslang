@@ -1,5 +1,6 @@
 import Component from '../Component';
 import AppStore from '../AppStore';
+import settingsDefault from './settingsDefault';
 
 class SignUpPage extends Component {
   afterRender() {
@@ -10,6 +11,38 @@ class SignUpPage extends Component {
       const CONFIRM_PASSWORD = document.querySelector('#inputConfirmPassword').value;
       this.doSingUp(EMAIL, PASSWORD, CONFIRM_PASSWORD);
     });
+  }
+
+  async doSettings(email, password) {
+    try {
+      const res = await fetch('https://afternoon-falls-25894.herokuapp.com/signin', {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email,
+          password,
+        }),
+      });
+
+      const result = await res.json();
+
+      if (result) {
+        await fetch(`https://afternoon-falls-25894.herokuapp.com/users/${result.userId}/settings`, {
+          method: 'PUT',
+          headers: {
+            Authorization: `Bearer ${result.token}`,
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(settingsDefault),
+        });
+      }
+    } catch (err) {
+      AppStore.viewMessage('alert-danger', err);
+    }
   }
 
   async doSingUp(regEmail, regPassword, regConfirmPass) {
@@ -57,6 +90,7 @@ class SignUpPage extends Component {
       const result = await res.json();
 
       if (!result.error) {
+        this.doSettings(regEmail, regPassword);
         AppStore.viewMessage('alert-info', 'Registration successfully completed. You can log in.');
         window.location.hash = '#sign-in';
       } else {
