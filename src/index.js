@@ -1,5 +1,6 @@
 import app from './components/App';
 
 import '../node_modules/bootstrap/dist/js/bootstrap';
+import AppStore from './components/AppStore';
 
-app.start();
+AppStore.loadSettings().then(() => app.start());
