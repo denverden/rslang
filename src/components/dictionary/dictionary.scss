@@ -229,3 +229,14 @@ $highlight-green-color: #02B875;
 .hidden {
   display: none;
 }
+
+.animate-bottom {
+  position: relative;
+  animation-name: animate-bottom;
+  animation-duration: 0.5s
+}
+
+@keyframes animate-bottom {
+  from{ bottom: -300px; opacity:0 }
+  to{ bottom:0; opacity:1 }
+}

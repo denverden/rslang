@@ -36,12 +36,12 @@ export class DictionaryItem {
     const itemColumnBtn = this.createColumnBtn();
     const itemColumnWord = this.createColumnWord();
     const itemColumnExample = this.createColumnExample();
-    // const itemColumnImage = this.createColumnImage();
+    const itemColumnImage = this.createColumnImage();
     const itemColumnStat = this.createColumnStat();
 
-    // itemGroup.appendChild(itemColumnImage);
+    itemGroup.appendChild(itemColumnImage);
     itemGroup.appendChild(itemColumnStat);
-    wordItem.setAttribute('id', `${this.id}`);
+    wordItem.setAttribute('data-id', `${this.id}`);
     wordItem.appendChild(itemColumnBtn);
     wordItem.appendChild(itemColumnWord);
     wordItem.appendChild(itemColumnExample);
@@ -62,7 +62,7 @@ export class DictionaryItem {
     btnMove.innerHTML = (this.tabName === 'all') ? '<i class="far fa-trash-alt"></i>' : '<i class="fas fa-undo-alt"></i>';
     columnBtn.appendChild(btnSound);
     columnBtn.appendChild(btnMove);
-    // this.addSoundBtnClickHandler(btnSound);
+    this.addSoundBtnClickHandler(btnSound);
     this.addMoveBtnClickHandler(btnMove, this.tab);
 
     return columnBtn;
@@ -70,7 +70,7 @@ export class DictionaryItem {
 
   addSoundBtnClickHandler(element) {
     element.addEventListener('click', () => {
-      const sound = new Audio(`https://raw.githubusercontent.com/lenazamnius/rslang-data/master/${this.audio}`);
+      const sound = new Audio(this.audio);
 
       sound.play();
     });
@@ -130,7 +130,7 @@ export class DictionaryItem {
     const image = createContainer('div', 'wordlist__image');
 
     if (this.wordState.showImage) {
-      image.style.backgroundImage = `url(https://raw.githubusercontent.com/lenazamnius/rslang-data/master/${this.image})`;
+      image.style.backgroundImage = `url(${this.image})`;
       columnImage.appendChild(image);
     }
 

@@ -29,7 +29,7 @@ export function renderPageTemplate() {
   const template = createContainer('div', 'dictionary-container');
   const header = createContainer('div', 'dictionary-header', 'd-flex', 'flex-column', 'flex-md-row');
   const headerTitle = createContainer('div', 'dictionary-header__title');
-  const wordlist = createContainer('div', 'wordlist', 'd-flex', 'flex-column');
+  const wordlist = createContainer('div', 'wordlist', 'd-flex', 'flex-column', 'animate-bottom');
   const tabsContainer = createContainer('div', 'dictionary-header__tabs-container', 'd-flex', 'align-items-center');
 
   createTabs(tabsContainer);
