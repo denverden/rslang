@@ -9,13 +9,16 @@
 
 .rules img{
   display: block;
-  width: 100%;
+  width: 250px;
   align-self: center;
 }
 
 @media screen and (max-width:  650px){
   .rules{
     padding: 10px 20px;
+  }
+  .rules img{
+    width: 100px;
   }
   .rules__rule{
     width: 100px;
