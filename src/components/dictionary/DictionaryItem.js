@@ -1,12 +1,8 @@
-export function createContainer(element, ...classes) {
-  const container = document.createElement(element);
+import AppStore from '../AppStore';
+import { createContainer } from './helpers';
+import { getUserWordInfo, updateWordInfo } from './userWord';
 
-  container.classList.add(...classes);
-
-  return container;
-}
-
-export class DictionaryItem {
+class DictionaryItem {
   constructor(data, state) {
     const {
       id,
@@ -41,7 +37,7 @@ export class DictionaryItem {
 
     itemGroup.appendChild(itemColumnImage);
     itemGroup.appendChild(itemColumnStat);
-    wordItem.setAttribute('data-id', `${this.id}`);
+    wordItem.setAttribute('id', `${this.id}`);
     wordItem.appendChild(itemColumnBtn);
     wordItem.appendChild(itemColumnWord);
     wordItem.appendChild(itemColumnExample);
@@ -63,7 +59,7 @@ export class DictionaryItem {
     columnBtn.appendChild(btnSound);
     columnBtn.appendChild(btnMove);
     this.addSoundBtnClickHandler(btnSound);
-    this.addMoveBtnClickHandler(btnMove, this.tab);
+    this.addMoveBtnClickHandler(btnMove, this.tabName);
 
     return columnBtn;
   }
@@ -78,16 +74,44 @@ export class DictionaryItem {
 
   addMoveBtnClickHandler(element, tabName) {
     element.addEventListener('click', () => {
-      const wordItemToDelete = document.getElementById(`${this.id}`);
+      const targetWord = document.getElementById(`${this.id}`);
+      const targetWordId = targetWord.getAttribute('id');
 
-      wordItemToDelete.classList.add('hidden');
-      wordItemToDelete.classList.remove('d-flex');
+      targetWord.classList.add('hidden');
+      targetWord.classList.remove('d-flex');
+      // TODO: retrieve word to all(remove from deleted or difficult)
       if (tabName === 'all') {
-        // TODO: mark wordItemToDelete as deleted on server
-      } else {
-        // TODO: mark wordItemToDifficult as difficult on server
+        this.markWordAs(targetWordId, 'moveToDeleted');
+      } else if (tabName === 'deleted') {
+        this.markWordAs(targetWordId, 'restoreFromDeleted');
+      } else if (tabName === 'difficult') {
+        this.markWordAs(targetWordId, 'restoreFromDifficult');
       }
     });
+  }
+
+  async markWordAs(wordId, mark) {
+    const wordObj = await getUserWordInfo(wordId);
+
+    delete wordObj.id;
+    delete wordObj.wordId;
+
+    if (mark === 'moveToDeleted') {
+      if (!wordObj.optional.deleted) {
+        wordObj.optional.deleted = true;
+        await updateWordInfo(wordId, wordObj, mark);
+      } else {
+        AppStore.viewMessage('alert-info', 'You have already deleted this word');
+      }
+    }
+    if (mark === 'restoreFromDeleted') {
+      wordObj.optional.deleted = false;
+      await updateWordInfo(wordId, wordObj, mark);
+    }
+    if (mark === 'restoreFromDifficult') {
+      wordObj.difficulty = 'string';
+      await updateWordInfo(wordId, wordObj, mark);
+    }
   }
 
   createColumnWord() {
@@ -97,7 +121,7 @@ export class DictionaryItem {
     const translation = createContainer('div', 'wordlist__translation');
 
     word.innerHTML = this.word;
-    translation.innerHTML = this.translation;
+    translation.innerHTML = this.wordTranslate;
     transcription.innerHTML = this.wordState.showTranscription ? this.transcription : '';
     columnWord.appendChild(word);
     columnWord.appendChild(transcription);
@@ -159,3 +183,5 @@ export class DictionaryItem {
     return columnStat;
   }
 }
+
+export default DictionaryItem;

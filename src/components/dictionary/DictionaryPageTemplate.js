@@ -1,4 +1,4 @@
-import { createContainer } from './DictionaryItem';
+import { createContainer } from './helpers';
 
 export function renderEmptyTabNotification(msgText) {
   const classes = ['notification-wrapper', 'd-flex', 'flex-column', 'justify-content-center', 'align-items-center', 'text-center', 'mx-3'];
@@ -43,5 +43,3 @@ export function renderPageTemplate() {
 
   return template;
 }
-
-// export default renderPageTemplate;

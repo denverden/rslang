@@ -2,9 +2,15 @@ import './dictionary.scss';
 
 import Component from '../Component';
 import AppStore from '../AppStore';
-import { messages } from './data';
-import { DictionaryItem } from './DictionaryItem';
+import DictionaryItem from './DictionaryItem';
+import { getWordInfo } from './userWord';
 import { renderEmptyTabNotification, renderPageTemplate } from './dictionaryPageTemplate';
+import {
+  messages,
+  addLoader,
+  removeLoader,
+  makeUrl,
+} from './helpers';
 
 class Dictionary extends Component {
   constructor(selector, template) {
@@ -30,7 +36,7 @@ class Dictionary extends Component {
 
     if (!dictionaryTabs.hasAttribute('data-event')) this.addClickTabHandler();
 
-    await this.getUserWordIdArr()
+    await this.getUserWordIdArr(AppStore.dictionaryTab)
       .then(() => {
         const userWordCount = document.getElementById('userWordCount');
         const allWordsString = (this.userWordsArr.length === 1) ? `${this.userWordsArr.length} word` : `${this.userWordsArr.length} words`;
@@ -56,34 +62,17 @@ class Dictionary extends Component {
       });
       event.target.classList.add('active');
 
-      this.renderWordlist(AppStore.dictionaryTab);
+      this.getUserWordIdArr(AppStore.dictionaryTab)
+        .then(() => {
+          this.renderWordlist(AppStore.dictionaryTab);
+        });
     });
   }
 
-  addLoader(element) {
-    const dictionaryContainer = document.querySelector('.dictionary-container');
-    const loader = document.createElement('div');
-
-    element.classList.add('hidden');
-    element.classList.remove('d-flex');
-    loader.classList.add('loader', 'd-flex', 'justify-content-center', 'mt-5');
-    loader.innerHTML = '<div class="spinner-border text-secondary" role="status"><span class="sr-only">Loading...</span></div>';
-    dictionaryContainer.appendChild(loader);
-  }
-
-  removeLoader(element) {
-    const dictionaryContainer = document.querySelector('.dictionary-container');
-    const loader = document.querySelector('.loader');
-
-    dictionaryContainer.removeChild(loader);
-    element.classList.remove('hidden');
-    element.classList.add('d-flex');
-  }
-
   createWordlist(element) {
-    this.addLoader(element);
+    addLoader(element);
     this.userWordsArr.forEach((word) => {
-      this.getWordInfo(word.wordId)
+      getWordInfo(word.wordId)
         .then((res) => {
           res.image = `data:image/jpg;base64,${res.image}`;
           res.audio = `data:audio/mpeg;base64,${res.audio}`;
@@ -93,7 +82,24 @@ class Dictionary extends Component {
           element.append(wordItem);
         });
     });
-    setTimeout(this.removeLoader, 800, element);
+    setTimeout(removeLoader, 800, element);
+  }
+
+  createFilteredWordlist(element) {
+    addLoader(element);
+    this.userWordsArr.forEach((word) => {
+      const wordInfo = word;
+
+      wordInfo.image = `https://raw.githubusercontent.com/lenazamnius/rslang-data/master/${wordInfo.image}`;
+      wordInfo.audio = `https://raw.githubusercontent.com/lenazamnius/rslang-data/master/${wordInfo.audio}`;
+      // eslint-disable-next-line no-underscore-dangle
+      wordInfo.id = word._id;
+
+      const wordItem = new DictionaryItem(wordInfo, AppStore).generateItem();
+
+      element.append(wordItem);
+    });
+    setTimeout(removeLoader, 800, element);
   }
 
   renderWordlist(tabName) {
@@ -106,36 +112,19 @@ class Dictionary extends Component {
 
       wordlistContainer.appendChild(notification);
     } else {
-      this.createWordlist(wordlistContainer);
+      // todo: change createWordlist func
+      if (tabName === 'all') this.createWordlist(wordlistContainer);
+      if (tabName === 'difficult' || tabName === 'deleted') this.createFilteredWordlist(wordlistContainer);
     }
   }
 
-  async getWordInfo(wordId) {
-    let wordInfoObj;
-
-    try {
-      const rawResponse = await fetch(`https://afternoon-falls-25894.herokuapp.com/words/${wordId}`, {
-        method: 'GET',
-        withCredentials: true,
-        headers: {
-          Accept: 'application/json',
-        },
-      });
-
-      wordInfoObj = await rawResponse.json();
-    } catch (error) {
-      AppStore.viewMessage('alert-danger', 'Word loading failed');
-    }
-
-    return wordInfoObj;
-  }
-
-  async getUserWordIdArr() {
+  async getUserWordIdArr(tabName) {
     const userId = localStorage.getItem('userId');
     const token = localStorage.getItem('userToken');
+    const url = makeUrl(tabName, userId);
 
     try {
-      const rawResponse = await fetch(`https://afternoon-falls-25894.herokuapp.com/users/${userId}/words`, {
+      const rawResponse = await fetch(url, {
         method: 'GET',
         withCredentials: true,
         headers: {
@@ -145,7 +134,15 @@ class Dictionary extends Component {
       });
       const content = await rawResponse.json();
 
-      content.forEach((val) => this.userWordsArr.push(val));
+      this.userWordsArr = [];
+
+      if (tabName === 'all') {
+        content.forEach((val) => this.userWordsArr.push(val));
+      } else {
+        const filteredResultsArr = content[0].paginatedResults;
+
+        filteredResultsArr.forEach((val) => this.userWordsArr.push(val));
+      }
     } catch (error) {
       AppStore.viewMessage('alert-danger', 'Words loading failed');
     }
