@@ -7,6 +7,7 @@ import iconDen from './img/icon_den.png'
 import iconKonstantin from './img/icon_konstantin.png'
 import iconLena from './img/icon_lena.png'
 import iconAlex from './img/icon_alex.png'
+import iconAlexS from './img/icon_alexS.png'
 import mail from './img/mail.svg'
 import gitHub from './img/github-image.svg'
 
@@ -120,6 +121,24 @@ const aboutPage = new AboutPage({
             <strong>Contacts:</strong> 
               <a href="mailto:anscarfull@mail.ru" class="mail contact"><img src="${mail}" alt="Mail" width="25px"height="25px">EMail</a>    
               <a href="https://github.com/anscfl" class="git contact"><img src="${gitHub}" alt="Git" width="25px"height="25px">GitHub</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="container">
+        <div class="person-card alexS">
+          <img src="${iconAlexS}" alt="icon" class="person-icon">
+          <div class="person-info">
+            <h3>Aleksey Safin</h3>
+            <p><strong>Adout Me:</strong> Budding newbie. 
+            Slowly becoming a programmer.</p>
+            <p><strong>Contribution:</strong> Footer/Header.</p>
+            <p><strong>Skills:</strong> HTML CSS PHP JavaScript</p>
+            <div class="contact-info">
+            <strong>Contacts:</strong> 
+              <a href="#" class="mail contact"><img src="${mail}" alt="Mail" width="20px"height="20px">EMail</a>    
+              <a href="https://github.com/frisko-sposad" class="git contact"><img src="${gitHub}" alt="Git" width="25px"height="25px">GitHub</a>
             </div>
           </div>
         </div>
