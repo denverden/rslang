@@ -137,7 +137,7 @@ const aboutPage = new AboutPage({
             <p><strong>Skills:</strong> HTML CSS PHP JavaScript</p>
             <div class="contact-info">
             <strong>Contacts:</strong> 
-              <a href="#" class="mail contact"><img src="${mail}" alt="Mail" width="20px"height="20px">EMail</a>    
+              <a href="mailto:safiko@ya.ru" class="mail contact"><img src="${mail}" alt="Mail" width="20px"height="20px">EMail</a>    
               <a href="https://github.com/frisko-sposad" class="git contact"><img src="${gitHub}" alt="Git" width="25px"height="25px">GitHub</a>
             </div>
           </div>
