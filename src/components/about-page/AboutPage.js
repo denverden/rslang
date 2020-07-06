@@ -2,6 +2,14 @@ import Component from "../Component";
 
 import "./adout-page.scss";
 
+import iconRoman from './img/icon_roman.png'
+import iconDen from './img/icon_den.png'
+import iconKonstantin from './img/icon_konstantin.png'
+import iconLena from './img/icon_lena.png'
+import iconAlex from './img/icon_alex.png'
+import mail from './img/mail.svg'
+import gitHub from './img/github-image.svg'
+
 class AboutPage extends Component {}
 
 const aboutPage = new AboutPage({
@@ -9,9 +17,9 @@ const aboutPage = new AboutPage({
   template: `
   <div class="container text-center">
         <h1>RsLang</h1>
-        <h5 class="text-center">
+        <h6 class="text-center">
           Behind this project is a team of Rolling Scopes School students.
-        </h5>
+        </h6>
         <h5 class="text-center">
           Each of which has put maximum of his strength to achieve an excellent
           result.
@@ -24,7 +32,7 @@ const aboutPage = new AboutPage({
 
       <div class="container">
         <div class="person-card roman">
-          <img src="./components/about-page/img/icon_roman.png" alt="icon" class="person-icon">
+          <img src="${iconRoman}" alt="icon" class="person-icon">
           <div class="person-info">
             <h3>Roman Yarinski</h3>
             <p><strong>Adout Me:</strong> My goal is to provide technologies to people in order to make their lives easier and better. 
@@ -34,8 +42,8 @@ const aboutPage = new AboutPage({
             <p><strong>Skills:</strong> Git  HTML  CSS  SASS  JavaScript  Node.js  MySQL</p>
             <div class="contact-info">
             <strong>Contacts:</strong> 
-              <a href="mailto:299442676t@gmail.com" class="mail contact"><img src="./components/about-page/img/mail.svg" alt="Mail" width="25px"height="25px">EMail</a>    
-              <a href="https://github.com/Roman-Yarinski" class="git contact"><img src="./components/about-page/img/github-image.svg" alt="Git" width="25px"height="25px">GitHub</a>
+              <a href="mailto:299442676t@gmail.com" class="mail contact"><img src="${mail}" alt="Mail" width="25px"height="25px">EMail</a>    
+              <a href="https://github.com/Roman-Yarinski" class="git contact"><img src="${gitHub}" alt="Git" width="25px"height="25px">GitHub</a>
             </div>
           </div>
         </div>
@@ -43,7 +51,7 @@ const aboutPage = new AboutPage({
 
       <div class="container">
         <div class="person-card den">
-          <img src="./components/about-page/img/icon_den.png" alt="icon" class="person-icon">
+          <img src="${iconDen}" alt="icon" class="person-icon">
           <div class="person-info">
             <h3>Denis Novikov</h3>
             <p><strong>Adout Me:</strong> I love to study and I always open to new knowledge. 
@@ -53,8 +61,8 @@ const aboutPage = new AboutPage({
             <p><strong>Skills:</strong> Git   HTML  CSS  SASS  JavaScript  Node.js  PHP  MySQL  Java</p>
             <div class="contact-info">
             <strong>Contacts:</strong> 
-              <a href="mailto:denverden@mail.ru" class="mail contact"><img src="./components/about-page/img/mail.svg" alt="Mail" width="25px"height="25px">EMail</a>    
-              <a href="https://github.com/denverden" class="git contact"><img src="./components/about-page/img/github-image.svg" alt="Git" width="25px"height="25px">GitHub</a>
+              <a href="mailto:denverden@mail.ru" class="mail contact"><img src="${mail}" alt="Mail" width="25px"height="25px">EMail</a>    
+              <a href="https://github.com/denverden" class="git contact"><img src="${gitHub}" alt="Git" width="25px"height="25px">GitHub</a>
             </div>
           </div>
         </div>
@@ -62,7 +70,7 @@ const aboutPage = new AboutPage({
 
       <div class="container">
         <div class="person-card lena">
-          <img src="./components/about-page/img/icon_lena.png" alt="icon" class="person-icon">
+          <img src="${iconLena}" alt="icon" class="person-icon">
           <div class="person-info">
             <h3>Lena Zamnius</h3>
             <p><strong>Adout Me:</strong> Courteous and enthusiastic, I am interested in IT and everything in its orbit. 
@@ -74,8 +82,8 @@ const aboutPage = new AboutPage({
             <p><strong>Skills:</strong> JavaScript  Python  HTML  CSS  Sass  BEM  Bootstrap  MySQL  GIT  GitHub</p>
             <div class="contact-info">
             <strong>Contacts:</strong> 
-              <a href="mailto:lena.zamnius@gmail.com" class="mail contact"><img src="./components/about-page/img/mail.svg" alt="Mail" width="25px"height="25px">EMail</a>    
-              <a href="https://github.com/lenazamnius" class="git contact"><img src="./components/about-page/img/github-image.svg" alt="Git" width="25px"height="25px">GitHub</a>
+              <a href="mailto:lena.zamnius@gmail.com" class="mail contact"><img src="${mail}" alt="Mail" width="25px"height="25px">EMail</a>    
+              <a href="https://github.com/lenazamnius" class="git contact"><img src="${gitHub}" alt="Git" width="25px"height="25px">GitHub</a>
             </div>
           </div>
         </div>
@@ -83,7 +91,7 @@ const aboutPage = new AboutPage({
 
       <div class="container">
         <div class="person-card konstantin">
-          <img src="./components/about-page/img/icon_konstantin.png" alt="icon" class="person-icon">
+          <img src="${iconKonstantin}" alt="icon" class="person-icon">
           <div class="person-info">
             <h3>Konstantin Karpus</h3>
             <p><strong>Adout Me:</strong> I want to learn and discover something new in software development.</p>
@@ -91,8 +99,8 @@ const aboutPage = new AboutPage({
             <p><strong>Skills:</strong> Delphi FireBird  DataBase  HTML5  CSS3</p>
             <div class="contact-info">
             <strong>Contacts:</strong> 
-              <a href="mailto:ks@wintecs.by" class="mail contact"><img src="./components/about-page/img/mail.svg" alt="Mail" width="25px"height="25px">EMail</a>    
-              <a href="https://github.com/KarpusKonstantin" class="git contact"><img src="./components/about-page/img/github-image.svg" alt="Git" width="25px"height="25px">GitHub</a>
+              <a href="mailto:ks@wintecs.by" class="mail contact"><img src="${mail}" alt="Mail" width="25px"height="25px">EMail</a>    
+              <a href="https://github.com/KarpusKonstantin" class="git contact"><img src="${gitHub}" alt="Git" width="25px"height="25px">GitHub</a>
             </div>
           </div>
         </div>
@@ -100,7 +108,7 @@ const aboutPage = new AboutPage({
 
       <div class="container">
         <div class="person-card alex">
-          <img src="./components/about-page/img/icon_alex.png" alt="icon" class="person-icon">
+          <img src="${iconAlex}" alt="icon" class="person-icon">
           <div class="person-info">
             <h3>Aleksey Isaev</h3>
             <p><strong>Adout Me:</strong> My goal is to provide technologies to people in order to make their lives easier and better. 
@@ -110,8 +118,8 @@ const aboutPage = new AboutPage({
             <p><strong>Skills:</strong> Delphi  FireBird DataBase  HTML5  CSS3</p>
             <div class="contact-info">
             <strong>Contacts:</strong> 
-              <a href="mailto:anscarfull@mail.ru" class="mail contact"><img src="./components/about-page/img/mail.svg" alt="Mail" width="25px"height="25px">EMail</a>    
-              <a href="https://github.com/anscfl" class="git contact"><img src="./components/about-page/img/github-image.svg" alt="Git" width="25px"height="25px">GitHub</a>
+              <a href="mailto:anscarfull@mail.ru" class="mail contact"><img src="${mail}" alt="Mail" width="25px"height="25px">EMail</a>    
+              <a href="https://github.com/anscfl" class="git contact"><img src="${gitHub}" alt="Git" width="25px"height="25px">GitHub</a>
             </div>
           </div>
         </div>
