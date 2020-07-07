@@ -4,6 +4,7 @@ class AppStore {
     this.userId = '';
     this.userToken = '';
     this.settings = {};
+    this.apiUrl = 'https://afternoon-falls-25894.herokuapp.com';
   }
 
   viewMessage(type = '', text = '', time = 4000) {
@@ -52,7 +53,7 @@ class AppStore {
 
     if (id !== '' && token !== '') {
       try {
-        const res = await fetch(`https://afternoon-falls-25894.herokuapp.com/users/${id}/settings`, {
+        const res = await fetch(`${this.apiUrl}/users/${id}/settings`, {
           method: 'GET',
           headers: {
             Authorization: `Bearer ${token}`,
