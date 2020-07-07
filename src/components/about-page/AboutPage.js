@@ -112,11 +112,10 @@ const aboutPage = new AboutPage({
           <img src="${iconAlex}" alt="icon" class="person-icon">
           <div class="person-info">
             <h3>Aleksey Isaev</h3>
-            <p><strong>Adout Me:</strong> My goal is to provide technologies to people in order to make their lives easier and better. 
-            I don’t have a lot of experience, but I try my best to learn something new about technologies, 
+            <p><strong>Adout Me:</strong>  I don’t have a lot of experience, but I try my best to learn something new about technologies, 
             for example programming languages that I use to create different programms with algorithms.</p>
             <p><strong>Contribution:</strong> Main page.</p>
-            <p><strong>Skills:</strong> Delphi  FireBird DataBase  HTML5  CSS3</p>
+            <p><strong>Skills:</strong> C++  C#  HTML5  CSS3 </p>
             <div class="contact-info">
             <strong>Contacts:</strong> 
               <a href="mailto:anscarfull@mail.ru" class="mail contact"><img src="${mail}" alt="Mail" width="25px"height="25px">EMail</a>    
