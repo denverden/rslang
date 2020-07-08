@@ -2,6 +2,7 @@ import footer from './footer/Footer';
 import renderComponent from './renderComponent';
 import Routing from './routing/Routing';
 import routes from './routing/routesData';
+import Speakit from './SpeakIt/SpeakIt';
 
 import './app.scss';
 
@@ -11,10 +12,15 @@ class App {
     this.routes = data.routes;
   }
 
-  start() {
-    this.initComponents();
-    const routing = new Routing(this.routes);
-    routing.initRoutes();
+  start(game = '') {
+    if (game === 'speakit') {
+      const mySpeakIt = new Speakit();
+      mySpeakIt.init('main');
+    } else {
+      this.initComponents();
+      const routing = new Routing(this.routes);
+      routing.initRoutes();
+    }
   }
 
   initComponents() {
