@@ -14,7 +14,7 @@ async function putSettings(settingsObj) {
   const token = localStorage.getItem('userToken');
 
   try {
-    const res = await fetch(`https://afternoon-falls-25894.herokuapp.com/users/${userId}/settings`, {
+    const res = await fetch(`${AppStore.apiUrl}/users/${userId}/settings`, {
       method: 'PUT',
       headers: {
         Authorization: `Bearer ${token}`,
