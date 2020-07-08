@@ -64,9 +64,9 @@ const templatesHTML = {
             <audio class="audio"></audio>`;
   },
 
-  getCardItemHTML(wordObj) {
+  getCardItemHTML(idx, wordObj) {
     return `<div class="cards__item" data-wordid="${wordObj.id}">
-              <span class="cards__item--audio-icon" data-wordid="${wordObj.id}"><img data-wordid="${wordObj.id}" src="${audio}" alt="audio icon"> </span>
+              <span class="cards__item--audio-icon" data-wordid="${wordObj.id}">${idx}</span>
               <p class="cards__item--word" data-wordid="${wordObj.id}">${wordObj.wordTranslate}</p>
               <p class="cards__item--transcription" data-wordid="${wordObj.id}">${wordObj.transcription}</p>
             </div>`;

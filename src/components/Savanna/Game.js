@@ -2,6 +2,7 @@ import templatesURL from './templatesURL';
 import Words from './Words';
 import { getRandomInt, shuffleArray } from './helpers';
 import templatesHTML from './templatesHTML';
+import Result from './Result';
 
 class Game extends Words {
   constructor(group) {
@@ -9,45 +10,9 @@ class Game extends Words {
 
     this.attempt = 5;
     this.gameWordArray = [];
-    this.gameThreeWordArray = [];
+    this.gameOtherThreeWordArray = [];
     this.timerId = 0;
-  }
-
-  registerCardsEvent(event) {
-    if (event.target.dataset.wordid) {
-      if (event.target.dataset.wordid === this.gameWordArray[this.gameWordArray.length - 1].id) {
-        console.log('true');
-        clearTimeout(this.timerId);
-        this.gameWordArray[this.gameWordArray.length - 1].success = true;
-      } else {
-        this.attempt -= 1;
-        console.log('false');
-        clearTimeout(this.timerId);
-      }
-
-      // removeSomeCSSClass('.cards__item', 'activeCard');
-      //
-      // if (event.target.classList.contains('.cards__item')) {
-      //   event.target.classList.add('activeCard');
-      // } else {
-      //   event.target.closest('.cards__item').classList.add('activeCard');
-      // }
-      //
-      // const wordObj = this.getWordById(event.target.dataset.wordid);
-      //
-      // playAudio('audio', templatesURL.getAudioURL(wordObj.audio));
-    }
-  }
-
-  createCards() {
-    const cards = document.querySelector('.cards');
-    cards.innerText = '';
-
-    for (let i = 0; i < this.gameOtherThreeWordArray.length; i += 1) {
-      cards.insertAdjacentHTML('beforeEnd', templatesHTML.getCardItemHTML(this.gameOtherThreeWordArray[i]));
-    }
-
-    cards.addEventListener('click', this.registerCardsEvent.bind(this));
+    this.attemptDiv = '';
   }
 
   getOtherThreeWord(idx) {
@@ -65,18 +30,71 @@ class Game extends Words {
     shuffleArray(this.gameOtherThreeWordArray);
   }
 
-  async timer() {
-    this.timerId = setTimeout(() => {
-      console.log('Time is over!');
-      this.attempt -= 1;
-    }, 5000);
+  createCards() {
+    const cards = document.querySelector('.cards');
+    cards.innerText = '';
+
+    for (let i = 0; i < this.gameOtherThreeWordArray.length; i += 1) {
+      cards.insertAdjacentHTML('beforeEnd', templatesHTML.getCardItemHTML(i, this.gameOtherThreeWordArray[i]));
+    }
+
+    // Если делать регистрацию здесь, то почему-то не правильно отрабатывают click
+    // cards.addEventListener('click', this.registerCardsEvent.bind(this));
+    // this.attemptDiv.addEventListener('click', this.registerCardsEvent.bind(this));
   }
 
-  async renderCardBlock() {
-    const currentWord = document.querySelector('.current__translation');
+  registerCardsClickEvent(event) {
+    if (event.target.dataset.wordid) {
+      if (event.target.dataset.wordid === this.gameWordArray[this.gameWordArray.length - 1].id) {
+        this.gameWordArray[this.gameWordArray.length - 1].success = true;
+        clearTimeout(this.timerId);
+        this.startTimer(false);
+      } else {
+        this.attempt -= 1;
+        clearTimeout(this.timerId);
+        this.startTimer(false);
+      }
+    }
+  }
 
-    await this.createWordArray(0, 20);
+  compareKeyPress(idx) {
+    // eslint-disable-next-line max-len
+    if (this.gameOtherThreeWordArray[idx].id === this.gameWordArray[this.gameWordArray.length - 1].id) {
+      this.gameWordArray[this.gameWordArray.length - 1].success = true;
+      clearTimeout(this.timerId);
+      this.startTimer(false);
+    } else {
+      this.attempt -= 1;
+      clearTimeout(this.timerId);
+      this.startTimer(false);
+    }
+  }
+
+  registerKeyUpEvent(event) {
+    const codeKey = event.code;
+
+    if (codeKey === 'Digit1') {
+      this.compareKeyPress(0);
+    } else if (codeKey === 'Digit2') {
+      this.compareKeyPress(1);
+    } else if (codeKey === 'Digit3') {
+      this.compareKeyPress(2);
+    } else if (codeKey === 'Digit4') {
+      this.compareKeyPress(3);
+    }
+  }
+
+  renderResultGame() {
+    const currentStatistics = new Result(this);
+    currentStatistics.init();
+  }
+
+  async renderGameWords() {
+    const currentWord = document.querySelector('.current__translation');
     const idx = getRandomInt(20);
+
+    this.group = getRandomInt(5);
+    await this.createWordArray(0, 20);
     this.gameWordArray.push(this.currentWordArray[idx]);
 
     this.getOtherThreeWord(idx);
@@ -84,28 +102,40 @@ class Game extends Words {
     currentWord.innerText = this.gameWordArray[this.gameWordArray.length - 1].word;
 
     this.createCards();
-
-    await this.timer();
-    // await this.timer().then(() => {
-    //   console.log('5 sec: ', this.gameWordArray[this.gameWordArray.length - 1].word);
-    // });
-
-    console.log('out renderCardBlock');
   }
 
-  async init() {
-    // Запускаем пока есть попытки
-    const attemptDiv = document.querySelector('.info__score');
-    attemptDiv.innerText = this.attempt;
+  myTimer() {
+    this.timerId = setTimeout(() => {
+      console.log('timer.. Current attempt ', this.attempt);
+      this.startTimer(true);
+    }, 5000);
+  }
 
-    while (this.attempt > 0) {
-      this.group = getRandomInt(5);
-
-      await this.renderCardBlock();
-      attemptDiv.innerText = this.attempt;
+  async startTimer(timeout) {
+    if (timeout) {
+      this.attempt -= 1;
+      console.log('Attempt time over', this.attempt);
     }
 
-    console.log('Выводим окно со стастикой', this.gameWordArray);
+    this.attemptDiv.innerText = this.attempt;
+
+    if (this.attempt > 0) {
+      await this.renderGameWords();
+      this.myTimer();
+    } else {
+      this.renderResultGame();
+      console.log('You lose....', this.gameWordArray);
+    }
+  }
+
+  init() {
+    this.attemptDiv = document.querySelector('.info__score');
+    this.attemptDiv.innerText = this.attempt;
+
+    document.querySelector('.cards').addEventListener('click', this.registerCardsClickEvent.bind(this));
+    document.addEventListener('keyup', this.registerKeyUpEvent.bind(this));
+
+    this.startTimer();
   }
 }
 
