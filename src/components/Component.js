@@ -6,6 +6,7 @@ class Component {
 
   render() {
     const SELECTOR = document.querySelector(this.selector);
+
     if (typeof this.template === 'string') {
       SELECTOR.innerHTML = this.template;
     } else {

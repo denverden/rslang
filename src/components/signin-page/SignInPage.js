@@ -55,7 +55,7 @@ class SignInPage extends Component {
   }
 }
 
-const signinPage = new SignInPage({
+const signInPage = new SignInPage({
   selector: 'main',
   template: `
             <div class="container">
@@ -80,4 +80,4 @@ const signinPage = new SignInPage({
             </div>`,
 });
 
-export default signinPage;
+export default signInPage;

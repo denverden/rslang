@@ -4,6 +4,7 @@ class AppStore {
     this.userId = '';
     this.userToken = '';
     this.settings = {};
+    this.dictionaryTab = 'all';
     this.apiUrl = 'https://afternoon-falls-25894.herokuapp.com';
   }
 

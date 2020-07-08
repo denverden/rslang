@@ -106,7 +106,7 @@ class SignUpPage extends Component {
   }
 }
 
-const signupPage = new SignUpPage({
+const signUpPage = new SignUpPage({
   selector: 'main',
   template: `
             <div class="container">
@@ -136,4 +136,4 @@ const signupPage = new SignUpPage({
   `,
 });
 
-export default signupPage;
+export default signUpPage;

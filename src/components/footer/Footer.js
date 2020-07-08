@@ -9,7 +9,7 @@ const footer = new Footer({
             <div class="container footer__main">
              Copyright 2020&copy; Training project.
             </div>
-  `,
+          `,
 });
 
 export default footer;
