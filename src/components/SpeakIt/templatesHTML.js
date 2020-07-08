@@ -23,7 +23,7 @@ const templatesHTML = {
                     <li class="speakit-info__pages--page" data-groupno="5"></li>
                   </ul>
 
-                  <div class="speak-info__score"></div>
+                  <div class="speakit-info__score"></div>
                 </div>
 
 

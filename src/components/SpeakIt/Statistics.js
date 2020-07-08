@@ -44,7 +44,6 @@ class Statistics {
   }
 
   getCurrentGroup(currentWordArray) {
-    console.log(currentWordArray[0]);
     return currentWordArray[0].group;
   }
 
@@ -136,6 +135,7 @@ class Statistics {
 
       closeBtn.addEventListener('click', this.registerCloseEvent.bind(this));
     } else {
+      // eslint-disable-next-line no-console
       console.log('No statistics!');
     }
   }

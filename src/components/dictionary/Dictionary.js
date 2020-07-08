@@ -4,7 +4,7 @@ import Component from '../Component';
 import AppStore from '../AppStore';
 import DictionaryItem from './DictionaryItem';
 import { getWordInfo } from './userWord';
-import { renderEmptyTabNotification, renderPageTemplate } from './dictionaryPageTemplate';
+import { renderEmptyTabNotification, renderPageTemplate } from './DictionaryPageTemplate';
 import {
   messages,
   addLoader,

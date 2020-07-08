@@ -18,6 +18,7 @@ class Words {
 
       return data;
     } catch (err) {
+      // eslint-disable-next-line no-console
       console.log('Error getWordList', err);
       return err;
     }
