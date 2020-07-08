@@ -6,7 +6,7 @@ import './signin-page.scss';
 class SignInPage extends Component {
   beforeRender() {
     if (AppStore.isLoggedIn) {
-      window.location.href = '#dashboard';
+      window.location.hash = '#dashboard';
     }
   }
 
@@ -24,7 +24,7 @@ class SignInPage extends Component {
     BTN.disabled = true;
     BTN.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>&nbsp;&nbsp;Loading...';
     try {
-      const res = await fetch('https://afternoon-falls-25894.herokuapp.com/signin', {
+      const res = await fetch(`${AppStore.apiUrl}/signin`, {
         method: 'POST',
         headers: {
           Accept: 'application/json',
@@ -45,7 +45,7 @@ class SignInPage extends Component {
         localStorage.setItem('userId', result.userId);
         localStorage.setItem('userToken', result.token);
         AppStore.viewMessage();
-        window.location.hash = '#dashboard';
+        AppStore.loadSettings().then(() => { window.location.hash = '#dashboard'; });
       }
     } catch (err) {
       AppStore.viewMessage('alert-danger', 'Wrong login or password.');

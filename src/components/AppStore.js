@@ -1,26 +1,82 @@
-import { extendObservable } from 'mobx';
-
 class AppStore {
   constructor() {
-    extendObservable(this, {
-      isLoggedIn: false,
-      userId: '',
-      userToken: '',
-      settings: {},
-    });
+    this.isLoggedIn = false;
+    this.userId = '';
+    this.userToken = '';
+    this.settings = {};
+    this.apiUrl = 'https://afternoon-falls-25894.herokuapp.com';
   }
 
-  viewMessage(type = '', text = '') {
+  viewMessage(type = '', text = '', time = 4000) {
+    const classToast = {
+      'alert-primary': 'bg-primary text-white',
+      'alert-secondary': 'bg-secondary text-white',
+      'alert-success': 'bg-success text-white',
+      'alert-danger': 'bg-danger text-white',
+      'alert-warning': 'bg-warning text-dark',
+      'alert-info': 'bg-info text-white',
+      'alert-light': 'bg-light text-dark',
+      'alert-dark': 'bg-dark text-white',
+    };
     if (type !== '' && text !== '') {
-      const msgHtml = `<div class="alert ${type} alert-dismissible fade show" role="alert">
-                  <span class="message__text"></span>
-                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>`;
-      document.querySelector('.message .container').innerHTML = msgHtml;
-      document.querySelector('.message').classList.remove('d-none');
-      document.querySelector('.message__text').innerHTML = text;
+      const toast = document.createElement('p');
+      toast.innerHTML = `<div class="toast fade show" role="alert">
+                          <div class="toast-header ${classToast[type]}">
+                            <strong class="mr-auto">${type.replace('alert-', '').toUpperCase()}</strong>
+                            <button type="button" class="ml-2 mb-1 close text-white" data-dismiss="toast" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <div class="toast-body">
+                            ${text}
+                          </div>
+                        </div>`;
+      const currentToast = document.querySelector('.message').appendChild(toast);
+      setTimeout(() => {
+        currentToast.classList.add('fade');
+        setTimeout(() => {
+          currentToast.remove();
+        }, 500);
+      }, time);
+      currentToast.querySelector('.close').addEventListener('click', () => {
+        currentToast.classList.add('fade');
+        setTimeout(() => {
+          currentToast.remove();
+        }, 500);
+      });
+    }
+  }
+
+  async loadSettings() {
+    const id = localStorage.getItem('userId') ? localStorage.getItem('userId') : '';
+    const token = localStorage.getItem('userToken') ? localStorage.getItem('userToken') : '';
+
+    if (id !== '' && token !== '') {
+      try {
+        const res = await fetch(`${this.apiUrl}/users/${id}/settings`, {
+          method: 'GET',
+          headers: {
+            Authorization: `Bearer ${token}`,
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+        });
+
+        const result = await res.json();
+
+        if (result) {
+          this.settings = result;
+          this.isLoggedIn = true;
+          this.userId = id;
+          this.userToken = token;
+        } else {
+          this.isLoggedIn = false;
+        }
+      } catch (err) {
+        this.isLoggedIn = false;
+      }
+    } else {
+      this.isLoggedIn = false;
     }
   }
 }
