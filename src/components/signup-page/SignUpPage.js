@@ -15,7 +15,7 @@ class SignUpPage extends Component {
 
   async doSettings(email, password) {
     try {
-      const res = await fetch('https://afternoon-falls-25894.herokuapp.com/signin', {
+      const res = await fetch(`${AppStore.apiUrl}/signin`, {
         method: 'POST',
         headers: {
           Accept: 'application/json',
@@ -30,7 +30,7 @@ class SignUpPage extends Component {
       const result = await res.json();
 
       if (result) {
-        await fetch(`https://afternoon-falls-25894.herokuapp.com/users/${result.userId}/settings`, {
+        await fetch(`${AppStore.apiUrl}/users/${result.userId}/settings`, {
           method: 'PUT',
           headers: {
             Authorization: `Bearer ${result.token}`,
@@ -75,7 +75,7 @@ class SignUpPage extends Component {
     }
 
     try {
-      const res = await fetch('https://afternoon-falls-25894.herokuapp.com/users', {
+      const res = await fetch(`${AppStore.apiUrl}/users`, {
         method: 'POST',
         headers: {
           Accept: 'application/json',

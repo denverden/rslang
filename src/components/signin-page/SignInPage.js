@@ -24,7 +24,7 @@ class SignInPage extends Component {
     BTN.disabled = true;
     BTN.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>&nbsp;&nbsp;Loading...';
     try {
-      const res = await fetch('https://afternoon-falls-25894.herokuapp.com/signin', {
+      const res = await fetch(`${AppStore.apiUrl}/signin`, {
         method: 'POST',
         headers: {
           Accept: 'application/json',

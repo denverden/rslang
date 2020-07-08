@@ -12,6 +12,18 @@ body {
   position: relative;
 }
 
+.message {
+  position: absolute;
+  margin-top: 1rem;
+  margin-left: 1rem;
+  top: 1rem;
+  right: 1rem;
+  z-index: 1000;
+  button {
+    outline: none;
+  }
+}
+
 main {
   width: 100%;
   flex-direction: column;
