@@ -35,7 +35,8 @@ class Game extends Words {
     cards.innerText = '';
 
     for (let i = 0; i < this.gameOtherThreeWordArray.length; i += 1) {
-      cards.insertAdjacentHTML('beforeEnd', templatesHTML.getCardItemHTML(i, this.gameOtherThreeWordArray[i]));
+      const idx = i + 1;
+      cards.insertAdjacentHTML('beforeEnd', templatesHTML.getCardItemHTML(idx, this.gameOtherThreeWordArray[i]));
     }
 
     // Если делать регистрацию здесь, то почему-то не правильно отрабатывают click
@@ -73,13 +74,13 @@ class Game extends Words {
   registerKeyUpEvent(event) {
     const codeKey = event.code;
 
-    if (codeKey === 'Digit1') {
+    if ((codeKey === 'Digit1') || (codeKey === 'Numpad1')) {
       this.compareKeyPress(0);
-    } else if (codeKey === 'Digit2') {
+    } else if ((codeKey === 'Digit2') || (codeKey === 'Numpad2')) {
       this.compareKeyPress(1);
-    } else if (codeKey === 'Digit3') {
+    } else if ((codeKey === 'Digit3') || (codeKey === 'Numpad3')) {
       this.compareKeyPress(2);
-    } else if (codeKey === 'Digit4') {
+    } else if ((codeKey === 'Digit4') || (codeKey === 'Numpad4')) {
       this.compareKeyPress(3);
     }
   }
