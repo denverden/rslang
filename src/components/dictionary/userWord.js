@@ -4,7 +4,7 @@ export async function getWordInfo(wordId) {
   let wordInfoObj;
 
   try {
-    const rawResponse = await fetch(`https://afternoon-falls-25894.herokuapp.com/words/${wordId}`, {
+    const rawResponse = await fetch(`${AppStore.apiUrl}/words/${wordId}`, {
       method: 'GET',
       withCredentials: true,
       headers: {
@@ -28,7 +28,7 @@ export async function getUserWordInfo(wordId) {
   let wordInfoObj;
 
   try {
-    const rawResponse = await fetch(`https://afternoon-falls-25894.herokuapp.com/users/${userId}/words/${wordId}`, {
+    const rawResponse = await fetch(`${AppStore.apiUrl}/users/${userId}/words/${wordId}`, {
       method: 'GET',
       withCredentials: true,
       headers: {
@@ -51,7 +51,7 @@ export async function updateWordInfo(wordId, wordObj, mark) {
   const token = localStorage.getItem('userToken');
 
   try {
-    const res = await fetch(`https://afternoon-falls-25894.herokuapp.com/users/${userId}/words/${wordId}`, {
+    const res = await fetch(`${AppStore.apiUrl}/users/${userId}/words/${wordId}`, {
       method: 'PUT',
       headers: {
         Authorization: `Bearer ${token}`,

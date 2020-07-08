@@ -1,3 +1,5 @@
+import AppStore from '../AppStore';
+
 export const messages = {
   all: 'You have not learned a single word. Let\'s get started.',
   difficult: 'You have not marked any word as difficult yet.',
@@ -33,9 +35,9 @@ export function createContainer(element, ...classes) {
 }
 
 export function makeUrl(tabName, userId) {
-  const urlAllWords = `https://afternoon-falls-25894.herokuapp.com/users/${userId}/words`;
-  const urlDeletedWords = `https://afternoon-falls-25894.herokuapp.com/users/${userId}/aggregatedWords?wordsPerPage=20&filter=%7B%22userWord.optional.deleted%22%3Atrue%7D`;
-  const urlDifficultWords = `https://afternoon-falls-25894.herokuapp.com/users/${userId}/aggregatedWords?wordsPerPage=20&filter=%7B%22userWord.difficulty%22%3A%22hard%22%7D`;
+  const urlAllWords = `${AppStore.apiUrl}/users/${userId}/words`;
+  const urlDeletedWords = `${AppStore.apiUrl}/users/${userId}/aggregatedWords?wordsPerPage=20&filter=%7B%22userWord.optional.deleted%22%3Atrue%7D`;
+  const urlDifficultWords = `${AppStore.apiUrl}/users/${userId}/aggregatedWords?wordsPerPage=20&filter=%7B%22userWord.difficulty%22%3A%22hard%22%7D`;
   let url = '';
 
   switch (tabName) {

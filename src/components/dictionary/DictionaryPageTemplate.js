@@ -5,7 +5,7 @@ export function renderEmptyTabNotification(msgText) {
   const notificationWrapper = createContainer('div', ...classes);
   let template = '';
 
-  template += `<h4 class="message mb-5 text-muted">${msgText}</h4>`;
+  template += `<h4 class="notification mb-5 text-muted">${msgText}</h4>`;
   template += '<a href="#learn" class="btn btn-lg btn-primary">Learn words</a>';
   notificationWrapper.innerHTML = template;
 
