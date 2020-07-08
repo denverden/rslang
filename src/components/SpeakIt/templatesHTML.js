@@ -13,17 +13,17 @@ const templatesHTML = {
             </div>
 
             <div class="speakit-container hidden">
-                <div class="info">
-                  <ul class="info__pages">
-                    <li class="info__pages--page activePage" data-groupno="0" ></li>
-                    <li class="info__pages--page" data-groupno="1"></li>
-                    <li class="info__pages--page" data-groupno="2"></li>
-                    <li class="info__pages--page" data-groupno="3"></li>
-                    <li class="info__pages--page" data-groupno="4"></li>
-                    <li class="info__pages--page" data-groupno="5"></li>
+                <div class="speakit-info">
+                  <ul class="speakit-info__pages">
+                    <li class="speakit-info__pages--page activePage" data-groupno="0" ></li>
+                    <li class="speakit-info__pages--page" data-groupno="1"></li>
+                    <li class="speakit-info__pages--page" data-groupno="2"></li>
+                    <li class="speakit-info__pages--page" data-groupno="3"></li>
+                    <li class="speakit-info__pages--page" data-groupno="4"></li>
+                    <li class="speakit-info__pages--page" data-groupno="5"></li>
                   </ul>
 
-                  <div class="info__score"></div>
+                  <div class="speak-info__score"></div>
                 </div>
 
 

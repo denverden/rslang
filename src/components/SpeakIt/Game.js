@@ -41,7 +41,7 @@ class Game extends Words {
     this.saveGame();
 
     const input = document.querySelector('.current__input');
-    const score = document.querySelector('.info__score');
+    const score = document.querySelector('.speakit-info__score');
     const currentImage = document.querySelector('.current__image');
     const currentTranslate = document.querySelector('.current__translation');
 

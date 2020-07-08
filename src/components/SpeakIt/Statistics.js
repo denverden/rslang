@@ -109,7 +109,7 @@ class Statistics {
   }
 
   registerCloseEvent() {
-    const container = document.querySelector('.container');
+    const container = document.querySelector('.speakit-container');
     const resultPage = document.querySelector('.resultpage');
     const statisticsPage = document.querySelector('.statistics');
 
@@ -120,7 +120,7 @@ class Statistics {
 
   init() {
     let statListArray = localStorage.getItem('statListArray') || [];
-    const container = document.querySelector('.container');
+    const container = document.querySelector('.speakit-container');
     const resultPage = document.querySelector('.resultpage');
     const statisticsPage = document.querySelector('.statistics');
     const closeBtn = document.querySelector('.statistics__return');
