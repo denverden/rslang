@@ -2,14 +2,14 @@
 
 import '../node_modules/bootstrap/dist/js/bootstrap';
 
-import Speakit from './components/SpeakIt/SpeakIt';
+import Savanna from './components/Savanna/Savanna';
 
 // app.start();
 
 function speakItInitialization() {
-  console.log('run speakit');
-  const mySpeakIt = new Speakit();
-  mySpeakIt.init('main');
+  console.log('run savanna');
+  const mySavanna = new Savanna();
+  mySavanna.init('main');
 }
 
 speakItInitialization();
