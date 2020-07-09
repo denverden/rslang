@@ -14,6 +14,7 @@ const templatesHTML = {
             
             <div class="container hidden">
                 <div class="info">          
+                  <span class="timer"></span>
                   <div class="info__score"></div>
                 </div>
 
@@ -25,11 +26,6 @@ const templatesHTML = {
                 
                 <div class="cards"></div>
                 
-                <div class="btns">
-                    <a href="#" class="btns__restart">Restart</a>
-                    <a href="#" class="btns__speak">Speak please</a>
-                    <a href="#" class="btns__result">Results</a>
-                </div>
                 
             </div>
             

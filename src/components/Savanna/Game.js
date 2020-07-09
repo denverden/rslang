@@ -12,6 +12,7 @@ class Game extends Words {
     this.gameWordArray = [];
     this.gameOtherThreeWordArray = [];
     this.timerId = 0;
+    this.timerIntervalId = 0;
     this.attemptDiv = '';
   }
 
@@ -48,10 +49,12 @@ class Game extends Words {
     if (event.target.dataset.wordid) {
       if (event.target.dataset.wordid === this.gameWordArray[this.gameWordArray.length - 1].id) {
         this.gameWordArray[this.gameWordArray.length - 1].success = true;
+        clearInterval(this.timerIntervalId);
         clearTimeout(this.timerId);
         this.startTimer(false);
       } else {
         this.attempt -= 1;
+        clearInterval(this.timerIntervalId);
         clearTimeout(this.timerId);
         this.startTimer(false);
       }
@@ -62,10 +65,12 @@ class Game extends Words {
     // eslint-disable-next-line max-len
     if (this.gameOtherThreeWordArray[idx].id === this.gameWordArray[this.gameWordArray.length - 1].id) {
       this.gameWordArray[this.gameWordArray.length - 1].success = true;
+      clearInterval(this.timerIntervalId);
       clearTimeout(this.timerId);
       this.startTimer(false);
     } else {
       this.attempt -= 1;
+      clearInterval(this.timerIntervalId);
       clearTimeout(this.timerId);
       this.startTimer(false);
     }
@@ -106,6 +111,18 @@ class Game extends Words {
   }
 
   myTimer() {
+    let t = 5;
+    const timerDiv = document.querySelector('.timer');
+
+    this.timerIntervalId = setInterval(() => {
+      t -= 1;
+      timerDiv.innerHTML = `Timer: ${t}`;
+
+      if (t <= 0) {
+        clearInterval(this.timerIntervalId);
+      }
+    }, 1000);
+
     this.timerId = setTimeout(() => {
       console.log('timer.. Current attempt ', this.attempt);
       this.startTimer(true);
@@ -118,7 +135,7 @@ class Game extends Words {
       console.log('Attempt time over', this.attempt);
     }
 
-    this.attemptDiv.innerText = this.attempt;
+    this.attemptDiv.innerText = `Attempt: ${this.attempt}`;
 
     if (this.attempt > 0) {
       await this.renderGameWords();
