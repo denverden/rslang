@@ -33,9 +33,21 @@ class Result {
     return cnt;
   }
 
+  getWordByIdInArrayWord(id, arr) {
+    let wordObj = {};
+    arr.forEach((item) => {
+      if (item.id === id) {
+        wordObj = item;
+      }
+    });
+
+    return wordObj;
+  }
+
   registerWordClickEvent(event) {
     if (event.target.dataset.wordid) {
-      const wordObj = this.currentGameObject.getWordById(event.target.dataset.wordid);
+      // eslint-disable-next-line max-len
+      const wordObj = this.getWordByIdInArrayWord(event.target.dataset.wordid, this.currentGameObject.gameWordArray);
       playAudio('audio', templatesURL.getAudioURL(wordObj.audio));
     }
   }
