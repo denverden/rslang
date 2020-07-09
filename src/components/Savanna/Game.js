@@ -95,10 +95,16 @@ class Game extends Words {
 
     // eslint-disable-next-line max-len
     if (this.gameOtherThreeWordArray[idx].id === this.gameWordArray[this.gameWordArray.length - 1].id) {
+
+      this.setActiveCard(this.gameWordArray[this.gameWordArray.length - 1].id, 'activeCard');
+
       this.gameWordArray[this.gameWordArray.length - 1].success = true;
       playAudio('audio', correctAudio);
       this.restartTimer();
     } else {
+      this.setActiveCard(this.gameOtherThreeWordArray[idx].id, 'activeCardError');
+      this.setActiveCard(this.gameWordArray[this.gameWordArray.length - 1].id, 'activeCard');
+
       this.attempt -= 1;
       playAudio('audio', errorAudio);
       this.restartTimer();

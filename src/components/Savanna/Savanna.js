@@ -30,6 +30,10 @@ class Speakit {
     const startButton = document.querySelector('.startpage--intro-btn');
     startButton.addEventListener('click', this.registerStartButtonEvent.bind(this));
 
+    document.querySelector('.resultpage__new-game').addEventListener('click', () => {
+      document.location.reload(true);
+    });
+
     this.container = document.querySelector('.container');
   }
 }
