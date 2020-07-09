@@ -1,0 +1,20 @@
+main {
+    background-image: url(./404_bg.png);
+    background-repeat: no-repeat;
+    background-position: bottom;
+}
+
+h1 {
+    margin: 10px 10px;
+}
+
+.btn {
+    margin-top: 10px;
+    margin-left: calc(50% - 23px);
+}
+
+@media screen and (max-width: 780px) {
+    main {
+        background-size: 100%;
+    }
+}
