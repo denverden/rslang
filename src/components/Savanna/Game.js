@@ -1,8 +1,10 @@
 import templatesURL from './templatesURL';
 import Words from './Words';
-import { getRandomInt, shuffleArray } from './helpers';
+import { getRandomInt, shuffleArray, playAudio } from './helpers';
 import templatesHTML from './templatesHTML';
 import Result from './Result';
+import correctAudio from './correct.mp3';
+import errorAudio from './error.mp3';
 
 class Game extends Words {
   constructor(group) {
@@ -45,18 +47,22 @@ class Game extends Words {
     // this.attemptDiv.addEventListener('click', this.registerCardsEvent.bind(this));
   }
 
+  restartTimer() {
+    clearInterval(this.timerIntervalId);
+    clearTimeout(this.timerId);
+    this.startTimer(false);
+  }
+
   registerCardsClickEvent(event) {
     if (event.target.dataset.wordid) {
       if (event.target.dataset.wordid === this.gameWordArray[this.gameWordArray.length - 1].id) {
         this.gameWordArray[this.gameWordArray.length - 1].success = true;
-        clearInterval(this.timerIntervalId);
-        clearTimeout(this.timerId);
-        this.startTimer(false);
+        playAudio('audio', correctAudio);
+        this.restartTimer();
       } else {
         this.attempt -= 1;
-        clearInterval(this.timerIntervalId);
-        clearTimeout(this.timerId);
-        this.startTimer(false);
+        playAudio('audio', errorAudio);
+        this.restartTimer();
       }
     }
   }
@@ -65,14 +71,12 @@ class Game extends Words {
     // eslint-disable-next-line max-len
     if (this.gameOtherThreeWordArray[idx].id === this.gameWordArray[this.gameWordArray.length - 1].id) {
       this.gameWordArray[this.gameWordArray.length - 1].success = true;
-      clearInterval(this.timerIntervalId);
-      clearTimeout(this.timerId);
-      this.startTimer(false);
+      playAudio('audio', correctAudio);
+      this.restartTimer();
     } else {
       this.attempt -= 1;
-      clearInterval(this.timerIntervalId);
-      clearTimeout(this.timerId);
-      this.startTimer(false);
+      playAudio('audio', errorAudio);
+      this.restartTimer();
     }
   }
 
