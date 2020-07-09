@@ -156,6 +156,11 @@
         background-color: rgba(0, 173, 159, .15);
     }
 
+    .activeCardError {
+      border: 1px solid rgb(173, 67, 2);
+      background-color: rgba(173, 1, 8, 0.15);
+    }
+
 .resultpage__container {
     width: 100%;
     max-width: 780px;

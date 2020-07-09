@@ -33,6 +33,15 @@ class Game extends Words {
     shuffleArray(this.gameOtherThreeWordArray);
   }
 
+  setActiveCard(id, className) {
+    const cards = document.querySelectorAll('.cards__item');
+    cards.forEach((item) => {
+      if (item.dataset.wordid === id) {
+        item.classList.add(className);
+      }
+    });
+  }
+
   createCards() {
     const cards = document.querySelector('.cards');
     cards.innerText = '';
@@ -47,20 +56,34 @@ class Game extends Words {
     // this.attemptDiv.addEventListener('click', this.registerCardsEvent.bind(this));
   }
 
-  restartTimer() {
+  stopTimer() {
     clearInterval(this.timerIntervalId);
     clearTimeout(this.timerId);
-    this.startTimer(false);
+  }
+
+  restartTimer() {
+    setTimeout(() => {
+      this.startTimer(false);
+    }, 2000);
   }
 
   registerCardsClickEvent(event) {
+    this.stopTimer();
+
     if (event.target.dataset.wordid) {
       if (event.target.dataset.wordid === this.gameWordArray[this.gameWordArray.length - 1].id) {
+
+        this.setActiveCard(this.gameWordArray[this.gameWordArray.length - 1].id, 'activeCard');
+
         this.gameWordArray[this.gameWordArray.length - 1].success = true;
         playAudio('audio', correctAudio);
         this.restartTimer();
       } else {
         this.attempt -= 1;
+
+        this.setActiveCard(event.target.dataset.wordid, 'activeCardError');
+        this.setActiveCard(this.gameWordArray[this.gameWordArray.length - 1].id, 'activeCard');
+
         playAudio('audio', errorAudio);
         this.restartTimer();
       }
@@ -68,6 +91,8 @@ class Game extends Words {
   }
 
   compareKeyPress(idx) {
+    this.stopTimer();
+
     // eslint-disable-next-line max-len
     if (this.gameOtherThreeWordArray[idx].id === this.gameWordArray[this.gameWordArray.length - 1].id) {
       this.gameWordArray[this.gameWordArray.length - 1].success = true;
