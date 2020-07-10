@@ -1,8 +1,11 @@
 .wrap {
     height: 100%;
     width: 100%;
-    background-image: url(./404_bg.png);
-    background-repeat: no-repeat;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    background: no-repeat;
     background-position: bottom;
 }
 
@@ -12,11 +15,4 @@
 
 .error-page-btn {
     margin-top: 10px;
-    margin-left: calc(50% - 23px);
-}
-
-@media screen and (max-width: 780px) {
-    .wrap {
-        background-size: 100%;
-    }
 }
