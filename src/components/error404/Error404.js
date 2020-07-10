@@ -1,26 +1,19 @@
 import Component from '../Component';
 
-class Error404 extends Component {
-  // eslint-disable-next-line class-methods-use-this
-  beforeRender() {
-    // тут можно делать что-то до отрисовки компонента
-    console.log('before render');
-  }
+import './error404.scss';
+import img404 from './404_bg.png';
 
-  // eslint-disable-next-line class-methods-use-this
-  afterRender() {
-    // тут можно делать что-то после отрисовки компонента
-    console.log('after render');
-    document.querySelector('.js-click').addEventListener('click', (event) => {
-      event.preventDefault();
-      window.location.hash = '#';
-    });
-  }
-}
+class Error404 extends Component {}
 
 const error404 = new Error404({
   selector: 'main',
-  template: '<h1>404 Page</h1><a class="btn btn-primary js-click">На главную</a>',
+  template: `
+  <div class="wrap" style="background-image: url('${img404}')">
+    <h1 class="error-page text-center">Oops, something went wrong.</h1>
+    <h4 class="text-center">Here you won’t learn new words.</h4>
+    <h3 class="text-center">Better return to the main page and you will continue to study English with RsLang.</h3>
+    <a class="error-page-btn btn btn-primary" href="#">HOME</a>
+  </div>`,
 });
 
 export default error404;

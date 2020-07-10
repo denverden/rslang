@@ -1,15 +1,13 @@
-// import app from './components/App';
-
+import app from './components/App';
 import '../node_modules/bootstrap/dist/js/bootstrap';
+import AppStore from './components/AppStore';
 
-import Savanna from './components/Savanna/Savanna';
+const hash = window.location.hash.slice(1);
 
-// app.start();
-
-function speakItInitialization() {
-  console.log('run savanna');
-  const mySavanna = new Savanna();
-  mySavanna.init('main');
+if (hash === 'speakit') {
+  app.start('speakit');
+} else if (hash === 'savanna') {
+  app.start('savanna');  
+} else {
+  AppStore.loadSettings().then(() => app.start());
 }
-
-speakItInitialization();

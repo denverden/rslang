@@ -1,5 +1,3 @@
-import templatesURL from './templatesURL';
-
 export function clockToString(date) {
   const year = date.getFullYear();
   const monthNum = (date.getMonth() < 10) ? `0${(date.getMonth() + 1)}` : (date.getMonth() + 1);
@@ -17,9 +15,9 @@ export function removeSomeCSSClass(elementClass, removeClass) {
   });
 }
 
-export function addSomeCSSClass(elementClass, removeClass) {
+export function addSomeCSSClass(elementClass, addClass) {
   document.querySelectorAll(elementClass).forEach((item) => {
-    item.classList.remove(removeClass);
+    item.classList.add(addClass);
   });
 }
 
@@ -33,6 +31,7 @@ export function playAudio(audioCSSClass, audioURL) {
   audio.setAttribute('src', audioURL);
 
   audio.onerror = () => {
+    // eslint-disable-next-line no-alert
     alert('Error loading audio');
   };
 }

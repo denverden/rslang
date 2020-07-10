@@ -55,15 +55,17 @@ class Statistics {
     const statisticsContainerDiv = document.querySelector('.statistics__container');
 
     reversArr.forEach((item, index) => {
-      const { date } = item;
-      const errors = this.getCountError(item.statistics);
-      const success = this.getCountSuccess(item.statistics);
-      const group = this.getCurrentGroup(item.statistics);
+      if (item.statistics.length > 0) {
+        const { date } = item;
+        const errors = this.getCountError(item.statistics);
+        const success = this.getCountSuccess(item.statistics);
+        const group = this.getCurrentGroup(item.statistics);
 
-      statisticsContainerDiv.insertAdjacentHTML('beforeEnd', templatesHTML.getStatisticsHeaderHTML(index, date, group, errors, success));
-      statisticsContainerDiv.insertAdjacentHTML('beforeEnd', templatesHTML.getStatisticsContainerHTML(index));
+        statisticsContainerDiv.insertAdjacentHTML('beforeEnd', templatesHTML.getStatisticsHeaderHTML(index, date, group, errors, success));
+        statisticsContainerDiv.insertAdjacentHTML('beforeEnd', templatesHTML.getStatisticsContainerHTML(index));
 
-      this.renderWordList(index);
+        this.renderWordList(index);
+      }
     });
 
     statisticsContainerDiv.addEventListener('click', this.registerStatisticsClickEvent.bind(this));
@@ -106,7 +108,7 @@ class Statistics {
   }
 
   registerCloseEvent() {
-    const container = document.querySelector('.container');
+    const container = document.querySelector('.speakit-container');
     const resultPage = document.querySelector('.resultpage');
     const statisticsPage = document.querySelector('.statistics');
 
@@ -117,7 +119,7 @@ class Statistics {
 
   init() {
     let statListArray = localStorage.getItem('statListArray') || [];
-    const container = document.querySelector('.container');
+    const container = document.querySelector('.speakit-container');
     const resultPage = document.querySelector('.resultpage');
     const statisticsPage = document.querySelector('.statistics');
     const closeBtn = document.querySelector('.statistics__return');
@@ -133,6 +135,7 @@ class Statistics {
 
       closeBtn.addEventListener('click', this.registerCloseEvent.bind(this));
     } else {
+      // eslint-disable-next-line no-console
       console.log('No statistics!');
     }
   }

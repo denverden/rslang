@@ -11,38 +11,38 @@ const templatesHTML = {
               </p>
               <a href="#" class="startpage--intro-btn">Start</a>
             </div>
-            
-            <div class="container hidden">
-                <div class="info">          
-                  <ul class="info__pages">
-                    <li class="info__pages--page activePage" data-groupno="0" ></li>
-                    <li class="info__pages--page" data-groupno="1"></li>
-                    <li class="info__pages--page" data-groupno="2"></li>
-                    <li class="info__pages--page" data-groupno="3"></li>
-                    <li class="info__pages--page" data-groupno="4"></li>
-                    <li class="info__pages--page" data-groupno="5"></li>
-                  </ul> 
 
-                  <div class="info__score"></div>
+            <div class="speakit-container hidden">
+                <div class="speakit-info">
+                  <ul class="speakit-info__pages">
+                    <li class="speakit-info__pages--page activePage" data-groupno="0" ></li>
+                    <li class="speakit-info__pages--page" data-groupno="1"></li>
+                    <li class="speakit-info__pages--page" data-groupno="2"></li>
+                    <li class="speakit-info__pages--page" data-groupno="3"></li>
+                    <li class="speakit-info__pages--page" data-groupno="4"></li>
+                    <li class="speakit-info__pages--page" data-groupno="5"></li>
+                  </ul>
+
+                  <div class="speakit-info__score"></div>
                 </div>
 
-                
+
                 <div class="current">
                   <img class="current__image" src="${blank}" alt="">
                   <p class="current__translation"></p>
                   <input type="text" class="current__input none" readonly="">
-                </div> 
-                
+                </div>
+
                 <div class="cards"></div>
-                
+
                 <div class="btns">
                     <a href="#" class="btns__restart">Restart</a>
                     <a href="#" class="btns__speak">Speak please</a>
                     <a href="#" class="btns__result">Results</a>
                 </div>
-                
+
             </div>
-            
+
             <div class="resultpage hidden">
               <div class="resultpage__container">
                   <p class="results__container--errors">Errors
@@ -53,7 +53,7 @@ const templatesHTML = {
                       <span class="resultpage__success-num">0</span>
                   </p>
                   <div class="resultpage__success-item"></div>
-                  
+
                   <div class="resultpage__btns-res">
                       <a href="#" class="resultpage__return">Return</a>
                       <a href="#" class="resultpage__new-game">New game</a>

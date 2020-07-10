@@ -32,7 +32,7 @@ class Speakit {
   }
 
   addStar() {
-    const score = document.querySelector('.info__score ');
+    const score = document.querySelector('.speakit-info__score ');
     score.insertAdjacentHTML('beforeend', templatesHTML.getStarHTML());
   }
 
@@ -75,8 +75,8 @@ class Speakit {
   }
 
   registerHeaderControlEvent(event) {
-    if (event.target.classList.contains('info__pages--page')) {
-      removeSomeCSSClass('.info__pages--page', 'activePage');
+    if (event.target.classList.contains('speakit-info__pages--page')) {
+      removeSomeCSSClass('.speakit-info__pages--page', 'activePage');
 
       event.target.classList.add('activePage');
       this.createNewGame(event.target.dataset.groupno);
@@ -140,7 +140,7 @@ class Speakit {
     const btns = document.querySelector('.btns');
     btns.addEventListener('click', this.registerDownButtonEvent.bind(this));
 
-    const headerControl = document.querySelector('.info');
+    const headerControl = document.querySelector('.speakit-info');
     headerControl.addEventListener('click', this.registerHeaderControlEvent.bind(this));
 
     const returnBtn = document.querySelector('.resultpage__return');
@@ -152,7 +152,7 @@ class Speakit {
     const statisticsBtn = document.querySelector('.resultpage__statistics');
     statisticsBtn.addEventListener('click', this.registerStatisticsEvent.bind(this));
 
-    this.container = document.querySelector('.container');
+    this.container = document.querySelector('.speakit-container');
     this.resultPage = document.querySelector('.resultpage');
   }
 }

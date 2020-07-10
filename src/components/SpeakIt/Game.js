@@ -15,7 +15,6 @@ class Game extends Words {
 
     if (statListArray.length > 0) {
       statListArray = JSON.parse(statListArray);
-      console.log(statListArray);
     }
 
     const statObj = {};
@@ -41,7 +40,7 @@ class Game extends Words {
     this.saveGame();
 
     const input = document.querySelector('.current__input');
-    const score = document.querySelector('.info__score');
+    const score = document.querySelector('.speakit-info__score');
     const currentImage = document.querySelector('.current__image');
     const currentTranslate = document.querySelector('.current__translation');
 
@@ -76,7 +75,7 @@ class Game extends Words {
     const cards = document.querySelector('.cards');
     cards.innerText = '';
 
-    await this.createWordArray();
+    await this.createWordArray(0, 10);
 
     for (let i = 0; i < 10; i += 1) {
       cards.insertAdjacentHTML('beforeEnd', templatesHTML.getCardItemHTML(this.currentWordArray[i]));
@@ -94,10 +93,10 @@ class Game extends Words {
       currentTranslate.innerText = wordObj.wordTranslate;
 
       currentImage.onerror = () => {
-        alert(`Error loading ${this.src}`);
         currentImage.src = templatesURL.getDefaultImageURL();
       };
     } catch (err) {
+      // eslint-disable-next-line no-console
       console.log('Error in setImageAndTranslate', err);
     }
   }

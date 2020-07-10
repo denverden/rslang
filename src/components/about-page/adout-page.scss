@@ -1,0 +1,54 @@
+.person-icon {
+    max-width: 250px;
+    max-height: 250px;
+    margin-bottom: 10px;
+}
+
+.person-card {
+    margin-top: 15px;
+    display: flex;
+    background: rgba(144, 223, 233, 0.363);
+    border-radius: 10px;
+}
+
+.roman {
+    background: rgba(144, 223, 233, 0.363);
+}
+
+.den {
+    background: rgba(248, 250, 132, 0.363);
+}
+
+.lena {
+    background: rgba(144, 193, 233, 0.363);
+}
+
+.konstantin {
+    background: rgba(241, 224, 67, 0.363);
+}
+
+.alex {
+    background: rgba(124, 124, 124, 0.363);
+}
+
+.alexS {
+    background: rgba(248, 218, 47, 0.486);
+}
+
+.person-info {
+    margin: 10px 20px 10px 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.contact, .contact:hover {
+    color: #000000;
+    margin-right: 10px;
+}
+
+@media screen and (max-width: 780px) {
+    .person-card {
+        display: block;
+    }
+}
