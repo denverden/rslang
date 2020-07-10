@@ -1,3 +1,4 @@
+import AppStore from '../AppStore';
 import templatesHTML from './templatesHTML';
 import templatesURL from './templatesURL';
 import { playAudio, addSomeCSSClass } from './helpers';
@@ -44,7 +45,6 @@ class Statistics {
   }
 
   getCurrentGroup(currentWordArray) {
-    console.log(currentWordArray[0]);
     return currentWordArray[0].group;
   }
 
@@ -109,34 +109,31 @@ class Statistics {
   }
 
   registerCloseEvent() {
-    const container = document.querySelector('.speakit-container');
     const resultPage = document.querySelector('.resultpage');
     const statisticsPage = document.querySelector('.statistics');
 
-    container.classList.add('hidden');
     resultPage.classList.remove('hidden');
+    resultPage.classList.add('d-flex');
     statisticsPage.classList.add('hidden');
+    statisticsPage.classList.remove('d-flex');
   }
 
   init() {
     let statListArray = localStorage.getItem('statListArray') || [];
-    const container = document.querySelector('.speakit-container');
     const resultPage = document.querySelector('.resultpage');
     const statisticsPage = document.querySelector('.statistics');
     const closeBtn = document.querySelector('.statistics__return');
 
     if (statListArray.length > 0) {
       statListArray = JSON.parse(statListArray);
-
       this.renderHeader(statListArray);
-
-      container.classList.add('hidden');
       resultPage.classList.add('hidden');
+      resultPage.classList.remove('d-flex');
       statisticsPage.classList.remove('hidden');
-
+      statisticsPage.classList.add('d-flex');
       closeBtn.addEventListener('click', this.registerCloseEvent.bind(this));
     } else {
-      console.log('No statistics!');
+      AppStore.viewMessage('alert-info', 'There is no statistics yet.');
     }
   }
 }
