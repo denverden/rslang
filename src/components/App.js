@@ -3,6 +3,7 @@ import renderComponent from './renderComponent';
 import Routing from './routing/Routing';
 import routes from './routing/routesData';
 import Speakit from './SpeakIt/SpeakIt';
+import Savanna from './Savanna/Savanna';
 
 import './app.scss';
 
@@ -16,6 +17,9 @@ class App {
     if (game === 'speakit') {
       const mySpeakIt = new Speakit();
       mySpeakIt.init('main');
+    } else if (game === 'savanna') {
+      const mySavana = new Savanna();
+      mySavana.init('main');
     } else {
       this.initComponents();
       const routing = new Routing(this.routes);
