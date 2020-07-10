@@ -2,16 +2,17 @@ import SettingsItem from './SettingsItem';
 import AppStore from '../AppStore';
 
 function createFieldsetElement(section) {
-  const fieldsetElement = document.createElement('fieldset');
+  const fieldsetElement = document.createElement('div');
 
-  fieldsetElement.className = 'settings-group d-flex flex-column';
-  fieldsetElement.innerHTML = `<legend class="settings-group__title text-primary">${section}</legend>`;
+  fieldsetElement.className = 'card settings-group d-flex flex-column';
+  fieldsetElement.innerHTML = `<legend class="card-header settings-group__title text-primary">${section}</legend>`;
   return fieldsetElement;
 }
 
 async function putSettings(settingsObj) {
   const userId = localStorage.getItem('userId');
   const token = localStorage.getItem('userToken');
+  const BTN = document.querySelector('.btn--save');
 
   try {
     const res = await fetch(`${AppStore.apiUrl}/users/${userId}/settings`, {
@@ -28,11 +29,17 @@ async function putSettings(settingsObj) {
 
     if (!result.error) {
       AppStore.viewMessage('alert-info', 'Your settings successfully updated');
+      BTN.innerHTML = 'Save';
+      BTN.disabled = false;
     } else {
       AppStore.viewMessage('alert-danger', 'Settings update failed');
+      BTN.innerHTML = 'Save';
+      BTN.disabled = false;
     }
   } catch (err) {
     AppStore.viewMessage('alert-danger', 'Settings update failed');
+    BTN.innerHTML = 'Save';
+    BTN.disabled = false;
   }
 }
 
@@ -49,7 +56,7 @@ class SettingsForm {
     formElement.className = 'settings-container__form';
     formElement.setAttribute('id', 'settingsForm');
     buttonContainer.className = 'button-container';
-    buttonContainer.innerHTML = '<button id="saveBtn" class="btn btn-primary btn--save">Save</button>';
+    buttonContainer.innerHTML = '<button id="saveBtn" class="btn btn-primary btn-lg btn--save">Save</button>';
     this.generateAddFieldsets(formElement);
     formElement.appendChild(buttonContainer);
     this.addSaveBtnClickHandler(formElement);
@@ -59,6 +66,9 @@ class SettingsForm {
 
   addSaveBtnClickHandler(element) {
     element.addEventListener('submit', (e) => {
+      const BTN = document.querySelector('.btn--save');
+      BTN.disabled = true;
+      BTN.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>&nbsp;&nbsp;Processing...';
       e.preventDefault();
 
       const formData = new FormData(e.target);
