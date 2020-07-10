@@ -13,7 +13,6 @@ const templatesHTML = {
                 <a href="#" class="startpage--intro-btn btn btn-info btn-lg mt-2">Start</a>
               </div>
             </div>
-
             <div class="speakit-container flex-column justify-content-center align-items-center hidden py-4">
               <div class="speakit-wrapper d-flex flex-column justify-content-center align-items-center container">
                 <div class="speakit-info d-flex flex-column flex-md-row align-items-center justify-content-md-between">

@@ -15,7 +15,6 @@ class Game extends Words {
 
     if (statListArray.length > 0) {
       statListArray = JSON.parse(statListArray);
-      console.log(statListArray);
     }
 
     const statObj = {};
@@ -94,10 +93,10 @@ class Game extends Words {
       currentTranslate.innerText = wordObj.wordTranslate;
 
       currentImage.onerror = () => {
-        alert(`Error loading ${this.src}`);
         currentImage.src = templatesURL.getDefaultImageURL();
       };
     } catch (err) {
+      // eslint-disable-next-line no-console
       console.log('Error in setImageAndTranslate', err);
     }
   }
