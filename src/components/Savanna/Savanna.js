@@ -1,7 +1,6 @@
 import './savanna.scss';
 import Game from './Game';
 import templatesHTML from './templatesHTML';
-import { removeSomeCSSClass } from './helpers';
 
 class Speakit {
   constructor() {
@@ -25,6 +24,7 @@ class Speakit {
 
   init(elementId) {
     const el = document.getElementById(elementId);
+    el.classList.add('mt-0');
     el.insertAdjacentHTML('beforeEnd', templatesHTML.getStartPageHTML());
 
     const startButton = document.querySelector('.startpage--intro-btn');

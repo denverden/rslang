@@ -1,4 +1,3 @@
-import blank from './blank.jpg';
 import audio from './audio.svg';
 
 const templatesHTML = {
@@ -13,9 +12,9 @@ const templatesHTML = {
             </div>
 
             <div class="savanna-container hidden">
-                <div class="info">
+                <div class="savanna-info">
                   <span class="timer"></span>
-                  <div class="info__score"></div>
+                  <div class="savanna-info__score"></div>
                 </div>
 
 
@@ -98,7 +97,7 @@ const templatesHTML = {
   },
 
   getStarHTML() {
-    return '<div class="info__score--star"></div>';
+    return '<div class="savanna-info__score--star"></div>';
   },
 };
 

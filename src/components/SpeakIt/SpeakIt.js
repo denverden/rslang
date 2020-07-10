@@ -135,6 +135,7 @@ class Speakit {
     this.addSpeechRecognition();
 
     const el = document.getElementById(elementId);
+    el.classList.add('mt-0');
     el.insertAdjacentHTML('beforeEnd', templatesHTML.getStartPageHTML());
 
     const startButton = document.querySelector('.startpage--intro-btn');
