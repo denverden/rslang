@@ -26,20 +26,22 @@ function createTabs(parentElement) {
 }
 
 export function renderPageTemplate() {
-  const template = createContainer('div', 'dictionary-container');
-  const header = createContainer('div', 'dictionary-header', 'd-flex', 'flex-column', 'flex-md-row');
+  const upTemplate = createContainer('div', 'container');
+  const template = createContainer('div', 'card', 'dictionary-container');
+  const header = createContainer('div', 'card-header', 'dictionary-header', 'd-flex', 'flex-column', 'flex-md-row');
   const headerTitle = createContainer('div', 'dictionary-header__title');
   const wordlist = createContainer('div', 'wordlist', 'd-flex', 'flex-column', 'animate-bottom');
   const tabsContainer = createContainer('div', 'dictionary-header__tabs-container', 'd-flex', 'align-items-center');
 
   createTabs(tabsContainer);
-  headerTitle.innerHTML = 'My Dictionary ( <span class="dictionary-header__wordCount" id="userWordCount">0</span> )';
+  headerTitle.innerHTML = 'My Dictionary (<span class="dictionary-header__wordCount" id="userWordCount">0</span>)';
   tabsContainer.setAttribute('id', 'dictionaryTabs');
   wordlist.setAttribute('id', 'wordlist');
   header.appendChild(headerTitle);
   header.appendChild(tabsContainer);
   template.appendChild(header);
   template.appendChild(wordlist);
+  upTemplate.appendChild(template);
 
-  return template;
+  return upTemplate;
 }

@@ -1,4 +1,3 @@
-import blank from './blank.jpg';
 import audio from './audio.svg';
 
 const templatesHTML = {
@@ -6,29 +5,29 @@ const templatesHTML = {
     return `<div class="startpage">
               <h1 class="startpage--title">САВАННА</h1>
               <p class="startpage--intro-text">
-                  Тренировка Саванна развивает словарный запас. 
+                  Тренировка Саванна развивает словарный запас.
                   Чем больше слов ты знаешь, тем больше очков опыта получишь.
               </p>
               <a href="#" class="startpage--intro-btn">Start</a>
             </div>
-            
-            <div class="container hidden">
-                <div class="info">          
+
+            <div class="savanna-container hidden">
+                <div class="savanna-info">
                   <span class="timer"></span>
-                  <div class="info__score"></div>
+                  <div class="savanna-info__score"></div>
                 </div>
 
-                
+
                 <div class="current">
                   <p class="current__translation"></p>
                   <input type="text" class="current__input none" readonly="">
-                </div> 
-                
+                </div>
+
                 <div class="cards"></div>
-                
-                
+
+
             </div>
-            
+
             <div class="resultpage hidden">
               <div class="resultpage__container">
                   <p class="results__container--errors">Errors
@@ -39,7 +38,7 @@ const templatesHTML = {
                       <span class="resultpage__success-num">0</span>
                   </p>
                   <div class="resultpage__success-item"></div>
-                  
+
                   <div class="resultpage__btns-res">
                       <a href="#" class="resultpage__new-game">New game</a>
                   </div>
@@ -98,7 +97,7 @@ const templatesHTML = {
   },
 
   getStarHTML() {
-    return '<div class="info__score--star"></div>';
+    return '<div class="savanna-info__score--star"></div>';
   },
 };
 

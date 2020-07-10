@@ -5,7 +5,7 @@ import { playAudio } from './helpers';
 class Result {
   constructor(currentGameObject) {
     this.currentGameObject = currentGameObject;
-    this.container = document.querySelector('.container');
+    this.container = document.querySelector('.savanna-container');
     this.resultPage = document.querySelector('.resultpage');
   }
 

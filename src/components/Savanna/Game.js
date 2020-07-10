@@ -1,4 +1,3 @@
-import templatesURL from './templatesURL';
 import Words from './Words';
 import { getRandomInt, shuffleArray, playAudio } from './helpers';
 import templatesHTML from './templatesHTML';
@@ -157,6 +156,7 @@ class Game extends Words {
     }, 1000);
 
     this.timerId = setTimeout(() => {
+      // eslint-disable-next-line no-console
       console.log('timer.. Current attempt ', this.attempt);
       this.startTimer(true);
     }, 5000);
@@ -165,6 +165,7 @@ class Game extends Words {
   async startTimer(timeout) {
     if (timeout) {
       this.attempt -= 1;
+      // eslint-disable-next-line no-console
       console.log('Attempt time over', this.attempt);
     }
 
@@ -175,12 +176,13 @@ class Game extends Words {
       this.myTimer();
     } else {
       this.renderResultGame();
+      // eslint-disable-next-line no-console
       console.log('You lose....', this.gameWordArray);
     }
   }
 
   init() {
-    this.attemptDiv = document.querySelector('.info__score');
+    this.attemptDiv = document.querySelector('.savanna-info__score');
     this.attemptDiv.innerText = this.attempt;
 
     document.querySelector('.cards').addEventListener('click', this.registerCardsClickEvent.bind(this));
