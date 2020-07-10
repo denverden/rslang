@@ -34,7 +34,7 @@ class Speakit {
       document.location.reload(true);
     });
 
-    this.container = document.querySelector('.container');
+    this.container = document.querySelector('.savanna-container');
   }
 }
 
