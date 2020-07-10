@@ -72,7 +72,6 @@ class Game extends Words {
 
     if (event.target.dataset.wordid) {
       if (event.target.dataset.wordid === this.gameWordArray[this.gameWordArray.length - 1].id) {
-
         this.setActiveCard(this.gameWordArray[this.gameWordArray.length - 1].id, 'activeCard');
 
         this.gameWordArray[this.gameWordArray.length - 1].success = true;
@@ -95,7 +94,6 @@ class Game extends Words {
 
     // eslint-disable-next-line max-len
     if (this.gameOtherThreeWordArray[idx].id === this.gameWordArray[this.gameWordArray.length - 1].id) {
-
       this.setActiveCard(this.gameWordArray[this.gameWordArray.length - 1].id, 'activeCard');
 
       this.gameWordArray[this.gameWordArray.length - 1].success = true;
