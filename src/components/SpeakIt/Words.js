@@ -1,3 +1,4 @@
+import AppStore from '../AppStore';
 import templatesURL from './templatesURL';
 import { getRandomInt } from './helpers';
 
@@ -18,8 +19,7 @@ class Words {
 
       return data;
     } catch (err) {
-      // eslint-disable-next-line no-console
-      console.log('Error getWordList', err);
+      AppStore.viewMessage('alert-danger', 'Failed to load words list');
       return err;
     }
   }
