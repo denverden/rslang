@@ -67,11 +67,12 @@ class Speakit {
 
   registerStartButtonEvent() {
     const startpage = document.querySelector('.startpage');
+
     startpage.classList.add('hidden');
-
+    startpage.classList.remove('d-flex');
     this.createNewGame(0);
-
     this.container.classList.remove('hidden');
+    this.container.classList.add('d-flex');
   }
 
   registerHeaderControlEvent(event) {
@@ -110,7 +111,9 @@ class Speakit {
 
   registerCloseResultEvent() {
     this.container.classList.remove('hidden');
+    this.container.classList.add('d-flex');
     this.resultPage.classList.add('hidden');
+    this.resultPage.classList.remove('d-flex');
   }
 
   registerNewGameEvent() {
