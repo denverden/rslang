@@ -1,0 +1,62 @@
+
+.settings-container {
+    height: 100%;
+    padding: 10px 20px;
+    font-size: 1.2rem;
+
+    &__title h1 {
+      text-align: center;
+
+      @media (max-width: 767px) { font-size: 2rem; }
+    }
+
+    &__form {
+
+      .settings-group {
+        margin: 0px 0px 15px 0px;
+
+        &__title {
+          margin-bottom: 0;
+          padding: 5px 15px;
+          font-size: 1.3rem;
+
+          @media (max-width: 767px) { font-size: 1.2rem; }
+        }
+
+        .settings-item {
+          margin: 3px 15px;
+
+          &__input {
+            margin-left: 150px;
+            font-size: 1rem;
+
+            @media (max-width: 767px) { margin-left: 120px; }
+            @media (max-width: 576px) { margin-left: 35px; }
+            @media (max-width: 375px) {
+              margin-left: 15px;
+              font-size: 0.9rem;
+            }
+          }
+
+          @media (max-width: 375px) { margin-bottom: 0; }
+        }
+      }
+
+      .button-container {
+        display: flex;
+        justify-content: center;
+
+        .btn--save {
+          display: flex;
+          width: 200px;
+          justify-content: center;
+          align-items: center;
+        }
+      }
+    }
+
+    @media (max-width: 767px) {
+      padding: 25px;
+      font-size: 1rem;
+    }
+  }
