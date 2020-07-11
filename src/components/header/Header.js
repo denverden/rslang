@@ -2,6 +2,8 @@
 import Component from '../Component';
 import AppStore from '../AppStore';
 
+import './header.scss';
+
 class Header extends Component {
   logout() {
     // eslint-disable-next-line no-alert
@@ -39,7 +41,7 @@ class Header extends Component {
 const header = new Header({
   selector: 'header',
   template: `
-            <nav class="navbar navbar-expand-lg navbar-light bg-light px-5 py-4">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
               <div class="container-fluid">
                 <a class="navbar-brand" href="#">RS LANG</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">

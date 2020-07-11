@@ -38,8 +38,9 @@ class Result {
     }
 
     this.container.classList.add('hidden');
+    this.container.classList.remove('d-flex');
     this.resultPage.classList.remove('hidden');
-
+    this.resultPage.classList.add('d-flex');
     successItemDiv.addEventListener('click', this.registerWordClickEvent.bind(this));
     errorItemDiv.addEventListener('click', this.registerWordClickEvent.bind(this));
   }

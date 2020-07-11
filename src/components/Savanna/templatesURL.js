@@ -1,12 +1,10 @@
-import AppStore from '../AppStore';
-
 const templatesURL = {
   getImageURL(query) {
     return `https://raw.githubusercontent.com/irinainina/rslang-data/master/${query}`;
   },
 
   getDefaultImageURL() {
-    return 'components/SpeakIt/images/blank.jpg';
+    return 'components/SpeakIt/blank.jpg';
   },
 
   getAudioURL(query) {
@@ -14,7 +12,7 @@ const templatesURL = {
   },
 
   getWordListURL(page, group) {
-    return `${AppStore.apiUrl}/words?page=${page}&group=${group}`;
+    return `https://afternoon-falls-25894.herokuapp.com/words?page=${page}&group=${group}`;
   },
 };
 

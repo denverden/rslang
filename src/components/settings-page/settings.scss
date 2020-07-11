@@ -1,7 +1,7 @@
 
 .settings-container {
     height: 100%;
-    padding: 20px;
+    padding: 10px 20px;
     font-size: 1.2rem;
 
     &__title h1 {
@@ -13,19 +13,18 @@
     &__form {
 
       .settings-group {
-        margin: 0;
-        border: none;
+        margin: 0px 0px 15px 0px;
 
         &__title {
           margin-bottom: 0;
-          padding-top: 10px;
+          padding: 5px 15px;
           font-size: 1.3rem;
 
           @media (max-width: 767px) { font-size: 1.2rem; }
         }
 
         .settings-item {
-          margin-bottom: 3px;
+          margin: 3px 15px;
 
           &__input {
             margin-left: 150px;
@@ -44,18 +43,14 @@
       }
 
       .button-container {
-        padding-top: 25px;
+        display: flex;
+        justify-content: center;
 
         .btn--save {
-          display: block;
+          display: flex;
           width: 200px;
-          margin: auto;
-          font-size: 1.5rem;
-
-          @media (max-width: 576px) {
-            width: 100%;
-            font-size: 1.3rem;
-          }
+          justify-content: center;
+          align-items: center;
         }
       }
     }
