@@ -45,7 +45,7 @@ class SignInPage extends Component {
         localStorage.setItem('userId', result.userId);
         localStorage.setItem('userToken', result.token);
         AppStore.viewMessage();
-        AppStore.loadSettings().then(() => { window.location.hash = '#dashboard'; });
+        AppStore.loadSettings().then(() => { window.location.hash = '#learn'; });
       }
     } catch (err) {
       AppStore.viewMessage('alert-danger', 'Wrong login or password.');

@@ -109,6 +109,7 @@ class SettingsForm {
   }
 
   saveSettingsUpdate() {
+    const BTN = document.querySelector('.btn--save');
     const optionsToCheck = [this.stateObj.showExample,
       this.stateObj.showMeaning,
       this.stateObj.showWordTranslation];
@@ -120,6 +121,8 @@ class SettingsForm {
       putSettings(AppStore.settings);
     } else {
       AppStore.viewMessage('alert-warning', 'Be sure to choose one of the options:</br>show word translation, show word meaning, show word usage example');
+      BTN.innerHTML = 'Save';
+      BTN.disabled = false;
     }
   }
 }
