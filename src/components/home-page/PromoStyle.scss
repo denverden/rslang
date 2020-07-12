@@ -1,9 +1,25 @@
-@import './models/slide/slide';
-@import './models/button/button';
-@import './models/info/info';
-@import './models/rules/rules';
+@import './styles/slide/slide';
+@import './styles/button/button';
+@import './styles/info/info';
+@import './styles/rules/rules';
 
 body {
   margin: 0;
   scroll-behavior: smooth;
+}
+
+.welcome{
+  padding-top: 20px;
+  text-align: center;
+}
+
+.start{
+  padding: 20px;
+  text-align: center;
+}
+
+@media screen and (max-width: 450px){
+  .start{
+  font-size: 25px;
+  }
 }

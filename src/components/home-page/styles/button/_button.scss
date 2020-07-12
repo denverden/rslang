@@ -44,6 +44,14 @@
   }
 }
 
+@media screen and (max-width: 600px){
+  .slider__prev-button, .slider__next-button{
+    margin: 5px;
+    width: 10px;
+    height: 10px;
+  }
+}
+
 .to-left{
   animation-name: left;
 }

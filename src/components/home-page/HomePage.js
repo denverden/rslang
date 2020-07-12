@@ -1,5 +1,7 @@
 import Component from '../Component';
 import './PromoStyle.scss';
+import gamesImg from './images/games.png';
+import settingsImg from './images/settings.png';
 
 class HomePage extends Component {
   afterRender() {
@@ -56,75 +58,77 @@ class HomePage extends Component {
 
 const homePage = new HomePage({
   selector: 'main',
-  template: `<section class="slider">
+  template: `<h1 class="welcome">Welcome to RS Lang!</h1>
+  <h6 class="welcome">Here you can look through general features of our website.</h6>
+  <section class="slider">
   <button class="slider__prev-button">
   </button>
   <div class="slide-container">
     <div class="slide-container__slide slider--show">
-      <img src="https://aiesec.at/wp-content/uploads/2015/07/5718269042_8b2181bed8_o-900x600.png" alt="Slide 1">
-    </div>
+      <iframe src="https://www.youtube.com/embed/tgbNymZ7vqY"></iframe>
+     </div>
+     <div class="slide-container__slide">
+     <a href="https://rslang-team62-denverden.netlify.app/#games">
+        <img src="${gamesImg}" alt="Games">
+      </a>
+      <div class="carousel-caption d-block">
+        <h2>Various types of educational games</h2>
+      </div>
+     </div>
     <div class="slide-container__slide">
-      <img src="https://obj.altapress.ru/picture/571846/900x600.jpg" alt="Slide 2">
-    </div>
-    <div class="slide-container__slide">
-      <img src="https://media.kasperskycontenthub.com/wp-content/uploads/sites/20/2020/02/25184427/DSC05835-900x600.jpg" alt="Slide 3">
+    <a href="https://rslang-team62-denverden.netlify.app/#settings">
+    <img src="${settingsImg}" alt="Settings">
+  </a>
+  <div class="carousel-caption d-block">
+        <h2>Flexible language learning settings</h2>
+      </div>
     </div>
   </div>
   <button class="slider__next-button">
   </button>
 </section>
+<h1 class="info-text">Our opportunities and advantages:</h1>
 <section class="info">
   <div class="info__item">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/63/Star%2A.svg/1200px-Star%2A.svg.png" alt="pic1">
-    <h2>ProTip1</h2>
-    <p>Личный кабинет, позволяющий сохранить прогресс</p>
-  </div>
-  <div class="info__item"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/63/Star%2A.svg/1200px-Star%2A.svg.png" alt="pic2">
-    <h2>ProTip2</h2>
-    <p>Методика интервального повторения для закрепления в памяти изучаемых слов</p>
-  </div>
-  <div class="info__item"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/63/Star%2A.svg/1200px-Star%2A.svg.png" alt="pic3">
-    <h2>ProTip3</h2>
-    <p>Познавательные мини-игры, позволяющие расширить словарный запас</p>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/Eo_circle_light-blue_white_checkmark.svg/1024px-Eo_circle_light-blue_white_checkmark.svg.png" alt="pic1">
+    <h3>A personal account that helps to keep progress</h3>
   </div>
   <div class="info__item">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/63/Star%2A.svg/1200px-Star%2A.svg.png" alt="pic4">
-    <h2>ProTip4</h2>
-    <p>Статистика для отслеживания прогресса</p>
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/Eo_circle_light-blue_white_checkmark.svg/1024px-Eo_circle_light-blue_white_checkmark.svg.png" alt="pic2">
+    <h3>Interval repetition technique for fixing in memory of the studied words</h3>
   </div>
   <div class="info__item">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/63/Star%2A.svg/1200px-Star%2A.svg.png" alt="pic5">
-    <h2>ProTip5</h2>
-    <p>No one rejects, dislikes, or avoids pleasure itself, because it is pleasure</p>
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/Eo_circle_light-blue_white_checkmark.svg/1024px-Eo_circle_light-blue_white_checkmark.svg.png" alt="pic3">
+    <h3>Cognitive mini-game, allowing to expand vocabulary</h3>
   </div>
   <div class="info__item">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/63/Star%2A.svg/1200px-Star%2A.svg.png" alt="pic6">
-    <h2>ProTip6</h2>
-    <p>To take a trivial example, which of us ever undertakes laborious physical exercise, except to obtain some advantage from it</p>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/Eo_circle_light-blue_white_checkmark.svg/1024px-Eo_circle_light-blue_white_checkmark.svg.png" alt="pic4">
+    <h3>Statistics to track your progress</h3>
+  </div>
+  <div class="info__item">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/Eo_circle_light-blue_white_checkmark.svg/1024px-Eo_circle_light-blue_white_checkmark.svg.png" alt="pic5">
+    <h3>A variety of settings for the convenience of using the site</h3>
   </div>
 </section>
 <section class="rules">
   <div class="rules__rule">
     <img src="https://image.flaticon.com/icons/png/512/114/114903.png" alt="rule1">
-    <h2>Rule1</h2>
-    <p>Rule description 1</p>
+    <h3>Example Rule 1</h3>
   </div>
   <div class="rules__rule">
     <img src="https://image.flaticon.com/icons/png/512/114/114903.png" alt="rule2">
-    <h2>Rule2</h2>
-    <p>Rule description 2</p>
+    <h3>Example Rule 2</h3>
   </div>
   <div class="rules__rule">
     <img src="https://image.flaticon.com/icons/png/512/114/114903.png" alt="rule3">
-    <h2>Rule3</h2>
-    <p>Rule description 3</p>
+    <h3>Example Rule 3</h3>
   </div>
   <div class="rules__rule">
     <img src="https://image.flaticon.com/icons/png/512/114/114903.png" alt="rule4">
-    <h2>Rule4</h2>
-    <p>Rule description 4</p>
+    <h3>Example Rule 4</h3>
   </div>
-</section>`,
+</section>
+<h1 class="start">So, what are you waiting for? Just <a href="http://localhost:3000/#sign-in">start</a> it right now!</h1>`,
 });
 
 export default homePage;
