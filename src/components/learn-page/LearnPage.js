@@ -17,6 +17,23 @@ class LearnPage extends Component {
     AppStore.learnWords[AppStore.positionWord].desc = result;
   }
 
+  async createWord() {
+    const obj = JSON.parse(JSON.stringify(AppStore.learnWords[AppStore.positionWord]));
+    delete obj.desc;
+    delete obj.wordId;
+    const res = await fetch(`${AppStore.apiUrl}/users/${AppStore.userId}/words/${AppStore.learnWords[AppStore.positionWord].wordId}`, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${AppStore.userToken}`,
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(obj),
+    });
+
+    const result = await res.json();
+  }
+
   async readWords(group, page) {
     const res = await fetch(`${AppStore.apiUrl}/words?group=${group}&page=${page}`, {
       method: 'GET',
@@ -35,7 +52,7 @@ class LearnPage extends Component {
       word.difficulty = 'string';
       word.optional = {};
       word.optional.deleted = false;
-      word.optional.time = '';
+      word.optional.time = new Date().toString();
       word.optional.ratio = 0;
       word.optional.success = 0;
       word.optional.error = 0;
@@ -46,6 +63,7 @@ class LearnPage extends Component {
       }
       // });
     });
+    console.log(AppStore.learnWords);
   }
 
   async creatLearnWords() {
@@ -116,13 +134,18 @@ class LearnPage extends Component {
   afterRender() {
     this.renderCard();
     document.querySelector('.learn-page__input').addEventListener('keydown', (event) => {
-      console.log(event.code);
       if (event.code === 'Enter' || event.code === 'NumpadEnter') {
         if (document.querySelector('.learn-page__input').value === AppStore.learnWords[AppStore.positionWord].desc.word) {
           document.querySelector('.learn-page__input').value = '';
+          AppStore.learnWords[AppStore.positionWord].optional.ratio += 1;
+          AppStore.learnWords[AppStore.positionWord].optional.success += 1;
+          this.createWord();
           AppStore.positionWord += 1;
           localStorage.setItem('positionWord', AppStore.positionWord);
           this.renderCard();
+        } else {
+          AppStore.learnWords[AppStore.positionWord].optional.ratio -= 1;
+          AppStore.learnWords[AppStore.positionWord].optional.error += 1;
         }
       }
     });
