@@ -6,7 +6,7 @@ class Result {
   constructor(currentGameObject) {
     this.currentGameObject = currentGameObject;
     this.container = document.querySelector('.savanna-container');
-    this.resultPage = document.querySelector('.resultpage');
+    this.resultPage = document.querySelector('.result-page');
   }
 
   getCountErrorInArrayWord(arr) {
@@ -53,11 +53,11 @@ class Result {
   }
 
   init() {
-    const successDiv = document.querySelector('.resultpage__success-num');
-    const successItemDiv = document.querySelector('.resultpage__success-item');
+    const successDiv = document.querySelector('.result-page__success-num');
+    const successItemDiv = document.querySelector('.result-page__success-item');
 
-    const errorDiv = document.querySelector('.resultpage__errors-num');
-    const errorItemDiv = document.querySelector('.resultpage__errors-item');
+    const errorDiv = document.querySelector('.result-page__errors-num');
+    const errorItemDiv = document.querySelector('.result-page__errors-item');
 
     successDiv.innerText = this.getCountSuccessInArrayWord(this.currentGameObject.gameWordArray);
     errorDiv.innerText = this.getCountErrorInArrayWord(this.currentGameObject.gameWordArray);
@@ -72,7 +72,8 @@ class Result {
         errorItemDiv.insertAdjacentHTML('beforeEnd', templatesHTML.getResultItemHTML(this.currentGameObject.gameWordArray[i]));
       }
     }
-
+    console.log(this.container, 'in Results init');
+    console.log(this.resultPage, 'in Results init');
     this.container.classList.add('hidden');
     this.resultPage.classList.remove('hidden');
 

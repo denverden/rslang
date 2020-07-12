@@ -2,7 +2,7 @@ import './savanna.scss';
 import Game from './Game';
 import templatesHTML from './templatesHTML';
 
-class Speakit {
+class Savanna {
   constructor() {
     this.currentGameObject = '';
     this.container = '';
@@ -14,23 +14,26 @@ class Speakit {
   }
 
   registerStartButtonEvent() {
-    const startpage = document.querySelector('.startpage');
-    startpage.classList.add('hidden');
+    const startPage = document.querySelector('.start-page');
 
+    startPage.classList.add('hidden');
+    startPage.classList.remove('d-flex');
+    // todo: add function to choose words for 'new Game' from user words or random
     this.createNewGame(0);
-
     this.container.classList.remove('hidden');
+    this.container.classList.add('d-flex');
   }
 
   init(elementId) {
     const el = document.getElementById(elementId);
+
     el.classList.add('mt-0');
     el.insertAdjacentHTML('beforeEnd', templatesHTML.getStartPageHTML());
 
-    const startButton = document.querySelector('.startpage--intro-btn');
-    startButton.addEventListener('click', this.registerStartButtonEvent.bind(this));
+    const startButton = document.querySelector('.start-page__intro-btn');
 
-    document.querySelector('.resultpage__new-game').addEventListener('click', () => {
+    startButton.addEventListener('click', this.registerStartButtonEvent.bind(this));
+    document.querySelector('.result-page__new-game').addEventListener('click', () => {
       document.location.reload(true);
     });
 
@@ -38,4 +41,4 @@ class Speakit {
   }
 }
 
-export default Speakit;
+export default Savanna;
