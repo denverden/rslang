@@ -3,6 +3,37 @@ import AppStore from '../AppStore';
 import './learn-page.scss';
 
 class LearnPage extends Component {
+  async isWordUser(wordId) {
+    if (AppStore.userWords.length <= 0) {
+      try {
+        const res = await fetch(`${AppStore.apiUrl}/users/${AppStore.userId}/words`, {
+          method: 'GET',
+          headers: {
+            Authorization: `Bearer ${AppStore.userToken}`,
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+        });
+
+        const result = await res.json();
+
+        if (!result.error) {
+          AppStore.userWords = result;
+        }
+      } catch (err) {
+        AppStore.viewMessage('alert-danger', 'Error read word API');
+      }
+    }
+
+    let status = false;
+    AppStore.userWords.forEach((element) => {
+      if (element.wordId === wordId) {
+        status = true;
+      }
+    });
+    return status;
+  }
+
   async getWord() {
     const res = await fetch(`${AppStore.apiUrl}/words/${AppStore.learnWords[AppStore.positionWord].wordId}`, {
       method: 'GET',
@@ -20,6 +51,7 @@ class LearnPage extends Component {
   async createWord() {
     const obj = JSON.parse(JSON.stringify(AppStore.learnWords[AppStore.positionWord]));
     delete obj.desc;
+    AppStore.userWords.push(obj);
     delete obj.wordId;
     const res = await fetch(`${AppStore.apiUrl}/users/${AppStore.userId}/words/${AppStore.learnWords[AppStore.positionWord].wordId}`, {
       method: 'POST',
@@ -52,44 +84,46 @@ class LearnPage extends Component {
       word.difficulty = 'string';
       word.optional = {};
       word.optional.deleted = false;
-      word.optional.time = new Date().toString();
+      word.optional.time = new Date();
       word.optional.ratio = 0;
       word.optional.success = 0;
       word.optional.error = 0;
       word.desc = element;
-      // this.isWordUser(word.wordId).then((isStatus) => {
-      if (AppStore.learnWords.length <= AppStore.settings.optional.wordsPerDay - 1) {
-        AppStore.learnWords.push(word);
-      }
-      // });
+      this.isWordUser(word.wordId).then((isStatus) => {
+        if (AppStore.learnWords.length <= AppStore.settings.optional.newWordsPerDay - 1) {
+          if (!isStatus) AppStore.learnWords.push(word);
+        }
+      });
     });
-    console.log(AppStore.learnWords);
+  }
+
+  async readUserWords(count) {
+    const res = await fetch(`${AppStore.apiUrl}/users/${AppStore.userId}/words`, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${AppStore.userToken}`,
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+    });
+
+    const result = await res.json();
+
+    result.forEach((element) => {
+      AppStore.learnWords.push(element);
+    });
+    if (count > AppStore.learnWords.length) {
+      AppStore.learnWords = AppStore.learnWords.slice(0, count - 1);
+    }
   }
 
   async creatLearnWords() {
-    if (!AppStore.learnWords.length > 0 && AppStore.settings.optional.newOrRepetitionWords === 'repeatOnly') {
-      AppStore.learnWords = [];
-
-      const res = await fetch(`${AppStore.apiUrl}/users/${AppStore.userId}/words`, {
-        method: 'GET',
-        headers: {
-          Authorization: `Bearer ${AppStore.userToken}`,
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-      });
-
-      const result = await res.json();
-
-      result.forEach((element) => {
-        AppStore.learnWords.push(element);
-      });
-    }
-
-    if (!AppStore.learnWords.length > 0 && AppStore.settings.optional.newOrRepetitionWords === 'newOnly') {
+    if (!AppStore.learnWords.length > 0 && AppStore.settings.optional.newOrRepetitionWords === 'both') {
+      const c = AppStore.settings.optional.wordsPerDay - AppStore.settings.optional.newWordsPerDay;
+      await this.readUserWords(c);
       let group = 0;
       let page = 0;
-      while (AppStore.learnWords.length < AppStore.settings.optional.wordsPerDay || group > 5) {
+      while (AppStore.learnWords.length < AppStore.settings.optional.newWordsPerDay || group > 5) {
         // eslint-disable-next-line no-await-in-loop
         await this.readWords(group, page);
         page += 1;
@@ -99,6 +133,26 @@ class LearnPage extends Component {
         }
       }
     }
+
+    if (!AppStore.learnWords.length > 0 && AppStore.settings.optional.newOrRepetitionWords === 'repeatedOnly') {
+      const c = AppStore.settings.optional.wordsPerDay - AppStore.settings.optional.newWordsPerDay;
+      await this.readUserWords(c);
+    }
+
+    if (!AppStore.learnWords.length > 0 && AppStore.settings.optional.newOrRepetitionWords === 'newOnly') {
+      let group = 0;
+      let page = 0;
+      while (AppStore.learnWords.length < AppStore.settings.optional.newWordsPerDay || group > 5) {
+        // eslint-disable-next-line no-await-in-loop
+        await this.readWords(group, page);
+        page += 1;
+        if (page > 29) {
+          page = 0;
+          group += 1;
+        }
+      }
+    }
+    console.log(AppStore.learnWords);
   }
 
   renderCard() {

@@ -5,6 +5,7 @@ class AppStore {
     this.userToken = '';
     this.settings = {};
     this.learnWords = [];
+    this.userWords = [];
     this.positionWord = 0;
     this.dictionaryTab = 'all';
     this.apiUrl = 'https://afternoon-falls-25894.herokuapp.com';
