@@ -61,7 +61,7 @@ const templatesHTML = {
             <div class="statistics align-items-center justify-content-center hidden">
               <div class="statistics__container"></div>
               <div class="statistics__btns">
-                  <a href="#" class="btn btn-danger statistics__return">Close</a>
+                  <a href="#" class="btn btn-danger btn-sm statistics__return">Close</a>
               </div>
             </div>
 

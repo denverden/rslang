@@ -1,18 +1,6 @@
 export const settingsData = {
   'Main:': [
     {
-      type: 'number',
-      name: 'wordsPerDay',
-      text: 'Amount of words per day: ',
-      value: '50',
-    },
-    {
-      type: 'number',
-      name: 'newWordsPerDay',
-      text: 'Amount of new words per day: ',
-      value: '20',
-    },
-    {
       type: 'checkbox',
       name: 'sound',
       text: 'Is sound on:',
@@ -34,6 +22,18 @@ export const settingsData = {
       name: 'newOrRepetitionWords',
       text: 'Learn both words for repetition and new',
       value: 'both',
+    },
+    {
+      type: 'number',
+      name: 'wordsPerDay',
+      text: 'Amount of words per day: ',
+      value: '50',
+    },
+    {
+      type: 'number',
+      name: 'newWordsPerDay',
+      text: 'Amount of new words per day: ',
+      value: '20',
     },
   ],
   'Card Settings:': [
