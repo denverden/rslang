@@ -18,7 +18,6 @@ class Savanna {
 
     startPage.classList.add('hidden');
     startPage.classList.remove('d-flex');
-    // todo: add function to choose words for 'new Game' from user words or random
     this.createNewGame(0);
     this.container.classList.remove('hidden');
     this.container.classList.add('d-flex');
@@ -34,6 +33,7 @@ class Savanna {
 
     startButton.addEventListener('click', this.registerStartButtonEvent.bind(this));
     document.querySelector('.result-page__new-game').addEventListener('click', () => {
+      // todo: new game button should start new game
       document.location.reload(true);
     });
 

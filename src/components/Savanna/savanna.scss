@@ -49,6 +49,8 @@ a.start-page__intro-btn {
 
     .savanna-info {
       width: 100%;
+      font-size: 1.2rem;
+      color: $color-text;
     }
 
     .current {
@@ -74,7 +76,7 @@ a.start-page__intro-btn {
         }
         80% {
           transform: translateY(40vh);
-          opacity: 0.7;
+          opacity: 0.65;
         }
         100% {
           transform: translateY(50vh);
@@ -82,11 +84,9 @@ a.start-page__intro-btn {
         }
       }
 
-      .fadeout
-      {
+      .fadeout {
         visibility: hidden;
-        opacity: 0;
-        transition: visibility 0s 1s, opacity 1s linear;
+        transition: visibility 0.5s linear;
       }
     }
 
@@ -161,16 +161,15 @@ a.start-page__intro-btn {
 
   &__container {
     width: 100%;
-    max-width: 780px;
+    max-width: 800px;
     min-height: 600px;
-    padding: 40px 100px;
-    text-align: left;
+    padding: 40px 80px;
     background-color: #fff;
     border-radius: 8px;
     box-shadow: 0 0 0 1px rgba(255,255,255,.1), 0 2px 4px 0 rgba(14,30,37,.12);
 
     @media (max-width: 768px) { padding: 30px 20px 30px 40px; }
-    @media (max-width: 461px) { padding: 20px 10px 20px 20px; }
+    @media (max-width: 461px) { padding: 20px; }
   }
 
   &__errors-num {
@@ -200,27 +199,24 @@ a.start-page__intro-btn {
     transition: .3s;
 
     @media (max-width: 576px) {
-      padding-left: 30px;
+      padding-left: 0;
       padding-bottom: 5px;
     }
   }
 
-  &__item--audio-icon {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    width: 34px;
-    height: 34px;
+  &__item-number {
+    width: 30px;
+    height: 30px;
+    margin-right: 15px;
 
     &:hover {
       transform: scale(1.2, 1.2);
     }
 
     @media (max-width: 576px) {
-      top: 11px;
-      left: 0;
-      width: 27px;
-      height: 27px;
+      width: 25px;
+      height: 25px;
+      margin-right: 10px;
     }
   }
 
@@ -233,6 +229,10 @@ a.start-page__intro-btn {
     margin: 0 0 0 5px;
 
     @media (max-width: 576px) { font-size: 1.1rem; }
+  }
+
+  &__item--translation {
+    @media (max-width: 576px) { margin-left: 20px; }
   }
 
   &__item-word {

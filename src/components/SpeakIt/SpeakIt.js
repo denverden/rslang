@@ -117,6 +117,7 @@ class Speakit {
   }
 
   registerNewGameEvent() {
+    console.log(this.currentGameObject);
     this.currentGameObject.saveGame();
 
     this.registerCloseResultEvent();

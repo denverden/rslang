@@ -27,19 +27,19 @@ const templatesHTML = {
               </div>
             </div>
 
-            <div class="result-page hidden">
+            <div class="result-page align-items-center justify-content-center hidden">
               <div class="result-page__container">
                   <p class="results__container--errors">Errors
                       <span class="result-page__errors-num">10</span>
                   </p>
                   <div class="result-page__errors-item"></div>
-                  <p class="results__container--success">Success
+                  <p class="results__container--success mt-3">Success
                       <span class="result-page__success-num">0</span>
                   </p>
                   <div class="result-page__success-item"></div>
 
-                  <div class="result-page__btns-res">
-                      <a href="#" class="result-page__new-game">New game</a>
+                  <div class="result-page__btns-res text-center mt-5">
+                      <a href="#" class="btn btn-primary btn-md result-page__new-game">New game</a>
                   </div>
               </div>
             </div>

@@ -10,7 +10,7 @@ class Words {
 
   async getWordList(begin, end) {
     try {
-      const page = getRandomInt(20);
+      const page = getRandomInt(30);
 
       const res = await fetch(templatesURL.getWordListURL(page, this.group));
       let data = await res.json();
