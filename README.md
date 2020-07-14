@@ -31,9 +31,7 @@ Here is a working live demo : [RsLang](https://rslang-team62-denverden.netlify.a
 
   
 
-### Landing Page
-
-Currently it is working on all NSE (India) Stocks, BSE (India) Stocks Symbol will be added soon.
+### Home Page
 
   
 
@@ -41,19 +39,20 @@ Currently it is working on all NSE (India) Stocks, BSE (India) Stocks Symbol wil
 
   
 
-### Query Filled Form
+### Learn Page
 
 ![](https://iharsh234.github.io/WebApp/images/demo/demo_query.JPG)
 
   
 
-### Charts
+### About Page
 
 ![](https://iharsh234.github.io/WebApp/images/demo/demo_chart1.JPG)
 
+### Settings Page
+
 ![](https://iharsh234.github.io/WebApp/images/demo/demo_chart2.JPG)
 
-![](https://iharsh234.github.io/WebApp/images/demo/demo_chart3.JPG)
 
   
  
