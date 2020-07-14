@@ -1,0 +1,42 @@
+@import "~normalize.css";
+@import "~bootstrap/scss/bootstrap";
+
+html {
+  height: 100%;
+}
+
+body {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+header {
+  z-index: 10;
+}
+
+.message {
+  position: absolute;
+  margin-top: 1rem;
+  margin-left: 1rem;
+  top: 1rem;
+  right: 1rem;
+  z-index: 1000;
+  button {
+    outline: none;
+  }
+}
+
+main {
+  margin-top: 60px;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+  flex: 1 0 auto;
+  z-index: 1;
+}
+
+footer {
+  flex: 0 0 auto;
+}

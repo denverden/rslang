@@ -42,6 +42,10 @@ module.exports = {
   module: {
     rules: [
       {
+        test: /\.html$/i,
+        loader: 'html-loader',
+      },
+      {
         test: /\.s[ac]ss$/i,
         use: [MiniCssExtractPlugin.loader, 'css-loader',
           {
@@ -51,7 +55,7 @@ module.exports = {
           'sass-loader'],
       },
       {
-        test: /\.(png|jpg|svg|gif|ttf|woff|woff2|eot)$/i,
+        test: /\.(png|jpg|svg|gif|ttf|woff|woff2|eot|mp3)$/i,
         use: [
           {
             loader: 'file-loader',
