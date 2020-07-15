@@ -115,10 +115,12 @@ export async function updateUserWord(wordId, guess) {
   const userId = localStorage.getItem('userId');
   const token = localStorage.getItem('userToken');
   const wordObj = await getUserWordInfo(wordId);
+  const time = new Date();
 
   delete wordObj.id;
   delete wordObj.wordId;
-  wordObj.optional.time = clockToString(new Date());
+  wordObj.optional.time = time.toISOString();
+  // wordObj.optional.time = clockToString(new Date());
 
   if (guess) {
     wordObj.optional.ratio += 1;
@@ -148,11 +150,13 @@ export async function updateUserWord(wordId, guess) {
 }
 
 export async function createUserWord(wordId, guess) {
+  const time = new Date();
   const wordObj = {
     difficulty: 'string',
     optional: {
       deleted: false,
-      time: clockToString(new Date()),
+      time: time.toISOString(),
+      // time: clockToString(new Date()),
     },
   };
 

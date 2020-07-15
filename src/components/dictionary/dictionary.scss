@@ -23,7 +23,7 @@ $highlight-green-color: #02B875;
   .dictionary-header {
     display: flex;
     padding: 5px 10px 0 0;
-    font-size: $font-size-title;
+    font-size: $font-size-medium;
 
     &__title {
       display: flex;
@@ -40,7 +40,7 @@ $highlight-green-color: #02B875;
     }
 
     &__wordCount {
-      font-size: $font-size-medium;
+      font-size: 1.2rem;
       color: $highlight-blue-color;
 
       @media (max-width: 767px) { font-size: $font-size-small; }
@@ -52,6 +52,7 @@ $highlight-green-color: #02B875;
       align-items: center;
       width: 150px;
       margin: 10px 1px -1px 0px;
+      padding: 5px;
       border: 1px solid rgba(0, 0, 0, 0.125);
       border-top-left-radius: 8px;
       border-top-right-radius: 8px;
@@ -71,7 +72,6 @@ $highlight-green-color: #02B875;
       @media (max-width: 767px) {
         flex-grow: 1;
         width: 100px;
-        padding: 5px;
       }
 
       @media (max-width: 576px) { width: 80px; }
@@ -231,24 +231,28 @@ $highlight-green-color: #02B875;
     }
 
     &__statistic-item {
-      font-size: 1.15rem;
-      padding-left: 10px;
+      font-size: $font-size-small;
       color: $highlight-green-color;
       font-weight: 500;
 
-      @media (max-width: 1200px) { font-size: $font-size-regular; }
-      @media (max-width: 992px) {
-        padding-left: 0;
-        font-size: $font-size-small;
-      }
-      @media (max-width: 767px) { font-size: $font-size-regular; }
-      @media (max-width: 576px) { font-size: $font-size-small; }
+      @media (max-width: 992px) { padding-left: 0; }
+    }
+
+    &__statistic-all,
+    &__statistic-last,
+    &__statistic-again {
+      font-size: $font-size-regular;
+      font-weight: 600;
     }
   }
 }
 
 .hidden {
   display: none;
+}
+
+.hide {
+  visibility: hidden;
 }
 
 .animate-bottom {
