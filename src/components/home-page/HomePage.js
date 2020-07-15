@@ -3,7 +3,7 @@ import './PromoStyle.scss';
 import gamesImg from './images/games.png';
 import settingsImg from './images/settings.png';
 import teamIcon from './images/team.svg';
-import logoIcon from '../../documentation/logo.png'
+import logoIcon from '../../documentation/logo.png';
 
 class HomePage extends Component {
   afterRender() {
@@ -66,8 +66,8 @@ const homePage = new HomePage({
   <button class="slider__prev-button">
   </button>
   <div class="slide-container">
-  <div class="slide-container__slide">
-     <a href="#sing-in">
+  <div class="slide-container__slide slider--show">
+     <a href="#sign-in">
         <img src="${logoIcon}" alt="logoIcon">
       </a>
       <div class="carousel-caption d-block">
@@ -138,8 +138,8 @@ const homePage = new HomePage({
 <section class="about">
   <h2>About Team</h2>
   <img " src="${teamIcon}" alt="TeamIcon">
-  <h3>The RsLang app was created by a team of RSSchool students as a learning project. 
-    More information can be found on the 
+  <h3>The RsLang app was created by a team of RSSchool students as a learning project.
+    More information can be found on the
     <a href="#about">About team</a> page.
   </h3>
 </section>
