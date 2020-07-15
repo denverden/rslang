@@ -48,22 +48,25 @@ class LearnPage extends Component {
     AppStore.learnWords[AppStore.positionWord].desc = result;
   }
 
-  async createWord() {
-    const obj = JSON.parse(JSON.stringify(AppStore.learnWords[AppStore.positionWord]));
-    delete obj.desc;
-    AppStore.userWords.push(obj);
-    delete obj.wordId;
-    const res = await fetch(`${AppStore.apiUrl}/users/${AppStore.userId}/words/${AppStore.learnWords[AppStore.positionWord].wordId}`, {
-      method: 'POST',
-      headers: {
-        Authorization: `Bearer ${AppStore.userToken}`,
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(obj),
+  async createWord(position) {
+    this.isWordUser(AppStore.learnWords[position].wordId).then((isStatus) => {
+      let method = 'POST';
+      if (isStatus) method = 'PUT';
+      const obj = JSON.parse(JSON.stringify(AppStore.learnWords[position]));
+      delete obj.desc;
+      AppStore.userWords.push(obj);
+      delete obj.wordId;
+      delete obj.id;
+      fetch(`${AppStore.apiUrl}/users/${AppStore.userId}/words/${AppStore.learnWords[position].wordId}`, {
+        method,
+        headers: {
+          Authorization: `Bearer ${AppStore.userToken}`,
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(obj),
+      });
     });
-
-    const result = await res.json();
   }
 
   async readWords(group, page, realWord) {
@@ -228,6 +231,8 @@ class LearnPage extends Component {
       } else {
         AppStore.learnWords[AppStore.positionWord].optional.ratio -= 1;
         AppStore.learnWords[AppStore.positionWord].optional.error += 1;
+        AppStore.learnWords[AppStore.positionWord].optional.time = new Date();
+        this.createWord(AppStore.positionWord);
       }
     });
     document.querySelector('.learn-page__input').addEventListener('keydown', (event) => {
@@ -241,22 +246,24 @@ class LearnPage extends Component {
       }
     });
     document.querySelectorAll('.js-click').forEach(
-      (element) => element.addEventListener('click', () => {
-        if (element.classList.contains('again')) {
-          const val = AppStore.learnWords[AppStore.positionWord];
-          AppStore.learnWords.push(val);
-          AppStore.learnWords.splice(AppStore.positionWord, 1);
-          this.createWord();
+      (element) => element.addEventListener('click', (e) => {
+        AppStore.learnWords[AppStore.positionWord].optional.ratio += 1;
+        AppStore.learnWords[AppStore.positionWord].optional.success += 1;
+        AppStore.learnWords[AppStore.positionWord].optional.time = new Date();
+        if (e.target.classList.contains('again')) {
+          this.createWord(AppStore.positionWord).then(() => {
+            const val = AppStore.learnWords[AppStore.positionWord];
+            AppStore.learnWords.push(val);
+            AppStore.learnWords.splice(AppStore.positionWord, 1);
+          });
         } else {
-          if (element.classList.contains('hard')) AppStore.learnWords[AppStore.positionWord].difficulty = 'hard';
-          if (element.classList.contains('good')) AppStore.learnWords[AppStore.positionWord].difficulty = 'good';
-          if (element.classList.contains('easy')) AppStore.learnWords[AppStore.positionWord].difficulty = 'easy';
-          this.createWord();
+          if (e.target.classList.contains('hard')) AppStore.learnWords[AppStore.positionWord].difficulty = 'hard';
+          if (e.target.classList.contains('normal')) AppStore.learnWords[AppStore.positionWord].difficulty = 'normal';
+          if (e.target.classList.contains('easy')) AppStore.learnWords[AppStore.positionWord].difficulty = 'easy';
+          this.createWord(AppStore.positionWord);
           AppStore.positionWord += 1;
         }
         document.querySelector('.learn-page__input').value = '';
-        AppStore.learnWords[AppStore.positionWord].optional.ratio += 1;
-        AppStore.learnWords[AppStore.positionWord].optional.success += 1;
         localStorage.setItem('positionWord', AppStore.positionWord);
         this.renderCard();
       }),
@@ -296,7 +303,7 @@ const learnPage = new LearnPage({
                   <div class="learn-page__card-footer card-footer hidden">
                     <button type="button" class="btn btn-light btn-sm js-click again">Again</button>
                     <button type="button" class="btn btn-light btn-sm js-click hard">Hard</button>
-                    <button type="button" class="btn btn-light btn-sm js-click good">Good</button>
+                    <button type="button" class="btn btn-light btn-sm js-click normal">Normal</button>
                     <button type="button" class="btn btn-light btn-sm js-click easy">Easy</button>
                   </div>
                 </div>
