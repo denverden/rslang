@@ -31,27 +31,27 @@ Here is a working live demo : [RsLang](https://rslang-team62-denverden.netlify.a
 
   
 
-### Home Page
+### SingIn Page
 
   
 
-![](https://iharsh234.github.io/WebApp/images/demo/web_app_face.JPG)
+![](./src/documentation/singIn.png)
 
   
 
-### Learn Page
+### Games Page
 
-![](https://iharsh234.github.io/WebApp/images/demo/demo_query.JPG)
+![](./src/documentation/games.png)
 
   
 
 ### About Page
 
-![](https://iharsh234.github.io/WebApp/images/demo/demo_chart1.JPG)
+![](./src/documentation/about.png)
 
 ### Settings Page
 
-![](https://iharsh234.github.io/WebApp/images/demo/demo_chart2.JPG)
+![](./src/documentation/settings.png)
 
 
   
