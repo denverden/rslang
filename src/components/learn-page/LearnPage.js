@@ -160,51 +160,57 @@ class LearnPage extends Component {
 
   renderCard() {
     document.querySelector('.card-footer').classList.add('hidden');
-    document.querySelector('.learn-page__translate').classList.add('hidden');
     document.querySelector('.learn-page__meaning-ru').classList.add('hidden');
     document.querySelector('.learn-page__example-ru').classList.add('hidden');
     document.querySelector('.loader').classList.remove('hidden');
-    document.querySelector('.card').classList.add('hidden');
+    document.querySelector('.learn-page__card').classList.add('hidden');
     this.creatLearnWords().then(() => {
-      this.getWord().then(() => {
-        document.querySelector('.learn-page__end').innerHTML = AppStore.learnWords.length;
-        document.querySelector('.progress-bar').style.width = `${Math.round((AppStore.positionWord / AppStore.learnWords.length) * 100)}%`;
+      if (AppStore.positionWord < AppStore.learnWords.length) {
+        this.getWord().then(() => {
+          document.querySelector('.learn-page__end').innerHTML = AppStore.learnWords.length;
+          document.querySelector('.progress-bar').style.width = `${Math.round((AppStore.positionWord / AppStore.learnWords.length) * 100)}%`;
+          document.querySelector('.loader').classList.add('hidden');
+          document.querySelector('.learn-page__card').classList.remove('hidden');
+          if (AppStore.settings.optional.showWordTranslation) {
+            document.querySelector('.learn-page__translate').innerHTML = AppStore.learnWords[AppStore.positionWord].desc.wordTranslate;
+          }
+          if (AppStore.settings.optional.showTranscription) {
+            document.querySelector('.learn-page__transcription').innerHTML = AppStore.learnWords[AppStore.positionWord].desc.transcription;
+          }
+          if (AppStore.settings.optional.showMeaning) {
+            document.querySelector('.learn-page__meaning').innerHTML = `Meaning: ${AppStore.learnWords[AppStore.positionWord].desc.textMeaning}`;
+            document.querySelector('.learn-page__meaning').classList.add('no-see');
+          }
+          if (AppStore.settings.optional.showMeaningTranslation) {
+            document.querySelector('.learn-page__meaning-ru').innerHTML = `Meaning translation: ${AppStore.learnWords[AppStore.positionWord].desc.textMeaningTranslate}`;
+          }
+          if (AppStore.settings.optional.showExample) {
+            document.querySelector('.learn-page__example').innerHTML = `Example: ${AppStore.learnWords[AppStore.positionWord].desc.textExample}`;
+            document.querySelector('.learn-page__example').classList.add('no-see');
+          }
+          if (AppStore.settings.optional.showExampleTranslation) {
+            document.querySelector('.learn-page__example-ru').innerHTML = `Example translation: ${AppStore.learnWords[AppStore.positionWord].desc.textExampleTranslate}`;
+          }
+          if (AppStore.settings.optional.showImage) {
+            const img = `url('data:image/jpg;base64,${AppStore.learnWords[AppStore.positionWord].desc.image}')`;
+            document.querySelector('.learn-page__image').style.background = img;
+          }
+          if (AppStore.settings.optional.sound) {
+            document.querySelector('.learn-page__sound').classList.remove('invisible');
+            const audio = `data:audio/mpeg;base64,${AppStore.learnWords[AppStore.positionWord].desc.audio}`;
+            document.querySelector('.learn-page__sound').addEventListener('click', () => {
+              const sound = new Audio(audio);
+              sound.play();
+            });
+          }
+          console.log(AppStore.learnWords);
+        });
+      } else {
+        document.querySelector('.learn-page__card').classList.add('hidden');
         document.querySelector('.loader').classList.add('hidden');
-        document.querySelector('.card').classList.remove('hidden');
-        if (AppStore.settings.optional.showWordTranslation) {
-          document.querySelector('.learn-page__translate').innerHTML = AppStore.learnWords[AppStore.positionWord].desc.wordTranslate;
-        }
-        if (AppStore.settings.optional.showTranscription) {
-          document.querySelector('.learn-page__transcription').innerHTML = AppStore.learnWords[AppStore.positionWord].desc.transcription;
-        }
-        if (AppStore.settings.optional.showMeaning) {
-          document.querySelector('.learn-page__meaning').innerHTML = `Meaning: ${AppStore.learnWords[AppStore.positionWord].desc.textMeaning}`;
-          document.querySelector('.learn-page__meaning').classList.add('no-see');
-        }
-        if (AppStore.settings.optional.showMeaningTranslation) {
-          document.querySelector('.learn-page__meaning-ru').innerHTML = `Meaning translation: ${AppStore.learnWords[AppStore.positionWord].desc.textMeaningTranslate}`;
-        }
-        if (AppStore.settings.optional.showExample) {
-          document.querySelector('.learn-page__example').innerHTML = `Example: ${AppStore.learnWords[AppStore.positionWord].desc.textExample}`;
-          document.querySelector('.learn-page__example').classList.add('no-see');
-        }
-        if (AppStore.settings.optional.showExampleTranslation) {
-          document.querySelector('.learn-page__example-ru').innerHTML = `Example translation: ${AppStore.learnWords[AppStore.positionWord].desc.textExampleTranslate}`;
-        }
-        if (AppStore.settings.optional.showImage) {
-          const img = `url('data:image/jpg;base64,${AppStore.learnWords[AppStore.positionWord].desc.image}')`;
-          document.querySelector('.learn-page__image').style.background = img;
-        }
-        if (AppStore.settings.optional.sound) {
-          document.querySelector('.learn-page__sound').classList.remove('invisible');
-          const audio = `data:audio/mpeg;base64,${AppStore.learnWords[AppStore.positionWord].desc.audio}`;
-          document.querySelector('.learn-page__sound').addEventListener('click', () => {
-            const sound = new Audio(audio);
-            sound.play();
-          });
-        }
-        console.log(AppStore.learnWords);
-      });
+        document.querySelector('.learn-page__card-info').classList.remove('hidden');
+        document.querySelector('.progress-bar').style.width = '100%';
+      }
     });
   }
 
@@ -225,7 +231,6 @@ class LearnPage extends Component {
         document.querySelectorAll('.no-see').forEach(
           (element) => element.classList.remove('no-see'),
         );
-        document.querySelector('.learn-page__translate').classList.remove('hidden');
         document.querySelector('.learn-page__meaning-ru').classList.remove('hidden');
         document.querySelector('.learn-page__example-ru').classList.remove('hidden');
       } else {
@@ -268,6 +273,11 @@ class LearnPage extends Component {
         this.renderCard();
       }),
     );
+    document.querySelector('.js-click-clear').addEventListener('click', () => {
+      localStorage.removeItem('positionWord');
+      AppStore.positionWord = 0;
+      document.location.reload();
+    });
   }
 }
 
@@ -278,6 +288,10 @@ const learnPage = new LearnPage({
                   <div class="spinner-border text-secondary" role="status">
                     <span class="sr-only">Loading...</span>
                   </div>
+                </div>
+                <div class="learn-page__card-info card hidden">
+                  <h3>You have learned all the words for today. Want to repeat it?</h3>
+                  <button type="button" class="btn btn-primary btn-sm js-click-clear">REPEAT AGAIN</button>
                 </div>
                 <div class="learn-page__card card">
                   <div class="learn-page__card-header card-header">
