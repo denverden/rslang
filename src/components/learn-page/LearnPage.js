@@ -112,8 +112,10 @@ class LearnPage extends Component {
 
     const result = await res.json();
 
+    result.sort((a, b) => (new Date(a.optional.time) - new Date(b.optional.time)));
+
     result.forEach((element) => {
-      AppStore.learnWords.push(element);
+      if (!element.optional.deleted) AppStore.learnWords.push(element);
     });
     if (count < AppStore.learnWords.length) {
       AppStore.learnWords = AppStore.learnWords.splice(0, count);
