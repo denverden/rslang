@@ -6,7 +6,7 @@ import './signin-page.scss';
 class SignInPage extends Component {
   beforeRender() {
     if (AppStore.isLoggedIn) {
-      window.location.hash = '#dashboard';
+      window.location.hash = '#learn';
     }
   }
 

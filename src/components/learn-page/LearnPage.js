@@ -66,7 +66,7 @@ class LearnPage extends Component {
     const result = await res.json();
   }
 
-  async readWords(group, page) {
+  async readWords(group, page, realWord) {
     const res = await fetch(`${AppStore.apiUrl}/words?group=${group}&page=${page}`, {
       method: 'GET',
       headers: {
@@ -90,7 +90,7 @@ class LearnPage extends Component {
       word.optional.error = 0;
       word.desc = element;
       this.isWordUser(word.wordId).then((isStatus) => {
-        if (AppStore.learnWords.length <= AppStore.settings.optional.newWordsPerDay - 1) {
+        if (AppStore.learnWords.length <= realWord - 1) {
           if (!isStatus) AppStore.learnWords.push(word);
         }
       });
@@ -112,8 +112,8 @@ class LearnPage extends Component {
     result.forEach((element) => {
       AppStore.learnWords.push(element);
     });
-    if (count > AppStore.learnWords.length) {
-      AppStore.learnWords = AppStore.learnWords.slice(0, count - 1);
+    if (count < AppStore.learnWords.length) {
+      AppStore.learnWords = AppStore.learnWords.splice(0, count);
     }
   }
 
@@ -121,11 +121,12 @@ class LearnPage extends Component {
     if (!AppStore.learnWords.length > 0 && AppStore.settings.optional.newOrRepetitionWords === 'both') {
       const c = AppStore.settings.optional.wordsPerDay - AppStore.settings.optional.newWordsPerDay;
       await this.readUserWords(c);
+      const realWord = +AppStore.learnWords.length + +AppStore.settings.optional.newWordsPerDay;
       let group = 0;
       let page = 0;
-      while (AppStore.learnWords.length < AppStore.settings.optional.newWordsPerDay || group > 5) {
+      while (AppStore.learnWords.length < realWord || group > 5) {
         // eslint-disable-next-line no-await-in-loop
-        await this.readWords(group, page);
+        await this.readWords(group, page, realWord);
         page += 1;
         if (page > 29) {
           page = 0;
@@ -152,15 +153,40 @@ class LearnPage extends Component {
         }
       }
     }
-    console.log(AppStore.learnWords);
   }
 
   renderCard() {
-    document.querySelector('.learn-page__end').innerHTML = AppStore.settings.optional.wordsPerDay;
+    document.querySelector('.card-footer').classList.add('hidden');
+    document.querySelector('.learn-page__translate').classList.add('hidden');
+    document.querySelector('.learn-page__meaning-ru').classList.add('hidden');
+    document.querySelector('.learn-page__example-ru').classList.add('hidden');
+    document.querySelector('.loader').classList.remove('hidden');
+    document.querySelector('.card').classList.add('hidden');
     this.creatLearnWords().then(() => {
       this.getWord().then(() => {
+        document.querySelector('.learn-page__end').innerHTML = AppStore.learnWords.length;
+        document.querySelector('.progress-bar').style.width = `${Math.round((AppStore.positionWord / AppStore.learnWords.length) * 100)}%`;
+        document.querySelector('.loader').classList.add('hidden');
+        document.querySelector('.card').classList.remove('hidden');
         if (AppStore.settings.optional.showWordTranslation) {
           document.querySelector('.learn-page__translate').innerHTML = AppStore.learnWords[AppStore.positionWord].desc.wordTranslate;
+        }
+        if (AppStore.settings.optional.showTranscription) {
+          document.querySelector('.learn-page__transcription').innerHTML = AppStore.learnWords[AppStore.positionWord].desc.transcription;
+        }
+        if (AppStore.settings.optional.showMeaning) {
+          document.querySelector('.learn-page__meaning').innerHTML = `Meaning: ${AppStore.learnWords[AppStore.positionWord].desc.textMeaning}`;
+          document.querySelector('.learn-page__meaning').classList.add('no-see');
+        }
+        if (AppStore.settings.optional.showMeaningTranslation) {
+          document.querySelector('.learn-page__meaning-ru').innerHTML = `Meaning translation: ${AppStore.learnWords[AppStore.positionWord].desc.textMeaningTranslate}`;
+        }
+        if (AppStore.settings.optional.showExample) {
+          document.querySelector('.learn-page__example').innerHTML = `Example: ${AppStore.learnWords[AppStore.positionWord].desc.textExample}`;
+          document.querySelector('.learn-page__example').classList.add('no-see');
+        }
+        if (AppStore.settings.optional.showExampleTranslation) {
+          document.querySelector('.learn-page__example-ru').innerHTML = `Example translation: ${AppStore.learnWords[AppStore.positionWord].desc.textExampleTranslate}`;
         }
         if (AppStore.settings.optional.showImage) {
           const img = `url('data:image/jpg;base64,${AppStore.learnWords[AppStore.positionWord].desc.image}')`;
@@ -174,6 +200,7 @@ class LearnPage extends Component {
             sound.play();
           });
         }
+        console.log(AppStore.learnWords);
       });
     });
   }
@@ -182,54 +209,103 @@ class LearnPage extends Component {
     if (!AppStore.isLoggedIn) {
       window.location.hash = '#sign-in';
     }
-    AppStore.positionWord = localStorage.getItem('positionWord') ? localStorage.getItem('positionWord') : 0;
+    AppStore.positionWord = localStorage.getItem('positionWord') ? +localStorage.getItem('positionWord') : 0;
   }
 
   afterRender() {
     this.renderCard();
-    document.querySelector('.learn-page__input').addEventListener('keydown', (event) => {
-      if (event.code === 'Enter' || event.code === 'NumpadEnter') {
-        if (document.querySelector('.learn-page__input').value === AppStore.learnWords[AppStore.positionWord].desc.word) {
-          document.querySelector('.learn-page__input').value = '';
-          AppStore.learnWords[AppStore.positionWord].optional.ratio += 1;
-          AppStore.learnWords[AppStore.positionWord].optional.success += 1;
-          this.createWord();
-          AppStore.positionWord += 1;
-          localStorage.setItem('positionWord', AppStore.positionWord);
-          this.renderCard();
-        } else {
-          AppStore.learnWords[AppStore.positionWord].optional.ratio -= 1;
-          AppStore.learnWords[AppStore.positionWord].optional.error += 1;
+    document.querySelector('.learn-page__enter').addEventListener('click', () => {
+      if (document.querySelector('.learn-page__input').value === AppStore.learnWords[AppStore.positionWord].desc.word) {
+        if (AppStore.settings.optional.indicateDifficultyBtn) {
+          document.querySelector('.card-footer').classList.remove('hidden');
         }
+        document.querySelectorAll('.no-see').forEach(
+          (element) => element.classList.remove('no-see'),
+        );
+        document.querySelector('.learn-page__translate').classList.remove('hidden');
+        document.querySelector('.learn-page__meaning-ru').classList.remove('hidden');
+        document.querySelector('.learn-page__example-ru').classList.remove('hidden');
+      } else {
+        AppStore.learnWords[AppStore.positionWord].optional.ratio -= 1;
+        AppStore.learnWords[AppStore.positionWord].optional.error += 1;
       }
     });
+    document.querySelector('.learn-page__input').addEventListener('keydown', (event) => {
+      if (event.code === 'Enter' || event.code === 'NumpadEnter') {
+        document.querySelector('.learn-page__enter').dispatchEvent(
+          new MouseEvent('click', {
+            bubbles: true,
+            cancellable: true,
+          }),
+        );
+      }
+    });
+    document.querySelectorAll('.js-click').forEach(
+      (element) => element.addEventListener('click', () => {
+        if (element.classList.contains('again')) {
+          const val = AppStore.learnWords[AppStore.positionWord];
+          AppStore.learnWords.push(val);
+          AppStore.learnWords.splice(AppStore.positionWord, 1);
+          this.createWord();
+        } else {
+          if (element.classList.contains('hard')) AppStore.learnWords[AppStore.positionWord].difficulty = 'hard';
+          if (element.classList.contains('good')) AppStore.learnWords[AppStore.positionWord].difficulty = 'good';
+          if (element.classList.contains('easy')) AppStore.learnWords[AppStore.positionWord].difficulty = 'easy';
+          this.createWord();
+          AppStore.positionWord += 1;
+        }
+        document.querySelector('.learn-page__input').value = '';
+        AppStore.learnWords[AppStore.positionWord].optional.ratio += 1;
+        AppStore.learnWords[AppStore.positionWord].optional.success += 1;
+        localStorage.setItem('positionWord', AppStore.positionWord);
+        this.renderCard();
+      }),
+    );
   }
 }
 
 const learnPage = new LearnPage({
   selector: 'main',
   template: `<div class="learn-page">
+                <div class="loader mt-5 hidden">
+                  <div class="spinner-border text-secondary" role="status">
+                    <span class="sr-only">Loading...</span>
+                  </div>
+                </div>
                 <div class="learn-page__card card">
-                  <div class="learn-page__card-header card-header"></div>
-                  <div class="card-header__card-body card-body">
+                  <div class="learn-page__card-header card-header">
+                    <button class="learn-page__sound btn invisible" type="button"><i class="fas fa-volume-up"></i></button>
+                  </div>
+                  <div class="learn-page__card-body card-body">
                     <div class="learn-page__content">
                       <div class="learn-page__image"></div>
                       <div class="learn-page__word">
                         <input class="learn-page__input" type="text" maxlength="50" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+                        <button type="button" class="learn-page__enter btn btn-primary btn-sm">Enter</button>
                       </div>
-                      <div class="learn-page__translate"></div>
+                      <ul class="list-group list-group-flush">
+                        <li class="learn-page__translate list-group-item"></li>
+                        <li class="learn-page__transcription list-group-item"></li>
+                        <li class="learn-page__meaning no-see list-group-item"></li>
+                        <li class="learn-page__meaning-ru list-group-item"></li>
+                        <li class="learn-page__example no-see list-group-item"></li>
+                        <li class="learn-page__example-ru list-group-item"></li>
+                      </ul>
                     </div>
                   </div>
-                  <div class="learn-page__card-footer card-footer">
-                    <button class="learn-page__sound btn invisible" type="button"><i class="fas fa-volume-up"></i></button>
+                  <div class="learn-page__card-footer card-footer hidden">
+                    <button type="button" class="btn btn-light btn-sm js-click again">Again</button>
+                    <button type="button" class="btn btn-light btn-sm js-click hard">Hard</button>
+                    <button type="button" class="btn btn-light btn-sm js-click good">Good</button>
+                    <button type="button" class="btn btn-light btn-sm js-click easy">Easy</button>
                   </div>
                 </div>
                 <div class="learn-page__info">
                   <div class="learn-page__start">0</div>
                   <div class="learn-page__progress progress">
-                  <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"></div>
+                    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"></div>
                   </div>
-                  <div class="learn-page__end"></div>
+                  <div class="learn-page__end">0</div>
                 </div>
               </div>`,
 });
