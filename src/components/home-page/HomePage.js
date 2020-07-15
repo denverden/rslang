@@ -2,7 +2,8 @@ import Component from '../Component';
 import './PromoStyle.scss';
 import gamesImg from './images/games.png';
 import settingsImg from './images/settings.png';
-import TeamIcon from './images/team.svg';
+import teamIcon from './images/team.svg';
+import logoIcon from '../../documentation/logo.png'
 
 class HomePage extends Component {
   afterRender() {
@@ -65,11 +66,16 @@ const homePage = new HomePage({
   <button class="slider__prev-button">
   </button>
   <div class="slide-container">
-    <div class="slide-container__slide slider--show">
-      <iframe src="https://www.youtube.com/embed/tgbNymZ7vqY"></iframe>
+  <div class="slide-container__slide">
+     <a href="#sing-in">
+        <img src="${logoIcon}" alt="logoIcon">
+      </a>
+      <div class="carousel-caption d-block">
+        <h2>Various types of educational games</h2>
+      </div>
      </div>
      <div class="slide-container__slide">
-     <a href="https://rslang-team62-denverden.netlify.app/#games">
+     <a href="#games">
         <img src="${gamesImg}" alt="Games">
       </a>
       <div class="carousel-caption d-block">
@@ -77,7 +83,7 @@ const homePage = new HomePage({
       </div>
      </div>
     <div class="slide-container__slide">
-    <a href="https://rslang-team62-denverden.netlify.app/#settings">
+    <a href="#settings">
     <img src="${settingsImg}" alt="Settings">
   </a>
   <div class="carousel-caption d-block">
@@ -114,30 +120,30 @@ const homePage = new HomePage({
 <section class="rules">
   <div class="rules__rule">
     <img src="https://image.flaticon.com/icons/png/512/114/114903.png" alt="rule1">
-    <h3>Example Rule 1</h3>
+    <h3>1. Time interval. The more likely the word is displayed.</h3>
   </div>
   <div class="rules__rule">
     <img src="https://image.flaticon.com/icons/png/512/114/114903.png" alt="rule2">
-    <h3>Example Rule 2</h3>
+    <h3>2. The ratio of errors and success. The more errors the more likely the word is displayed.</h3>
   </div>
   <div class="rules__rule">
     <img src="https://image.flaticon.com/icons/png/512/114/114903.png" alt="rule3">
-    <h3>Example Rule 3</h3>
+    <h3> 3. Exclude words from learning. Temporary removal of words from learning.</h3>
   </div>
   <div class="rules__rule">
     <img src="https://image.flaticon.com/icons/png/512/114/114903.png" alt="rule4">
-    <h3>Example Rule 4</h3>
+    <h3>4. Indication of the complexity of the word. The more complex the more likely the word is displayed.</h3>
   </div>
 </section>
 <section class="about">
   <h2>About Team</h2>
-  <img " src="${TeamIcon}" alt="TeamIcon">
+  <img " src="${teamIcon}" alt="TeamIcon">
   <h3>The RsLang app was created by a team of RSSchool students as a learning project. 
     More information can be found on the 
-    <a href="https://rslang-team62-denverden.netlify.app/#about">About team</a> page.
+    <a href="#about">About team</a> page.
   </h3>
 </section>
-<h2 class="start">So, what are you waiting for? Just <a href="https://rslang-team62-denverden.netlify.app/#sign-in">start</a> it right now!</h2>`,
+<h2 class="start">So, what are you waiting for? Just <a href="#sign-in">start</a> it right now!</h2>`,
 });
 
 export default homePage;
