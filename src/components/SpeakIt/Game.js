@@ -1,8 +1,16 @@
-import templatesURL from './templatesURL';
-import templatesHTML from './templatesHTML';
+import AppStore from '../AppStore';
 import Words from './Words';
 import Result from './Result';
-import { clockToString, removeSomeCSSClass, playAudio } from './helpers';
+import templatesURL from './templatesURL';
+import templatesHTML from './templatesHTML';
+import {
+  playAudio,
+  clockToString,
+  removeSomeCSSClass,
+  getUserWordIdsArr,
+  updateUserWord,
+  createUserWord,
+} from './helpers';
 
 class Game extends Words {
   constructor(group) {
@@ -10,16 +18,27 @@ class Game extends Words {
     this.microphoneOn = false;
   }
 
+  async createUpdateUserWords(wordToSaveArr) {
+    const userWordsArr = await getUserWordIdsArr();
+
+    wordToSaveArr.forEach((word) => {
+      if (userWordsArr.includes(word.id)) {
+        updateUserWord(word.id, word.success);
+      } else {
+        createUserWord(word.id, word.success);
+      }
+    });
+  }
+
   saveGame() {
     let statListArray = localStorage.getItem('statListArray') || [];
-
-    if (statListArray.length > 0) {
-      statListArray = JSON.parse(statListArray);
-    }
+    if (statListArray.length > 0) statListArray = JSON.parse(statListArray);
 
     const statObj = {};
+
     statObj.date = clockToString(new Date());
     statObj.statistics = this.currentWordArray;
+    this.createUpdateUserWords(statObj.statistics);
 
     if (statListArray.length === 10) {
       statListArray.shift();
@@ -96,8 +115,7 @@ class Game extends Words {
         currentImage.src = templatesURL.getDefaultImageURL();
       };
     } catch (err) {
-      // eslint-disable-next-line no-console
-      console.log('Error in setImageAndTranslate', err);
+      AppStore.viewMessage('alert-info', 'Failed to load image and word translation.');
     }
   }
 
