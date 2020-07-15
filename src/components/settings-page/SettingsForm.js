@@ -28,7 +28,10 @@ async function putSettings(settingsObj) {
     const result = await res.json();
 
     if (!result.error) {
-      AppStore.viewMessage('alert-info', 'Your settings successfully updated');
+      AppStore.viewMessage('alert-info', 'Your settings successfully updated. The list of learning words has been updated.');
+      AppStore.learnWords = [];
+      AppStore.positionWord = 0;
+      localStorage.removeItem('positionWord');
       BTN.innerHTML = 'Save';
       BTN.disabled = false;
     } else {

@@ -123,7 +123,7 @@ class LearnPage extends Component {
   }
 
   async creatLearnWords() {
-    if (!AppStore.learnWords.length > 0 && AppStore.settings.optional.newOrRepetitionWords === 'both') {
+    if (AppStore.learnWords.length <= 0 && AppStore.settings.optional.newOrRepetitionWords === 'both') {
       const c = AppStore.settings.optional.wordsPerDay - AppStore.settings.optional.newWordsPerDay;
       await this.readUserWords(c);
       const realWord = +AppStore.learnWords.length + +AppStore.settings.optional.newWordsPerDay;
@@ -140,17 +140,18 @@ class LearnPage extends Component {
       }
     }
 
-    if (!AppStore.learnWords.length > 0 && AppStore.settings.optional.newOrRepetitionWords === 'repeatedOnly') {
+    if (AppStore.learnWords.length <= 0 && AppStore.settings.optional.newOrRepetitionWords === 'repeatedOnly') {
       const c = AppStore.settings.optional.wordsPerDay - AppStore.settings.optional.newWordsPerDay;
       await this.readUserWords(c);
     }
 
-    if (!AppStore.learnWords.length > 0 && AppStore.settings.optional.newOrRepetitionWords === 'newOnly') {
+    if (AppStore.learnWords.length <= 0 && AppStore.settings.optional.newOrRepetitionWords === 'newOnly') {
+      const realWord = +AppStore.learnWords.length + +AppStore.settings.optional.newWordsPerDay;
       let group = 0;
       let page = 0;
-      while (AppStore.learnWords.length < AppStore.settings.optional.newWordsPerDay || group > 5) {
+      while (AppStore.learnWords.length < realWord || group > 5) {
         // eslint-disable-next-line no-await-in-loop
-        await this.readWords(group, page);
+        await this.readWords(group, page, realWord);
         page += 1;
         if (page > 29) {
           page = 0;
