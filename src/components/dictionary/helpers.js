@@ -2,7 +2,7 @@ import AppStore from '../AppStore';
 
 export const messages = {
   all: 'You have not learned a single word. Let\'s get started.',
-  difficult: 'You have not marked any word as difficult yet.',
+  timeDifficult: 'You have not marked any word as timeDifficult yet.',
   deleted: 'You have not deleted any word yet.',
 };
 
@@ -36,8 +36,8 @@ export function createContainer(element, ...classes) {
 
 export function makeUrl(tabName, userId) {
   const urlAllWords = `${AppStore.apiUrl}/users/${userId}/words`;
-  const urlDeletedWords = `${AppStore.apiUrl}/users/${userId}/aggregatedWords?wordsPerPage=20&filter=%7B%22userWord.optional.deleted%22%3Atrue%7D`;
-  const urlDifficultWords = `${AppStore.apiUrl}/users/${userId}/aggregatedWords?wordsPerPage=20&filter=%7B%22userWord.difficulty%22%3A%22hard%22%7D`;
+  const urlDeletedWords = `${AppStore.apiUrl}/users/${userId}/aggregatedWords?wordsPerPage=100&filter=%7B%22userWord.optional.deleted%22%3Atrue%7D`;
+  const urlDifficultWords = `${AppStore.apiUrl}/users/${userId}/aggregatedWords?wordsPerPage=100&filter=%7B%22userWord.difficulty%22%3A%22hard%22%7D`;
   let url = '';
 
   switch (tabName) {
@@ -52,4 +52,47 @@ export function makeUrl(tabName, userId) {
   }
 
   return url;
+}
+
+export function getTimeWordLastLearned(date) {
+  const timeDiff = Math.abs(new Date() - new Date(date));
+  const millisecondsIn = {
+    minute: (1000 * 60),
+    hour: (1000 * 60 * 60),
+    day: (1000 * 60 * 60 * 24),
+    month: (1000 * 60 * 60 * 24 * 30),
+    year: (1000 * 60 * 60 * 24 * 30 * 12),
+  };
+  let timePeriod;
+  let temp;
+
+  if (timeDiff > millisecondsIn.year) {
+    temp = Math.floor(timeDiff / millisecondsIn.year);
+    timePeriod = (temp === 1) ? `${temp} yr` : `${temp} yrs`;
+  } else if (timeDiff > millisecondsIn.month) {
+    temp = Math.floor(timeDiff / millisecondsIn.month);
+    timePeriod = (temp === 1) ? `${temp} mo` : `${temp} mos`;
+  } else if (timeDiff > millisecondsIn.day) {
+    temp = Math.floor(timeDiff / millisecondsIn.day);
+    timePeriod = (temp === 1) ? `${temp} d` : `${temp} ds`;
+  } else if (timeDiff > millisecondsIn.hour) {
+    temp = Math.floor(timeDiff / millisecondsIn.hour);
+    timePeriod = (temp === 1) ? `${temp} hr` : `${temp} hrs`;
+  } else {
+    temp = Math.floor(timeDiff / millisecondsIn.minute);
+    timePeriod = (temp <= 1) ? '1 min' : `${temp} mins`;
+  }
+
+  return timePeriod;
+}
+
+export function timeRepeatWordAgain(wordRatio) {
+  let timePeriod;
+
+  if (wordRatio < -2) timePeriod = '10 min';
+  if (wordRatio >= -2 && wordRatio < 0) timePeriod = '1 hr';
+  if (wordRatio >= 0 && wordRatio <= 2) timePeriod = '1 day';
+  if (wordRatio > 2) timePeriod = '1 week';
+
+  return timePeriod;
 }

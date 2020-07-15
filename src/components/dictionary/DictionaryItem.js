@@ -1,29 +1,30 @@
 import AppStore from '../AppStore';
-import { createContainer } from './helpers';
+import { createContainer, getTimeWordLastLearned, timeRepeatWordAgain } from './helpers';
 import { getUserWordInfo, updateWordInfo } from './userWord';
 
 class DictionaryItem {
-  constructor(data, state) {
-    const {
-      id,
-      word,
-      audio,
-      image,
-      wordTranslate,
-      transcription,
-      textMeaning,
-      textExample,
-    } = data;
-    this.id = id;
-    this.word = word;
-    this.audio = audio;
-    this.image = image;
-    this.wordTranslate = wordTranslate;
-    this.transcription = transcription;
-    this.textMeaning = textMeaning;
-    this.textExample = textExample;
+  constructor(data, state, statistics) {
+    // const {
+    //   id,
+    //   word,
+    //   audio,
+    //   image,
+    //   wordTranslate,
+    //   transcription,
+    //   textMeaning,
+    //   textExample,
+    // } = data;
+    this.id = data.id;
+    this.word = data.word;
+    this.audio = data.audio;
+    this.image = data.image;
+    this.wordTranslate = data.wordTranslate;
+    this.transcription = data.transcription;
+    this.textMeaning = data.textMeaning;
+    this.textExample = data.textExample;
     this.wordState = state.settings.optional;
     this.tabName = state.dictionaryTab;
+    this.stat = statistics;
   }
 
   generateItem() {
@@ -79,7 +80,7 @@ class DictionaryItem {
 
       targetWord.classList.add('hidden');
       targetWord.classList.remove('d-flex');
-      // TODO: retrieve word to all(remove from deleted or difficult)
+
       if (tabName === 'all') {
         this.markWordAs(targetWordId, 'moveToDeleted');
       } else if (tabName === 'deleted') {
@@ -166,16 +167,14 @@ class DictionaryItem {
     const statAll = createContainer('div', 'wordlist__statistic-item');
     const statLast = createContainer('div', 'wordlist__statistic-item');
     const statAgain = createContainer('div', 'wordlist__statistic-item');
+    const statLastVal = getTimeWordLastLearned(this.stat.time);
+    let statAllVal = this.stat.error + this.stat.success;
+    const statAgainVal = timeRepeatWordAgain(this.stat.ratio);
 
-    // TODO: implement how to show statistic with different numbers (time/times, minute(s)/hour(s))
-    // should come from word statistic data
-    const statAllVal = 0;
-    const statLastVal = 0;
-    const statAgainVal = 0;
-
-    statAll.innerHTML = `Repeated: <span class="wordlist__statistic-all">${statAllVal} </span>times`;
-    statLast.innerHTML = `Last repeated: <span class="wordlist__statistic-last">${statLastVal} </span>min ago`;
-    statAgain.innerHTML = `Repeat again: in <span class="wordlist__statistic-again">${statAgainVal} </span>hour`;
+    statAllVal = (statAllVal === 1) ? `${statAllVal} time` : `${statAllVal} times`;
+    statAll.innerHTML = `Repeated: <span class="wordlist__statistic-all">${statAllVal} </span>`;
+    statLast.innerHTML = `Last repeated: <span class="wordlist__statistic-last">${statLastVal} </span> ago`;
+    statAgain.innerHTML = `Repeat again: in <span class="wordlist__statistic-again">${statAgainVal} </span>`;
     columnStat.appendChild(statAll);
     columnStat.appendChild(statLast);
     columnStat.appendChild(statAgain);
