@@ -162,7 +162,12 @@ class Game extends Words {
   }
 
   async startTimer(timeout) {
-    if (timeout) this.attempt -= 1;
+    if (timeout) {
+      this.setActiveCard(this.gameWordArray[this.gameWordArray.length - 1].id, 'activeCard');
+      playAudio('audio', errorAudio);
+
+      this.attempt -= 1;
+    }
 
     this.attemptDiv.innerText = `Attempt: ${this.attempt}`;
 
