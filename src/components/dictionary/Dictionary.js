@@ -76,10 +76,12 @@ class Dictionary extends Component {
         .then((res) => {
           res.image = `data:image/jpg;base64,${res.image}`;
           res.audio = `data:audio/mpeg;base64,${res.audio}`;
+          const wordItem = new DictionaryItem(res, AppStore, word.optional).generateItem();
 
-          const wordItem = new DictionaryItem(res, AppStore).generateItem();
-
-          element.append(wordItem);
+          const tempArr = [];
+          tempArr.push(wordItem);
+          tempArr.forEach((item) => element.append(item));
+          // element.append(wordItem);
         });
     });
     setTimeout(removeLoader, 800, element);
@@ -89,13 +91,14 @@ class Dictionary extends Component {
     addLoader(element);
     this.userWordsArr.forEach((word) => {
       const wordInfo = word;
+      const wordStat = word.userWord.optional;
 
       wordInfo.image = `https://raw.githubusercontent.com/lenazamnius/rslang-data/master/${wordInfo.image}`;
       wordInfo.audio = `https://raw.githubusercontent.com/lenazamnius/rslang-data/master/${wordInfo.audio}`;
       // eslint-disable-next-line no-underscore-dangle
       wordInfo.id = word._id;
 
-      const wordItem = new DictionaryItem(wordInfo, AppStore).generateItem();
+      const wordItem = new DictionaryItem(wordInfo, AppStore, wordStat).generateItem();
 
       element.append(wordItem);
     });
@@ -112,7 +115,7 @@ class Dictionary extends Component {
 
       wordlistContainer.appendChild(notification);
     } else {
-      // todo: change createWordlist func
+      // todo: change createWordlist func with limited number of words in one time
       if (tabName === 'all') this.createWordlist(wordlistContainer);
       if (tabName === 'difficult' || tabName === 'deleted') this.createFilteredWordlist(wordlistContainer);
     }
@@ -132,10 +135,12 @@ class Dictionary extends Component {
           Accept: 'application/json',
         },
       });
+
       const content = await rawResponse.json();
 
       this.userWordsArr = [];
 
+      if (content.error) AppStore.viewMessage('alert-danger', 'Words loading failed');
       if (tabName === 'all') {
         content.forEach((val) => this.userWordsArr.push(val));
       } else {
