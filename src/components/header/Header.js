@@ -50,7 +50,7 @@ const header = new Header({
                 <div class="collapse navbar-collapse justify-content-end" id="navbarText">
                   <ul class="navbar-nav text-right">
                     <li class="nav-item">
-                      <a class="nav-link" href="#">Home</a>
+                      <a class="nav-link" href="#">Promo</a>
                     </li>
                     <li class="nav-item">
                       <a class="nav-link" href="#about">About</a>

@@ -9,7 +9,7 @@ const settingsDefault = {
     showAnswerBtn: false,
     showExample: false,
     showExampleTranslation: false,
-    showImage: false,
+    showImage: true,
     showMeaning: false,
     showMeaningTranslation: false,
     showTranscription: false,

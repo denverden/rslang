@@ -28,7 +28,10 @@ async function putSettings(settingsObj) {
     const result = await res.json();
 
     if (!result.error) {
-      AppStore.viewMessage('alert-info', 'Your settings successfully updated');
+      AppStore.viewMessage('alert-info', 'Your settings successfully updated. The list of learning words has been updated.');
+      AppStore.learnWords = [];
+      AppStore.positionWord = 0;
+      localStorage.removeItem('positionWord');
       BTN.innerHTML = 'Save';
       BTN.disabled = false;
     } else {
@@ -109,6 +112,7 @@ class SettingsForm {
   }
 
   saveSettingsUpdate() {
+    const BTN = document.querySelector('.btn--save');
     const optionsToCheck = [this.stateObj.showExample,
       this.stateObj.showMeaning,
       this.stateObj.showWordTranslation];
@@ -120,6 +124,8 @@ class SettingsForm {
       putSettings(AppStore.settings);
     } else {
       AppStore.viewMessage('alert-warning', 'Be sure to choose one of the options:</br>show word translation, show word meaning, show word usage example');
+      BTN.innerHTML = 'Save';
+      BTN.disabled = false;
     }
   }
 }
