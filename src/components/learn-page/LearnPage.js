@@ -162,57 +162,70 @@ class LearnPage extends Component {
   }
 
   renderCard() {
+    const WORD_INPUT = document.querySelector('.learn-page__input');
     document.querySelector('.card-footer').classList.add('hidden');
+    document.querySelector('.learn-page__transcription').classList.add('hidden');
     document.querySelector('.learn-page__meaning-ru').classList.add('hidden');
+    document.querySelector('.learn-page__meaning').classList.add('hidden');
     document.querySelector('.learn-page__example-ru').classList.add('hidden');
+    document.querySelector('.learn-page__example').classList.add('hidden');
+    document.querySelector('.learn-page__view').classList.add('hidden');
+    document.querySelector('.learn-page__enter').classList.remove('hidden');
+    document.querySelector('.learn-page__next').classList.add('hidden');
     document.querySelector('.loader').classList.remove('hidden');
     document.querySelector('.learn-page__card').classList.add('hidden');
     this.creatLearnWords().then(() => {
       if (AppStore.positionWord < AppStore.learnWords.length) {
         this.getWord().then(() => {
+          document.querySelector('.learn-page__start').innerHTML = AppStore.positionWord;
           document.querySelector('.learn-page__end').innerHTML = AppStore.learnWords.length;
           document.querySelector('.progress-bar').style.width = `${Math.round((AppStore.positionWord / AppStore.learnWords.length) * 100)}%`;
           document.querySelector('.loader').classList.add('hidden');
           document.querySelector('.learn-page__card').classList.remove('hidden');
+          WORD_INPUT.style.width = `${AppStore.learnWords[AppStore.positionWord].desc.word.length * 11}px`;
+          WORD_INPUT.focus();
           if (AppStore.settings.optional.showWordTranslation) {
             document.querySelector('.learn-page__translate').innerHTML = AppStore.learnWords[AppStore.positionWord].desc.wordTranslate;
           }
           if (AppStore.settings.optional.showTranscription) {
+            document.querySelector('.learn-page__transcription').classList.remove('hidden');
             document.querySelector('.learn-page__transcription').innerHTML = AppStore.learnWords[AppStore.positionWord].desc.transcription;
           }
           if (AppStore.settings.optional.showMeaning) {
-            document.querySelector('.learn-page__meaning').innerHTML = `Meaning: ${AppStore.learnWords[AppStore.positionWord].desc.textMeaning}`;
+            document.querySelector('.learn-page__meaning').classList.remove('hidden');
+            document.querySelector('.learn-page__meaning').innerHTML = `<strong>Meaning:</strong> ${AppStore.learnWords[AppStore.positionWord].desc.textMeaning}`;
             document.querySelector('.learn-page__meaning').classList.add('no-see');
           }
           if (AppStore.settings.optional.showMeaningTranslation) {
-            document.querySelector('.learn-page__meaning-ru').innerHTML = `Meaning translation: ${AppStore.learnWords[AppStore.positionWord].desc.textMeaningTranslate}`;
+            document.querySelector('.learn-page__meaning-ru').innerHTML = `<strong>Meaning translation:</strong> ${AppStore.learnWords[AppStore.positionWord].desc.textMeaningTranslate}`;
           }
           if (AppStore.settings.optional.showExample) {
-            document.querySelector('.learn-page__example').innerHTML = `Example: ${AppStore.learnWords[AppStore.positionWord].desc.textExample}`;
+            document.querySelector('.learn-page__example').classList.remove('hidden');
+            document.querySelector('.learn-page__example').innerHTML = `<strong>Example:</strong> ${AppStore.learnWords[AppStore.positionWord].desc.textExample}`;
             document.querySelector('.learn-page__example').classList.add('no-see');
           }
           if (AppStore.settings.optional.showExampleTranslation) {
-            document.querySelector('.learn-page__example-ru').innerHTML = `Example translation: ${AppStore.learnWords[AppStore.positionWord].desc.textExampleTranslate}`;
+            document.querySelector('.learn-page__example-ru').innerHTML = `<strong>Example translation:</strong> ${AppStore.learnWords[AppStore.positionWord].desc.textExampleTranslate}`;
+          }
+          if (AppStore.settings.optional.showAnswerBtn) {
+            document.querySelector('.learn-page__view').classList.remove('hidden');
           }
           if (AppStore.settings.optional.showImage) {
             const img = `url('data:image/jpg;base64,${AppStore.learnWords[AppStore.positionWord].desc.image}')`;
             document.querySelector('.learn-page__image').style.background = img;
           }
           if (AppStore.settings.optional.sound) {
-            document.querySelector('.learn-page__sound').classList.remove('invisible');
-            const audio = `data:audio/mpeg;base64,${AppStore.learnWords[AppStore.positionWord].desc.audio}`;
-            document.querySelector('.learn-page__sound').addEventListener('click', () => {
-              const sound = new Audio(audio);
-              sound.play();
-            });
+            document.querySelector('#audio_word').src = `data:audio/mpeg;base64,${AppStore.learnWords[AppStore.positionWord].desc.audio}`;
+            document.querySelector('#audio_meaning').src = `data:audio/mpeg;base64,${AppStore.learnWords[AppStore.positionWord].desc.audioMeaning}`;
+            document.querySelector('#audio_example').src = `data:audio/mpeg;base64,${AppStore.learnWords[AppStore.positionWord].desc.audioExample}`;
           }
-          console.log(AppStore.learnWords);
         });
       } else {
         document.querySelector('.learn-page__card').classList.add('hidden');
         document.querySelector('.loader').classList.add('hidden');
         document.querySelector('.learn-page__card-info').classList.remove('hidden');
         document.querySelector('.progress-bar').style.width = '100%';
+        document.querySelector('.learn-page__start').innerHTML = AppStore.positionWord;
       }
     });
   }
@@ -230,27 +243,80 @@ class LearnPage extends Component {
       if (document.querySelector('.learn-page__input').value === AppStore.learnWords[AppStore.positionWord].desc.word) {
         if (AppStore.settings.optional.indicateDifficultyBtn) {
           document.querySelector('.card-footer').classList.remove('hidden');
+        } else {
+          document.querySelector('.learn-page__enter').classList.add('hidden');
+          document.querySelector('.learn-page__next').classList.remove('hidden');
         }
         document.querySelectorAll('.no-see').forEach(
           (element) => element.classList.remove('no-see'),
         );
-        document.querySelector('.learn-page__meaning-ru').classList.remove('hidden');
-        document.querySelector('.learn-page__example-ru').classList.remove('hidden');
+        if (AppStore.settings.optional.showMeaningTranslation) {
+          document.querySelector('.learn-page__meaning-ru').classList.remove('hidden');
+        }
+        if (AppStore.settings.optional.showExampleTranslation) {
+          document.querySelector('.learn-page__example-ru').classList.remove('hidden');
+        }
+        if (AppStore.settings.optional.sound) {
+          document.querySelector('#audio_word').play();
+          document.querySelector('#audio_word').addEventListener('ended', () => {
+            if (AppStore.settings.optional.showMeaning) {
+              document.querySelector('#audio_meaning').play();
+              document.querySelector('#audio_meaning').addEventListener('ended', () => {
+                if (AppStore.settings.optional.showExample) document.querySelector('#audio_example').play();
+              }, false);
+            } else if (AppStore.settings.optional.showExample) document.querySelector('#audio_example').play();
+          }, false);
+        }
+        document.querySelector('.learn-page__input').style.border = '2px solid green';
       } else {
+        document.querySelector('.learn-page__input').style.border = '2px solid red';
         AppStore.learnWords[AppStore.positionWord].optional.ratio -= 1;
         AppStore.learnWords[AppStore.positionWord].optional.error += 1;
         AppStore.learnWords[AppStore.positionWord].optional.time = new Date();
         this.createWord(AppStore.positionWord);
       }
     });
+    document.querySelector('.learn-page__view').addEventListener('click', () => {
+      document.querySelector('.learn-page__input').value = AppStore.learnWords[AppStore.positionWord].desc.word;
+    });
+    if (AppStore.settings.optional.sound) {
+      document.getElementById('sound').checked = true;
+    }
+    document.querySelector('.learn-page__next').addEventListener('click', () => {
+      document.querySelector('.js-click.normal').dispatchEvent(
+        new MouseEvent('click', {
+          bubbles: true,
+          cancellable: true,
+        }),
+      );
+    });
     document.querySelector('.learn-page__input').addEventListener('keydown', (event) => {
       if (event.code === 'Enter' || event.code === 'NumpadEnter') {
-        document.querySelector('.learn-page__enter').dispatchEvent(
-          new MouseEvent('click', {
-            bubbles: true,
-            cancellable: true,
-          }),
-        );
+        if (document.querySelector('.learn-page__next').classList.contains('hidden')) {
+          document.querySelector('.learn-page__enter').dispatchEvent(
+            new MouseEvent('click', {
+              bubbles: true,
+              cancellable: true,
+            }),
+          );
+        } else {
+          document.querySelector('.js-click.normal').dispatchEvent(
+            new MouseEvent('click', {
+              bubbles: true,
+              cancellable: true,
+            }),
+          );
+        }
+      }
+    });
+    document.querySelector('#sound').addEventListener('change', () => {
+      const BTN_CHECK = document.getElementById('sound');
+      if (!BTN_CHECK.checked) {
+        document.querySelectorAll('audio').forEach((e) => { e.muted = true; });
+        AppStore.settings.optional.sound = false;
+      } else {
+        document.querySelectorAll('audio').forEach((e) => { e.muted = false; });
+        AppStore.settings.optional.sound = true;
       }
     });
     document.querySelectorAll('.js-click').forEach(
@@ -298,14 +364,19 @@ const learnPage = new LearnPage({
                 </div>
                 <div class="learn-page__card card">
                   <div class="learn-page__card-header card-header">
-                    <button class="learn-page__sound btn invisible" type="button"><i class="fas fa-volume-up"></i></button>
+                  <div class="custom-control custom-switch btn-sound">
+                    <input type="checkbox" class="custom-control-input" id="sound">
+                    <label class="custom-control-label" for="sound">Sound</label>
+                  </div>
                   </div>
                   <div class="learn-page__card-body card-body">
                     <div class="learn-page__content">
                       <div class="learn-page__image"></div>
                       <div class="learn-page__word">
+                        <button type="button" class="learn-page__view btn btn-primary">View</button>
                         <input class="learn-page__input" type="text" maxlength="50" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
-                        <button type="button" class="learn-page__enter btn btn-primary btn-sm">Enter</button>
+                        <button type="button" class="learn-page__enter btn btn-primary">Enter</button>
+                        <button type="button" class="learn-page__next btn btn-primary">Next word</button>
                       </div>
                       <ul class="list-group list-group-flush">
                         <li class="learn-page__translate list-group-item"></li>
@@ -331,7 +402,11 @@ const learnPage = new LearnPage({
                   </div>
                   <div class="learn-page__end">0</div>
                 </div>
-              </div>`,
+              </div>
+              <audio id="audio_word">
+              <audio id="audio_meaning">
+              <audio id="audio_example">
+              `,
 });
 
 export default learnPage;
