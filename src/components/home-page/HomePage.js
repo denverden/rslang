@@ -4,6 +4,7 @@ import gamesImg from './images/games.png';
 import settingsImg from './images/settings.png';
 import teamIcon from './images/team.svg';
 import logoIcon from '../../documentation/logo.png';
+import gitHub from '../about-page/github.svg';
 
 class HomePage extends Component {
   afterRender() {
@@ -143,7 +144,8 @@ const homePage = new HomePage({
     <a href="#about">About team</a> page.
   </h3>
 </section>
-<h2 class="start">So, what are you waiting for? Just <a href="#sign-in">start</a> it right now!</h2>`,
+<h2 class="start">So, what are you waiting for? Just <a href="#sign-in">start</a> it right now!</h2>
+<h6 class="d-flex justify-content-center"><a href="https://github.com/denverden/rslang" class="git contact"><img src="${gitHub}" alt="Git" width="20px">Project GitHub</a></h6>`,
 });
 
 export default homePage;
