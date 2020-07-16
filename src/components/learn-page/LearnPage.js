@@ -172,6 +172,8 @@ class LearnPage extends Component {
     document.querySelector('.learn-page__view').classList.add('hidden');
     document.querySelector('.learn-page__enter').classList.remove('hidden');
     document.querySelector('.learn-page__next').classList.add('hidden');
+    document.querySelector('.learn-page__delete').classList.add('hidden');
+    document.querySelector('.learn-page__hard').classList.add('hidden');
     document.querySelector('.loader').classList.remove('hidden');
     document.querySelector('.learn-page__card').classList.add('hidden');
     this.creatLearnWords().then(() => {
@@ -209,6 +211,31 @@ class LearnPage extends Component {
           }
           if (AppStore.settings.optional.showAnswerBtn) {
             document.querySelector('.learn-page__view').classList.remove('hidden');
+          }
+          if (!AppStore.settings.optional.indicateDifficultyBtn) {
+            if (AppStore.settings.optional.moveDifficultBtn) {
+              document.querySelector('.learn-page__hard').classList.remove('hidden');
+              document.querySelector('.learn-page__hard').addEventListener('click', () => {
+                document.querySelector('.js-click.hard').dispatchEvent(
+                  new MouseEvent('click', {
+                    bubbles: true,
+                    cancellable: true,
+                  }),
+                );
+              });
+            }
+          }
+          if (AppStore.settings.optional.deleteWordBtn) {
+            document.querySelector('.learn-page__delete').classList.remove('hidden');
+            document.querySelector('.learn-page__delete').addEventListener('click', () => {
+              AppStore.learnWords[AppStore.positionWord].optional.deleted = true;
+              document.querySelector('.js-click.normal').dispatchEvent(
+                new MouseEvent('click', {
+                  bubbles: true,
+                  cancellable: true,
+                }),
+              );
+            });
           }
           if (AppStore.settings.optional.showImage) {
             const img = `url('data:image/jpg;base64,${AppStore.learnWords[AppStore.positionWord].desc.image}')`;
@@ -364,6 +391,10 @@ const learnPage = new LearnPage({
                 </div>
                 <div class="learn-page__card card">
                   <div class="learn-page__card-header card-header">
+                  <div class="learn-page__header-buttons">
+                    <button type="button" class="btn btn-danger btn-sm learn-page__delete">Delete</button>
+                    <button type="button" class="btn btn-info btn-sm learn-page__hard">Hard</button>
+                  </div>
                   <div class="custom-control custom-switch btn-sound">
                     <input type="checkbox" class="custom-control-input" id="sound">
                     <label class="custom-control-label" for="sound">Sound</label>
@@ -389,10 +420,10 @@ const learnPage = new LearnPage({
                     </div>
                   </div>
                   <div class="learn-page__card-footer card-footer hidden">
-                    <button type="button" class="btn btn-light btn-sm js-click again">Again</button>
-                    <button type="button" class="btn btn-light btn-sm js-click hard">Hard</button>
-                    <button type="button" class="btn btn-light btn-sm js-click normal">Normal</button>
-                    <button type="button" class="btn btn-light btn-sm js-click easy">Easy</button>
+                    <button type="button" class="btn btn-info btn-sm js-click again">Again</button>
+                    <button type="button" class="btn btn-info btn-sm js-click hard">Hard</button>
+                    <button type="button" class="btn btn-info btn-sm js-click normal">Normal</button>
+                    <button type="button" class="btn btn-info btn-sm js-click easy">Easy</button>
                   </div>
                 </div>
                 <div class="learn-page__info">
